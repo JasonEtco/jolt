@@ -18,6 +18,7 @@ Thumbs.db
 .cache
 .project
 .settings
+*.map
 *.esproj
 *.sublime-workspace
 *.sublime-project
