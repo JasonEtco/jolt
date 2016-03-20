@@ -17,17 +17,68 @@
  # http://craftcms.com/docs/routing
  #}
 
-{% extends "_layout" %}
+{% extends "_layouts/site" %}
 
 {% block content %}
-	<h1>{{ entry.title }}</h1>
 
-	{{ entry.body }}
+	<section class="home__section--featured">
+		<div class="featured__inner">
+			
+			<div class="featured__issue">
+				<span>Current Issue</span>
+				{% for entry in craft.entries.section('volumes').limit(1).find() %}
+					<h1 class="featured__title"><a href="{{ entry.url }}">
+						{% if entry.publishedSpring %}
+							Spring {{ entry.publishedSpring.format('Y') }}
+						{% else %}
+							Fall {{ entry.publishedFall.format('Y') }}
+						{% endif %}
+					</a></h1>
 
-	<h2>Recent News</h2>
+				<p>You can view the most recent issue of the Harvard Journal of Law &amp; Technology in PDF form <a href="{{ entry.url }}">here.</a></p>
+				{% endfor %}
+			</div>
+
+			<div class="featured__article">
+				<h3>Featured Article</h3>
+				<h2>{{ entry.title }}</h2>
+				<span>{{ entry.authorName }}</span>
+
+				<p>{{ (entry.featuredContent | slice(0, 400) ~ '...') | markdown }}</p>
+
+				<div class="links">
+					<button>Read the Abstract</button>
+
+					{% set assets = entry.asset %}
+
+					{% if assets | length %}
+
+						{% for asset in assets %}
+						    | <a href="{{ asset.url }}">Read the Article</a>
+					    {% endfor %}
+
+					{% endif %}
+				</div>
+
+			</div>
+		</div>
+	</section>
+
+	<section class="home__section--digest">
+	
+		{{ digest.getUrl() }}
+
+		<a href="{{ url('jolt-digest') }}" class="home__digest__svg">
+			{% include '_includes/digest-logo.svg' %}
+		</a>
+
+		<p>{{ entry.joltDigestDescription }}</p>
+	</section>
+
 	<ul>
-		{% for entry in craft.entries.section('news').limit(5).find() %}
+		{% for entry in craft.entries.section('volumes').limit(5).find() %}
 			<li><a href="{{ entry.url }}">{{ entry.title }}</a></li>
 		{% endfor %}
 	</ul>
+
 {% endblock %}

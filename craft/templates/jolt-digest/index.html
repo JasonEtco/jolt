@@ -1,5 +1,5 @@
 {#
- # News index template
+ # Articles index template
  # -------------------
  #
  # This template is loaded whenever http://example.com/news is
@@ -10,13 +10,13 @@
  # http://craftcms.com/docs/routing
  #}
 
-{% extends "_layout" %}
-{% set title = "News" %}
+{% extends "_layouts/site" %}
+{% set title = "Articles" %}
 
 {% block content %}
-	<h1>News</h1>
+	<h1>Articles</h1>
 
-	{% for entry in craft.entries.section('news').find() %}
+	{% for entry in craft.entries.section('articles').find() %}
 		<article>
 			<h3><a href="{{ entry.url }}">{{ entry.title }}</a></h3>
 			<p>Posted on {{ entry.postDate.format('F d, Y') }}</p>
