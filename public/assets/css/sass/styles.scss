@@ -1,3 +1,9 @@
-body {
-	transform: translateY(200px);
-}
+@import "tools/mixins";
+@import "tools/normalize";
+@import "tools/variables";
+
+@import "general/base";
+@import "general/header";
+@import "general/nav";
+
+@import "index";

@@ -1,0 +1,45 @@
+{#
+
+ # The site layout template
+ # ------------------------
+ #
+ # This layout template extends the _layouts/base.html layout, and defines the
+ # main site layout: the header, footer, and main content area.
+ #
+ # It’s never accessed directly. Instead it is extended by all of our main site
+ # templates.
+ #
+ # This template defines one block region, `main`, which should be extended by
+ # child templates to define the main contents for the page.
+-#}
+
+{% set digest = craft.entries.section('digest').first() %}
+
+{% extends "_layouts/base" %}
+
+{% block body %}
+    
+	<div id="container">
+
+		{% block header %}
+			{% include '_includes/global-header.html' %}
+		{% endblock %}
+
+		{% include '_includes/global-nav' %}
+
+		<main id="content" role="main">
+
+			{% block content %}
+				<p>If you see me, you haven’t set your <code>{% verbatim %}{% block content %}…{% endblock %}{% endverbatim %}</code> yet.</p>
+				<p>See Twig’s <a href="http://twig.sensiolabs.org/doc/templates.html#template-inheritance">Template Inheritance</a> documentation for an explanation.</p>
+			{% endblock %}
+
+		</main>
+
+		<footer id="footer">
+			Copyright {{ now.year }} {{ craft.request.serverName | ucfirst }}. All rights reserved  •  Built with <a href="http://craftcms.com">Craft</a>
+		</footer>
+		
+	</div>
+	
+{% endblock %}

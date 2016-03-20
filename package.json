@@ -6,12 +6,12 @@
     "autoprefixer": "latest",
     "grunt": "latest",
     "grunt-contrib-concat": "latest",
+    "grunt-contrib-imagemin": "latest",
     "grunt-contrib-jshint": "latest",
     "grunt-contrib-sass": "latest",
     "grunt-contrib-uglify": "0.3.2",
     "grunt-contrib-watch": "latest",
     "grunt-imageoptim": "latest",
-    "grunt-newer": "latest",
-    "grunt-contrib-imagemin": "latest"
+    "grunt-newer": "latest"
   }
 }

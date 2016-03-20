@@ -4,8 +4,8 @@ module.exports = function(grunt) {
         pkg: grunt.file.readJSON('package.json'),
         watch: {
             sass: {
-                files: ['public/assets/css/sass/*.scss'],
-                tasks: 'sass'
+                files: ['public/assets/css/sass/**/*.scss'],
+                tasks: ['sass', 'postcss']
             },
             concat: {
                 files: ['<%= concat.dist.src %>', '<%= concat.dist.dest %>'],
@@ -18,6 +18,9 @@ module.exports = function(grunt) {
             js: {
                 files: ['public/assets/js/**', 'src/assets/js/*.js'],
                 tasks: ['jshint']
+            },
+            options: {
+                livereload: true
             }
         },
         sass: {

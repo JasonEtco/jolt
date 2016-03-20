@@ -1,0 +1,20 @@
+{# Define the site navigation #}
+{% set nav = {
+	articles:	{ title: "Articles" },
+	alumni:		{ title: "Alumni" },
+	submissions:{ title: "Submissions" },
+	symposium:	{ title: "Symposium" }
+} %}
+
+
+<nav>
+	<ul>
+		{% for slug, item in nav %}
+			<li>
+				<a href="{{ url(slug) }}" {% if craft.request.firstSegment == slug %}class="sel"{% endif %}>
+					{{ item.title }}
+				</a>
+			</li>
+		{% endfor %}
+	</ul>
+</nav>
