@@ -1,20 +1,38 @@
-{# Define the site navigation #}
-{% set nav = {
-	articles:	{ title: "Articles" },
-	alumni:		{ title: "Alumni" },
-	submissions:{ title: "Submissions" },
-	symposium:	{ title: "Symposium" }
-} %}
+<nav class="global-nav" id="js--global-nav">
+	<button id="js--nav-close">CLOSE</button>
 
-
-<nav>
 	<ul>
-		{% for slug, item in nav %}
-			<li>
-				<a href="{{ url(slug) }}" {% if craft.request.firstSegment == slug %}class="sel"{% endif %}>
-					{{ item.title }}
-				</a>
+
+		{# Shows all single sections #}
+		{# {% set sections = craft.sections.getAllSections() %}
+
+		{% for singleSection in sections if singleSection.type == 'single' and not singleSection.isHomepage(false) %}
+
+		    {% set singleEntry = craft.entries.sectionId(singleSection.id).first %}
+
+		     <li class="nav__link">
+				<a href="{{ singleEntry.url }}" class="section-link">{{ singleSection }}</a>
 			</li>
+
+		{% endfor %}#}
+
+		{% for block in globalNav.navigationItem %}
+
+	        <li class="nav__list-item">
+
+	         	{% if block.type == "linkToEntry" %}
+
+	         	    <a href="{{ block.entry.first().getUrl() }}" class="nav__link">{{ block.entryLabel }}</a>
+
+	         	{% elseif block.type == "linkToCustomUrl" %}
+
+	         	    <a href="{{ block.customUrl }}" target="_blank" class="nav__link">{{ block.customLabel }}</a>
+
+	         	{% endif %}
+
+	    	</li>
+
 		{% endfor %}
+
 	</ul>
 </nav>

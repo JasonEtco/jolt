@@ -34,4 +34,18 @@
 	&:hover span::before { transform: translateY(4px); }
 }
 
-nav { display: none; }
+.global-nav {
+	width: $nav-width;
+	height: 100%;
+	position: fixed;
+	z-index: 999;
+	left: -$nav-width;
+	top: 0;
+	background-color: $grey;
+
+	transition: transform 0.25s ease-in-out;
+
+	&.nav--open {
+		transform: translateX($nav-width);
+	}
+}
