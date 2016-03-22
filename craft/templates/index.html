@@ -47,7 +47,7 @@
 				<p>{{ (entry.featuredContent | slice(0, 400) ~ '...') | markdown }}</p>
 
 				<div class="links">
-					<button>Read the Abstract</button>
+					<button id="js--abstract-button">Read the Abstract</button>
 
 					{% set assets = entry.asset %}
 
@@ -68,17 +68,21 @@
 	
 		{{ digest.getUrl() }}
 
-		<a href="{{ url('jolt-digest') }}" class="home__digest__svg">
+		<a href="{{ url('jolt-digest') }}" class="home__digest__link">
 			{% include '_includes/digest-logo.svg' %}
 		</a>
 
-		<p>{{ entry.joltDigestDescription }}</p>
+		<p class="home__digest__desc">{{ entry.joltDigestDescription }}</p>
 	</section>
 
-	<ul>
-		{% for entry in craft.entries.section('volumes').limit(5).find() %}
-			<li><a href="{{ entry.url }}">{{ entry.title }}</a></li>
-		{% endfor %}
-	</ul>
+	<div class="abstract-modal">
+		<div class="abstract-modal__inner">
+			<button id="js--abstract-close">CLOSE</button>
+
+			<p>{{ entry.featuredContent | markdown }}</p>
+		</div>
+	</div>
 
 {% endblock %}
+
+
