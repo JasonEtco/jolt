@@ -52,8 +52,8 @@ module.exports = function(grunt) {
                 banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n'
             },
             build: {
-                src: 'public/assets/js/master.js',
-                dest: 'public/assets/js/master.min.js'
+                src: 'public/assets/js/main.js',
+                dest: 'public/assets/js/main.js'
             }
         },
         concat: {
@@ -61,8 +61,8 @@ module.exports = function(grunt) {
                 separator: ';'
             },
             dist: {
-                src: ['public/assets/js/jquery-1.10.2.js', 'public/assets/js/plugins/*.js', 'public/assets/js/main.js'],
-                dest: 'public/assets/js/master.js'
+                src: ['public/assets/js/_js/*'],
+                dest: 'public/assets/js/main.js'
             }
         },
         jshint: {
