@@ -1,0 +1,23 @@
+{% extends '_layouts/site' %}
+
+
+{% block content %}
+
+	{% set wiki = craft.entries.section('wiki') %}
+
+	    <ol>
+	        {% nav entry in wiki %}
+	            <li>
+	                {{ entry.getLink() }}
+
+	                {% ifchildren %}
+	                    <ul>
+	                        {% children %}
+	                    </ul>
+	                {% endifchildren %}
+	            </li>
+	        {% endnav %}
+	    </ol>
+
+
+{% endblock %}
