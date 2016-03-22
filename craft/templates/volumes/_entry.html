@@ -63,5 +63,13 @@
 		{% endif %}
 
 	</article>
+
+	<aside>
+		<ul>
+			{% for entry in craft.entries.section('volumes').limit(5).find() %}
+				<li><a href="{{ entry.url }}">{{ entry.title }}</a></li>
+			{% endfor %}
+		</ul>
+	</aside>
 	
 {% endblock %}
