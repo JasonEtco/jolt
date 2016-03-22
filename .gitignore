@@ -28,3 +28,8 @@ logs/*
 # ----------------------------------------------------------------------
 *.sass-cache/
 node_modules/
+
+# Compiled files
+# ----------------------------------------------------------------------
+public/assets/css/styles.css
+public/assets/css/styles.css.map
