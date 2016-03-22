@@ -11,12 +11,12 @@
  #}
 
 {% extends "_layouts/site" %}
-{% set title = "Articles" %}
+{% set title = "JOLT Digest" %}
 
 {% block content %}
 	<h1>Articles</h1>
 
-	{% for entry in craft.entries.section('articles').find() %}
+	{% for entry in craft.entries.section('digest').find() %}
 		<article>
 			<h3><a href="{{ entry.url }}">{{ entry.title }}</a></h3>
 			<p>Posted on {{ entry.postDate.format('F d, Y') }}</p>
