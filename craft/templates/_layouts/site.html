@@ -13,8 +13,6 @@
  # child templates to define the main contents for the page.
 -#}
 
-{% set digest = craft.entries.section('digest').first() %}
-
 {% extends "_layouts/base" %}
 
 {% block body %}
@@ -29,15 +27,29 @@
 
 		<main id="content" role="main">
 
-			{% block content %}
-				<p>If you see me, you haven’t set your <code>{% verbatim %}{% block content %}…{% endblock %}{% endverbatim %}</code> yet.</p>
-				<p>See Twig’s <a href="http://twig.sensiolabs.org/doc/templates.html#template-inheritance">Template Inheritance</a> documentation for an explanation.</p>
-			{% endblock %}
+			{% block content %}{% endblock %}
 
 		</main>
 
 		<footer id="footer">
-			Copyright {{ now.year }} {{ craft.request.serverName | ucfirst }}. All rights reserved  •  Built with <a href="http://craftcms.com">Craft</a>
+			<section class="footer__sponsors">
+				<h4 class="footer__title">{{ siteName }} Sponsors</h4>
+				
+				<ul class="footer__sponsor-list">
+
+					{% for block in footer.sponsors %}
+						<li>
+							<a href="{{ block.linkToSponsor }}" target="_blank">{{ block.sponsorName }}</a>
+						</li>
+					{% endfor %}
+					
+				</ul>
+			</section>
+
+			<section class="footer__contact-info">
+				<p>{{ contactInformation.address }}</p>
+				<a href="mailto:{{ contactInformation.joltEmail }}" target="_blank">{{ contactInformation.joltEmail }}</a>
+			</section>
 		</footer>
 		
 	</div>
