@@ -15,43 +15,47 @@
 
 {% extends "_layouts/base" %}
 
+{% block header %}
+    {% include '_includes/global-header' %}
+{% endblock %}
+
+{# ------------------------------------------------------------------ #}
+
 {% block body %}
     
-	<div id="container">
-
-		{% block header %}
-			{% include '_includes/global-header.html' %}
-		{% endblock %}
-
 		{% include '_includes/global-nav' %}
 
-		<main id="content" role="main">
+		<main class="content-wrapper" id="main" role="main">
 
 			{% block content %}{% endblock %}
 
 		</main>
+			
+{% endblock %}
 
-		<footer id="footer">
-			<section class="footer__sponsors">
-				<h4 class="footer__title">{{ siteName }} Sponsors</h4>
+{# ------------------------------------------------------------------ #}
+
+{% block footer %}
+   
+	<footer id="footer">
+		<section class="footer__sponsors">
+			<h4 class="footer__title">{{ siteName }} Sponsors</h4>
+			
+			<ul class="footer__sponsor-list">
+
+				{% for block in footer.sponsors %}
+					<li>
+						<a href="{{ block.linkToSponsor }}" target="_blank">{{ block.sponsorName }}</a>
+					</li>
+				{% endfor %}
 				
-				<ul class="footer__sponsor-list">
+			</ul>
+		</section>
 
-					{% for block in footer.sponsors %}
-						<li>
-							<a href="{{ block.linkToSponsor }}" target="_blank">{{ block.sponsorName }}</a>
-						</li>
-					{% endfor %}
-					
-				</ul>
-			</section>
+		<section class="footer__contact-info">
+			<p>{{ contactInformation.address }}</p>
+			<a href="mailto:{{ contactInformation.joltEmail }}" target="_blank">{{ contactInformation.joltEmail }}</a>
+		</section>
+	</footer>
 
-			<section class="footer__contact-info">
-				<p>{{ contactInformation.address }}</p>
-				<a href="mailto:{{ contactInformation.joltEmail }}" target="_blank">{{ contactInformation.joltEmail }}</a>
-			</section>
-		</footer>
-		
-	</div>
-	
 {% endblock %}

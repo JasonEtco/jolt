@@ -34,5 +34,47 @@
 
 		{% endfor %}
 
+		{% if currentUser %}
+			
+			{% set wiki = craft.entries.section('internalWikiIndex').first() %}
+
+			<li class="nav__list-item nav__list-item--wiki">
+				<a href="{{ wiki.url }}" target="_blank" class="nav__link">{{ wiki.title }}</a>
+			</li>
+
+		{% endif %}
+
 	</ul>
+
+	{% if currentUser %}
+		
+		<p>Hello {{ currentUser.friendlyName }}!</p>
+		<a href="{{ logoutUrl }}">Logout</a>
+
+	{% else %}
+
+		<form method="post" accept-charset="UTF-8">
+		    {{ getCsrfInput() }}
+		    <input type="hidden" name="action" value="users/login">
+
+		    <h3><label for="loginName">Username or email</label></h3>
+		    <input id="loginName" type="text" name="loginName"
+		        value="{{ craft.session.rememberedUsername }}">
+
+		    <h3><label for="password">Password</label></h3>
+		    <input id="password" type="password" name="password">
+
+		    <label>
+		        <input type="checkbox" name="rememberMe" value="1">
+		        Remember me
+		    </label>
+
+		    <input type="submit" value="Login">
+
+		    {% if errorMessage is defined %}
+		        <p>{{ errorMessage }}</p>
+		    {% endif %}
+		</form>
+
+	{% endif %}
 </nav>

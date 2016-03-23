@@ -19,48 +19,13 @@
 
 	<article>
 
-		<section class="issue__fall">
-			<h2>{{ entry.title }}, Number 1: Fall {{ entry.publishedFall.format('Y') }}</h2>
+		<header>
+			<h1>{{ entry.title }}</h1>
+			<h2>{{ entry.byline }}</h2>
+			<span>{{ entry.postDate }}</span>
+		</header>
 
-			{# {{ entry.tableOfContentsFall }} #}
-
-			<section>
-				<h3>Articles</h3>
-				{{ entry.articlesFall }}
-			</section>
-
-			{% for block in entry.newSectionFall %}
-
-			    <h3>{{ block.heading }}</h3>
-
-			    {{ block.sectionContent|markdown }}
-
-			{% endfor %}
-		</section>
-
-		{% if entry.publishedSpring %}
-
-			<section class="issue__spring">
-				<h2>{{ entry.title }}, Number 2: Spring {{ entry.publishedSpring.format('Y') }}</h2>
-
-				{# {{ entry.tableOfContentsSpring }} #}
-
-				<section>
-					<h3>Articles</h3>
-					{{ entry.articlesSpring }}
-				</section>
-
-				{% for block in entry.newSectionSpring %}
-
-				    <h3>{{ block.heading }}</h3>
-
-				    {{ block.sectionContent|markdown }}
-
-				{% endfor %}
-				
-			</section>
-
-		{% endif %}
+		{{ entry.body }}
 
 	</article>
 	

@@ -27,7 +27,7 @@
 			<div class="featured__issue">
 				<span>Current Issue</span>
 				{% for entry in craft.entries.section('volumes').limit(1).find() %}
-					<h1 class="featured__title"><a href="{{ entry.url }}">
+					<h1 class="featured__title scene-element scene-element--fade-in-down"><a href="{{ entry.url }}">
 						{% if entry.publishedSpring %}
 							Spring {{ entry.publishedSpring.format('Y') }}
 						{% else %}
@@ -41,7 +41,7 @@
 
 			<div class="featured__article">
 				<h3>Featured Article</h3>
-				<h2>{{ entry.title }}</h2>
+				<h2>{{ entry.featuredTitle }}</h2>
 				<span>{{ entry.authorName }}</span>
 
 				<p>{{ (entry.featuredContent | slice(0, 400) ~ '...') | markdown }}</p>
