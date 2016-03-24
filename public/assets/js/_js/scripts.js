@@ -31,4 +31,15 @@ start = function() {
 		abstractModal.classList.remove('abstract-modal--open');
 		body.classList.remove('body--no-scroll');
 	});
+
+
+
+	// Login Form
+
+	var loginModal = document.querySelector('.login-modal');
+	var loginButton = document.querySelector('.login-button');
+
+	loginButton.addEventListener('click', function() {
+		loginModal.style.display = 'block';
+	});
 }
