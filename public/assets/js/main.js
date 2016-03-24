@@ -1,2 +1,100 @@
-/*! HarvardJOLT 2016-03-23 */
-start=function(){var a=document.body,b=document.getElementById("js--nav-button"),c=document.getElementById("js--nav-close"),d=document.getElementById("js--global-nav");b.addEventListener("click",function(){d.classList.add("nav--open")}),c.addEventListener("click",function(){d.classList.remove("nav--open")});var e=document.querySelector(".abstract-modal"),f=document.getElementById("js--abstract-button"),g=document.getElementById("js--abstract-close");f.addEventListener("click",function(){e.classList.add("abstract-modal--open"),a.classList.add("body--no-scroll")}),g.addEventListener("click",function(){e.classList.remove("abstract-modal--open"),a.classList.remove("body--no-scroll")})},!function(a){"use strict";"object"==typeof module&&"object"==typeof module.exports?a(require("jquery"),window,document):a(jQuery,window,document)}(function(a,b,c,d){"use strict";if(!b.history.pushState)return a.fn.smoothState=function(){return this},void(a.fn.smoothState.options={});if(!a.fn.smoothState){var e=a("html, body"),f=b.console,g={debug:!1,anchors:"a",hrefRegex:"",forms:"form",allowFormCaching:!1,repeatDelay:500,blacklist:".no-smoothState",prefetch:!1,prefetchOn:"mouseover touchstart",prefetchBlacklist:".no-prefetch",cacheLength:0,loadingClass:"is-loading",scroll:!0,alterRequest:function(a){return a},alterChangeState:function(a,b,c){return a},onBefore:function(a,b){},onStart:{duration:0,render:function(a){}},onProgress:{duration:0,render:function(a){}},onReady:{duration:0,render:function(a,b){a.html(b)}},onAfter:function(a,b){}},h={isExternal:function(a){var c=a.match(/^([^:\/?#]+:)?(?:\/\/([^\/?#]*))?([^?#]+)?(\?[^#]*)?(#.*)?/);return"string"==typeof c[1]&&c[1].length>0&&c[1].toLowerCase()!==b.location.protocol?!0:"string"==typeof c[2]&&c[2].length>0&&c[2].replace(new RegExp(":("+{"http:":80,"https:":443}[b.location.protocol]+")?$"),"")!==b.location.host?!0:!1},stripHash:function(a){return a.replace(/#.*/,"")},isHash:function(a,c){c=c||b.location.href;var d=a.indexOf("#")>-1?!0:!1,e=h.stripHash(a)===h.stripHash(c)?!0:!1;return d&&e},translate:function(b){var c={dataType:"html",type:"GET"};return b="string"==typeof b?a.extend({},c,{url:b}):a.extend({},c,b)},shouldLoadAnchor:function(a,b,c){var e=a.prop("href");return!(h.isExternal(e)||h.isHash(e)||a.is(b)||a.prop("target")||typeof c!==d&&""!==c&&-1===a.prop("href").search(c))},clearIfOverCapacity:function(a,b){return Object.keys||(Object.keys=function(a){var b,c=[];for(b in a)Object.prototype.hasOwnProperty.call(a,b)&&c.push(b);return c}),Object.keys(a).length>b&&(a={}),a},storePageIn:function(b,c,d,e,f){var g=a("<html></html>").append(a(d));return b[c]={status:"loaded",title:g.find("title").first().text(),html:g.find("#"+e),doc:d,state:f},b},triggerAllAnimationEndEvent:function(b,c){c=" "+c||"";var d=0,e="animationstart webkitAnimationStart oanimationstart MSAnimationStart",f="animationend webkitAnimationEnd oanimationend MSAnimationEnd",g="allanimationend",i=function(c){a(c.delegateTarget).is(b)&&(c.stopPropagation(),d++)},j=function(c){a(c.delegateTarget).is(b)&&(c.stopPropagation(),d--,0===d&&b.trigger(g))};b.on(e,i),b.on(f,j),b.on("allanimationend"+c,function(){d=0,h.redraw(b)})},redraw:function(a){a.height()}},i=function(c){if(null!==c.state){var d=b.location.href,e=a("#"+c.state.id),f=e.data("smoothState"),g=f.href!==d&&!h.isHash(d,f.href),i=event.state!==f.cache[f.href].state;(g||i)&&(i&&f.clear(f.href),f.load(d,!1))}},j=function(g,i){var j=a(g),k=j.prop("id"),l=null,m=!1,n={},o={},p=b.location.href,q=function(a){a=a||!1,a&&n.hasOwnProperty(a)?delete n[a]:n={},j.data("smoothState").cache=n},r=function(b,c){c=c||a.noop;var d=h.translate(b);if(n=h.clearIfOverCapacity(n,i.cacheLength),!n.hasOwnProperty(d.url)||"undefined"!=typeof d.data){n[d.url]={status:"fetching"};var e=a.ajax(d);e.done(function(a){h.storePageIn(n,d.url,a,k),j.data("smoothState").cache=n}),e.fail(function(){n[d.url].status="error"}),c&&e.always(c)}},s=function(){if(l){var b=a(l,j);if(b.length){var c=b.offset().top;e.scrollTop(c)}l=null}},t=function(d){var g="#"+k,h=n[d]?a(n[d].html.html()):null;h.length?(c.title=n[d].title,j.data("smoothState").href=d,i.loadingClass&&e.removeClass(i.loadingClass),i.onReady.render(j,h),j.one("ss.onReadyEnd",function(){m=!1,i.onAfter(j,h),i.scroll&&s()}),b.setTimeout(function(){j.trigger("ss.onReadyEnd")},i.onReady.duration)):!h&&i.debug&&f?f.warn("No element with an id of "+g+" in response from "+d+" in "+n):b.location=d},u=function(a,c,d){var g=h.translate(a);"undefined"==typeof c&&(c=!0),"undefined"==typeof d&&(d=!0);var l=!1,m=!1,p={loaded:function(){var a=l?"ss.onProgressEnd":"ss.onStartEnd";m&&l?m&&t(g.url):j.one(a,function(){t(g.url),d||q(g.url)}),c&&(o=i.alterChangeState({id:k},n[g.url].title,g.url),n[g.url].state=o,b.history.pushState(o,n[g.url].title,g.url)),m&&!d&&q(g.url)},fetching:function(){l||(l=!0,j.one("ss.onStartEnd",function(){i.loadingClass&&e.addClass(i.loadingClass),i.onProgress.render(j),b.setTimeout(function(){j.trigger("ss.onProgressEnd"),m=!0},i.onProgress.duration)})),b.setTimeout(function(){n.hasOwnProperty(g.url)&&p[n[g.url].status]()},10)},error:function(){i.debug&&f?f.log("There was an error loading: "+g.url):b.location=g.url}};n.hasOwnProperty(g.url)||r(g),i.onStart.render(j),b.setTimeout(function(){i.scroll&&e.scrollTop(0),j.trigger("ss.onStartEnd")},i.onStart.duration),p[n[g.url].status]()},v=function(b){var c,d=a(b.currentTarget);h.shouldLoadAnchor(d,i.blacklist,i.hrefRegex)&&!m&&(b.stopPropagation(),c=h.translate(d.prop("href")),c=i.alterRequest(c),r(c))},w=function(b){var c=a(b.currentTarget);if(!b.metaKey&&!b.ctrlKey&&h.shouldLoadAnchor(c,i.blacklist,i.hrefRegex)&&(b.stopPropagation(),b.preventDefault(),!z())){A();var d=h.translate(c.prop("href"));m=!0,l=c.prop("hash"),d=i.alterRequest(d),i.onBefore(c,j),u(d)}},x=function(b){var c=a(b.currentTarget);if(!c.is(i.blacklist)&&(b.preventDefault(),b.stopPropagation(),!z())){A();var e={url:c.prop("action"),data:c.serialize(),type:c.prop("method")};m=!0,e=i.alterRequest(e),"get"===e.type.toLowerCase()&&(e.url=e.url+"?"+e.data),i.onBefore(c,j),u(e,d,i.allowFormCaching)}},y=0,z=function(){var a=null===i.repeatDelay,b=parseInt(Date.now())>y;return!(a||b)},A=function(){y=parseInt(Date.now())+parseInt(i.repeatDelay)},B=function(a){i.anchors&&(a.on("click",i.anchors,w),i.prefetch&&a.find(i.anchors).not(i.prefetchBlacklist).on(i.prefetchOn,null,v)),i.forms&&a.on("submit",i.forms,x)},C=function(){var a=j.prop("class");j.removeClass(a),h.redraw(j),j.addClass(a)};return i=a.extend({},a.fn.smoothState.options,i),null===b.history.state?(o=i.alterChangeState({id:k},c.title,p),b.history.replaceState(o,c.title,p)):o={},h.storePageIn(n,p,c.documentElement.outerHTML,k,o),h.triggerAllAnimationEndEvent(j,"ss.onStartEnd ss.onProgressEnd ss.onEndEnd"),B(j),{href:p,cache:n,clear:q,load:u,fetch:r,restartCSSAnimations:C}},k=function(b){return this.each(function(){var c=this.tagName.toLowerCase();this.id&&"body"!==c&&"html"!==c&&!a.data(this,"smoothState")?a.data(this,"smoothState",new j(this,b)):!this.id&&f?f.warn("Every smoothState container needs an id but the following one does not have one:",this):"body"!==c&&"html"!==c||!f||f.warn("The smoothstate container cannot be the "+this.tagName+" tag")})};b.onpopstate=i,a.smoothStateUtility=h,a.fn.smoothState=k,a.fn.smoothState.options=g}}),$(document).ready(function(){start()}),$(function(){"use strict";var a=$("html, body"),b={prefetch:!0,cacheLength:2,onStart:{duration:500,render:function(b){b.addClass("is-exiting"),a.animate({scrollTop:0}),c.restartCSSAnimations()}},onReady:{duration:0,render:function(a,b){a.removeClass("is-exiting"),a.html(b)}},onAfter:function(a){start(),ga("set",{page:document.location.pathname,title:document.title}),ga("send","pageview")}},c=$("#main").smoothState(b).data("smoothState")});
+start = function() {
+	// GLOBAL VARIABLES
+	var body = document.body;
+
+	var navButton = document.getElementById('js--nav-button');
+	var navClose  = document.getElementById('js--nav-close');
+	var nav       = document.getElementById('js--global-nav');
+
+	navButton.addEventListener('click', function() {
+		nav.classList.add('nav--open');
+	});
+
+	navClose.addEventListener('click', function() {
+		nav.classList.remove('nav--open');
+	});
+
+
+
+	// Abstract Modal
+
+	var abstractModal = document.querySelector('.abstract-modal');
+	var abstractModalButton = document.getElementById('js--abstract-button');
+	var abstractModalClose = document.getElementById('js--abstract-close');
+
+	abstractModalButton.addEventListener('click', function() {
+		abstractModal.classList.add('abstract-modal--open');
+		body.classList.add('body--no-scroll');
+	});
+
+	abstractModalClose.addEventListener('click', function() {
+		abstractModal.classList.remove('abstract-modal--open');
+		body.classList.remove('body--no-scroll');
+	});
+
+
+
+	// Login Form
+
+	var loginModal = document.querySelector('.login-modal');
+	var loginButton = document.querySelector('.login-button');
+
+	loginButton.addEventListener('click', function() {
+		loginModal.style.display = 'block';
+	});
+};/*!
+ * smoothState.js is jQuery plugin that progressively enhances
+ * page loads to behave more like a single-page application.
+ *
+ * @author  Miguel Ángel Pérez   reachme@miguel-perez.com
+ * @see     http://smoothstate.com
+ *
+ */
+!function(t){"use strict";"object"==typeof module&&"object"==typeof module.exports?t(require("jquery"),window,document):t(jQuery,window,document)}(function(t,e,n,o){"use strict";if(!e.history.pushState)return t.fn.smoothState=function(){return this},void(t.fn.smoothState.options={});if(!t.fn.smoothState){var r=t("html, body"),a=e.console,i={debug:!1,anchors:"a",hrefRegex:"",forms:"form",allowFormCaching:!1,repeatDelay:500,blacklist:".no-smoothState",prefetch:!1,prefetchOn:"mouseover touchstart",prefetchBlacklist:".no-prefetch",cacheLength:0,loadingClass:"is-loading",scroll:!0,alterRequest:function(t){return t},alterChangeState:function(t,e,n){return t},onBefore:function(t,e){},onStart:{duration:0,render:function(t){}},onProgress:{duration:0,render:function(t){}},onReady:{duration:0,render:function(t,e){t.html(e)}},onAfter:function(t,e){}},s={isExternal:function(t){var n=t.match(/^([^:\/?#]+:)?(?:\/\/([^\/?#]*))?([^?#]+)?(\?[^#]*)?(#.*)?/);return"string"==typeof n[1]&&n[1].length>0&&n[1].toLowerCase()!==e.location.protocol?!0:"string"==typeof n[2]&&n[2].length>0&&n[2].replace(new RegExp(":("+{"http:":80,"https:":443}[e.location.protocol]+")?$"),"")!==e.location.host?!0:!1},stripHash:function(t){return t.replace(/#.*/,"")},isHash:function(t,n){n=n||e.location.href;var o=t.indexOf("#")>-1?!0:!1,r=s.stripHash(t)===s.stripHash(n)?!0:!1;return o&&r},translate:function(e){var n={dataType:"html",type:"GET"};return e="string"==typeof e?t.extend({},n,{url:e}):t.extend({},n,e)},shouldLoadAnchor:function(t,e,n){var r=t.prop("href");return!(s.isExternal(r)||s.isHash(r)||t.is(e)||t.prop("target")||typeof n!==o&&""!==n&&-1===t.prop("href").search(n))},clearIfOverCapacity:function(t,e){return Object.keys||(Object.keys=function(t){var e,n=[];for(e in t)Object.prototype.hasOwnProperty.call(t,e)&&n.push(e);return n}),Object.keys(t).length>e&&(t={}),t},storePageIn:function(e,n,o,r,a){var i=t("<html></html>").append(t(o));return e[n]={status:"loaded",title:i.find("title").first().text(),html:i.find("#"+r),doc:o,state:a},e},triggerAllAnimationEndEvent:function(e,n){n=" "+n||"";var o=0,r="animationstart webkitAnimationStart oanimationstart MSAnimationStart",a="animationend webkitAnimationEnd oanimationend MSAnimationEnd",i="allanimationend",l=function(n){t(n.delegateTarget).is(e)&&(n.stopPropagation(),o++)},u=function(n){t(n.delegateTarget).is(e)&&(n.stopPropagation(),o--,0===o&&e.trigger(i))};e.on(r,l),e.on(a,u),e.on("allanimationend"+n,function(){o=0,s.redraw(e)})},redraw:function(t){t.height()}},l=function(n){if(null!==n.state){var o=e.location.href,r=t("#"+n.state.id),a=r.data("smoothState"),i=a.href!==o&&!s.isHash(o,a.href),l=event.state!==a.cache[a.href].state;(i||l)&&(l&&a.clear(a.href),a.load(o,!1))}},u=function(i,l){var u=t(i),c=u.prop("id"),f=null,h=!1,d={},p={},g=e.location.href,m=function(t){t=t||!1,t&&d.hasOwnProperty(t)?delete d[t]:d={},u.data("smoothState").cache=d},y=function(e,n){n=n||t.noop;var o=s.translate(e);if(d=s.clearIfOverCapacity(d,l.cacheLength),!d.hasOwnProperty(o.url)||"undefined"!=typeof o.data){d[o.url]={status:"fetching"};var r=t.ajax(o);r.done(function(t){s.storePageIn(d,o.url,t,c),u.data("smoothState").cache=d}),r.fail(function(){d[o.url].status="error"}),n&&r.always(n)}},v=function(){if(f){var e=t(f,u);if(e.length){var n=e.offset().top;r.scrollTop(n)}f=null}},S=function(o){var i="#"+c,s=d[o]?t(d[o].html.html()):null;s.length?(n.title=d[o].title,u.data("smoothState").href=o,l.loadingClass&&r.removeClass(l.loadingClass),l.onReady.render(u,s),u.one("ss.onReadyEnd",function(){h=!1,l.onAfter(u,s),l.scroll&&v()}),e.setTimeout(function(){u.trigger("ss.onReadyEnd")},l.onReady.duration)):!s&&l.debug&&a?a.warn("No element with an id of "+i+" in response from "+o+" in "+d):e.location=o},w=function(t,n,o){var i=s.translate(t);"undefined"==typeof n&&(n=!0),"undefined"==typeof o&&(o=!0);var f=!1,h=!1,g={loaded:function(){var t=f?"ss.onProgressEnd":"ss.onStartEnd";h&&f?h&&S(i.url):u.one(t,function(){S(i.url),o||m(i.url)}),n&&(p=l.alterChangeState({id:c},d[i.url].title,i.url),d[i.url].state=p,e.history.pushState(p,d[i.url].title,i.url)),h&&!o&&m(i.url)},fetching:function(){f||(f=!0,u.one("ss.onStartEnd",function(){l.loadingClass&&r.addClass(l.loadingClass),l.onProgress.render(u),e.setTimeout(function(){u.trigger("ss.onProgressEnd"),h=!0},l.onProgress.duration)})),e.setTimeout(function(){d.hasOwnProperty(i.url)&&g[d[i.url].status]()},10)},error:function(){l.debug&&a?a.log("There was an error loading: "+i.url):e.location=i.url}};d.hasOwnProperty(i.url)||y(i),l.onStart.render(u),e.setTimeout(function(){l.scroll&&r.scrollTop(0),u.trigger("ss.onStartEnd")},l.onStart.duration),g[d[i.url].status]()},E=function(e){var n,o=t(e.currentTarget);s.shouldLoadAnchor(o,l.blacklist,l.hrefRegex)&&!h&&(e.stopPropagation(),n=s.translate(o.prop("href")),n=l.alterRequest(n),y(n))},b=function(e){var n=t(e.currentTarget);if(!e.metaKey&&!e.ctrlKey&&s.shouldLoadAnchor(n,l.blacklist,l.hrefRegex)&&(e.stopPropagation(),e.preventDefault(),!T())){A();var o=s.translate(n.prop("href"));h=!0,f=n.prop("hash"),o=l.alterRequest(o),l.onBefore(n,u),w(o)}},C=function(e){var n=t(e.currentTarget);if(!n.is(l.blacklist)&&(e.preventDefault(),e.stopPropagation(),!T())){A();var r={url:n.prop("action"),data:n.serialize(),type:n.prop("method")};h=!0,r=l.alterRequest(r),"get"===r.type.toLowerCase()&&(r.url=r.url+"?"+r.data),l.onBefore(n,u),w(r,o,l.allowFormCaching)}},P=0,T=function(){var t=null===l.repeatDelay,e=parseInt(Date.now())>P;return!(t||e)},A=function(){P=parseInt(Date.now())+parseInt(l.repeatDelay)},O=function(t){l.anchors&&(t.on("click",l.anchors,b),l.prefetch&&t.find(l.anchors).not(l.prefetchBlacklist).on(l.prefetchOn,null,E)),l.forms&&t.on("submit",l.forms,C)},x=function(){var t=u.prop("class");u.removeClass(t),s.redraw(u),u.addClass(t)};return l=t.extend({},t.fn.smoothState.options,l),null===e.history.state?(p=l.alterChangeState({id:c},n.title,g),e.history.replaceState(p,n.title,g)):p={},s.storePageIn(d,g,n.documentElement.outerHTML,c,p),s.triggerAllAnimationEndEvent(u,"ss.onStartEnd ss.onProgressEnd ss.onEndEnd"),O(u),{href:g,cache:d,clear:m,load:w,fetch:y,restartCSSAnimations:x}},c=function(e){return this.each(function(){var n=this.tagName.toLowerCase();this.id&&"body"!==n&&"html"!==n&&!t.data(this,"smoothState")?t.data(this,"smoothState",new u(this,e)):!this.id&&a?a.warn("Every smoothState container needs an id but the following one does not have one:",this):"body"!==n&&"html"!==n||!a||a.warn("The smoothstate container cannot be the "+this.tagName+" tag")})};e.onpopstate=l,t.smoothStateUtility=s,t.fn.smoothState=c,t.fn.smoothState.options=i}});;$(document).ready(function() {
+    start();
+});
+
+
+$(function(){
+  'use strict';
+  var $body    = $('html, body');
+  var options = {
+    prefetch: true,
+    cacheLength: 2,
+    
+    onStart: {
+      duration: 500, // Duration of our animation
+      render: function ($container) {
+        
+        // Add your CSS animation reversing class
+        $container.addClass('is-exiting');
+        
+        $body.animate({
+          scrollTop: 0
+        });
+        
+        // Restart your animation
+        smoothState.restartCSSAnimations();
+      }
+    },
+    
+    onReady: {
+      duration: 0,
+      render: function ($container, $newContent) {
+        // Remove your CSS animation reversing class
+        $container.removeClass('is-exiting');
+
+        // Inject the new content
+        $container.html($newContent);
+      }
+    },
+    
+    onAfter: function($container) {
+      start();
+
+      ga('set', { 'page': document.location.pathname, 'title': document.title });
+      ga('send', 'pageview');
+    }
+  },
+  smoothState = $('#main').smoothState(options).data('smoothState');
+});

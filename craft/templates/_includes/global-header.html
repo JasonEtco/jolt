@@ -10,6 +10,17 @@
 		</div>
 
 		<div id="search">
+			{% if currentUser %}
+
+				<p>Hello {{ currentUser.friendlyName }}!</p>
+				<a href="{{ logoutPath }}" class="logout">Logout</a>
+
+			{% else %}
+				    
+				<button class="login-button">Login</button>
+
+			{% endif %}
+
 			<form action="{{ url('search/results') }}" class="search-form">
 				<input type="search" name="q" placeholder="Search">
 			</form>
