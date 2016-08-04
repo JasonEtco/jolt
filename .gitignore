@@ -1,35 +1,6 @@
-# Craft runtime and backups folders
-# ----------------------------------------------------------------------
-craft/storage/runtime/*
-craft/storage/backups/*
-
-# Craft License Key
-# ----------------------------------------------------------------------
-craft/config/license.key
-
-# Uploaded files
-# ----------------------------------------------------------------------
-public/assets/uploads/*
-
-# Misc files
-# ----------------------------------------------------------------------
-.DS_Store
-Thumbs.db
-.cache
-.project
-.settings
-*.map
-*.esproj
-*.sublime-workspace
-*.sublime-project
-logs/*
-
-# Dev files
-# ----------------------------------------------------------------------
-*.sass-cache/
-node_modules/
-
-# Compiled files
-# ----------------------------------------------------------------------
-public/assets/css/styles.css
-public/assets/css/styles.css.map
+node_modules
+public/images
+public/scripts
+public/styles
+.idea
+.tmp
