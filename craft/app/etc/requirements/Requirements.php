@@ -137,7 +137,15 @@ class Requirements
 				'<a href="http://craftcms.com">Craft CMS</a>',
 				Craft::t('Craft CMS requires the <a href="http://www.php.net/manual/en/book.mbstring.php">Multibyte String extension</a> with <a href="http://php.net/manual/en/mbstring.overload.php">Function Overloading</a> disabled in order to run.')
 			),
+			new Requirement(
+				Craft::t('fileinfo extension'),
+				extension_loaded('fileinfo'),
+				false,
+				'<a href="http://craftcms.com">Craft CMS</a>',
+				Craft::t('Used to try and guess the content type and encoding of files by looking for certain magic bytes sequences at specific positions within the file.')
+			),
 			new IconvRequirement(),
+			new WebRootExposedFolderRequirement(),
 		);
 	}
 
@@ -532,5 +540,108 @@ class IconvRequirement extends Requirement
 		{
 			return RequirementResult::Warning;
 		}
+	}
+}
+
+/**
+ * Attempts to determine if the craft folder is inside of web root.
+ *
+ * @package craft.app.etc.requirements
+ */
+class WebRootExposedFolderRequirement extends Requirement
+{
+	private $_webRootResults;
+
+	// Protected Methods
+	// =========================================================================
+
+	/**
+	 * @return WebRootExposedFolderRequirement
+	 */
+	public function __construct()
+	{
+		parent::__construct(
+			Craft::t('Craft folders in public web root'),
+			null,
+			false,
+			'<a href="http://craftcms.com">Craft CMS</a>'
+		);
+	}
+
+	/**
+	 * @return null
+	 */
+	public function getNotes()
+	{
+		if ($this->getResult() == RequirementResult::Warning)
+		{
+			$values = array_keys(array_intersect($this->_webRootResults, array(true)));
+			$folders = rtrim(implode(', ', $values), ', ');
+
+			return Craft::t('Your Craft folder(s) {folders} appear to be in your public web root folder instead of above web root, which is what we recommend. If you leave them in web root, you will want to make sure their contents are not publicly exposed, which is a security risk.', array('folders' => $folders));
+		}
+	}
+
+	// Protected Methods
+	// =========================================================================
+
+	/**
+	 * Calculates the result of this requirement.
+	 *
+	 * @return string
+	 */
+	protected function calculateResult()
+	{
+		// The paths to check.
+		$this->_webRootResults = array(
+			'storage'      => craft()->path->getStoragePath(),
+			'plugins'      => craft()->path->getPluginsPath(),
+			'config'       => craft()->path->getConfigPath(),
+			'app'          => craft()->path->getAppPath(),
+			'templates'    => craft()->path->getSiteTemplatesPath(),
+			'translations' => craft()->path->getSiteTranslationsPath(),
+		);
+
+		foreach ($this->_webRootResults as $key => $path)
+		{
+			if ($realPath = realpath($path))
+			{
+				$this->_webRootResults[$key] = $this->_isPathInsideWebRoot($realPath);
+			}
+		}
+
+		foreach ($this->_webRootResults as $result)
+		{
+			// We were able to connect to one of our exposed folder checks.
+			if ($result === true)
+			{
+				return RequirementResult::Warning;
+			}
+		}
+
+		return RequirementResult::Success;
+	}
+
+	// Private Methods
+	// =========================================================================
+
+	/**
+	 * @param $pathToTest
+	 *
+	 * @return bool
+	 */
+	private function _isPathInsideWebRoot($pathToTest)
+	{
+		$pathToTest = IOHelper::normalizePathSeparators($pathToTest);
+
+		// Get the base path without the script name.
+		$subBasePath = IOHelper::normalizePathSeparators(mb_substr(craft()->request->getScriptFile(), 0, -mb_strlen(craft()->request->getScriptName())));
+
+		if (mb_strpos($pathToTest, $subBasePath) !== false)
+		{
+			return true;
+		}
+
+		return false;
 	}
 }

@@ -228,8 +228,8 @@ class StringHelper
 				352 => 'sh', 362 => 'uu', 369 => 'u',  381 => 'zh', 260 => 'A',
 				261 => 'a',  262 => 'C',  263 => 'c',  280 => 'E',  281 => 'e',
 				321 => 'L',  322 => 'l',  323 => 'N',  324 => 'n',  211 => 'O',
-				346 => 'S',  347 => 's',  379 => 'Z',  380 => 'z',  377 => 'Z',
-				388 => 'z',
+				346 => 'S',  347 => 's',  377 => 'Z',  378 => 'z',  379 => 'Z',
+				380 => 'z',  388 => 'z',
 			);
 
 			foreach (craft()->config->get('customAsciiCharMappings') as $ascii => $char)
@@ -336,12 +336,13 @@ class StringHelper
 	/**
 	 * Normalizes search keywords.
 	 *
-	 * @param string $str    The dirty keywords.
-	 * @param array  $ignore Ignore words to strip out.
+	 * @param string $str            The dirty keywords.
+	 * @param array  $ignore         Ignore words to strip out.
+	 * @param bool   $processCharMap
 	 *
 	 * @return string The cleansed keywords.
 	 */
-	public static function normalizeKeywords($str, $ignore = array())
+	public static function normalizeKeywords($str, $ignore = array(), $processCharMap = true)
 	{
 		// Flatten
 		if (is_array($str)) $str = static::arrayToString($str, ' ');
@@ -355,11 +356,14 @@ class StringHelper
 		// Get rid of entities
 		$str = preg_replace("/&#?[a-z0-9]{2,8};/i", "", $str);
 
-		// Remove punctuation and diacritics
-		$str = strtr($str, static::_getCharMap());
-
 		// Normalize to lowercase
 		$str = StringHelper::toLowerCase($str);
+
+		if ($processCharMap)
+		{
+			// Remove punctuation and diacritics
+			$str = strtr($str, static::_getCharMap());
+		}
 
 		// Remove ignore-words?
 		if (is_array($ignore) && ! empty($ignore))
@@ -398,7 +402,7 @@ class StringHelper
 	}
 
 	/**
-	 * Runs a string through Markdown, but remoes any paragraph tags that get removed
+	 * Runs a string through Markdown, but removes any paragraph tags that get removed
 	 *
 	 * @param string $str
 	 *
@@ -700,7 +704,7 @@ class StringHelper
 	/**
 	 * Strips HTML tags out of a given string.
 	 *
-	 * @param $str The string.
+	 * @param string $str The string.
 	 *
 	 * @return string
 	 */

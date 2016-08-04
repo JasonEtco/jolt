@@ -74,8 +74,17 @@ class AssetElementType extends BaseElementType
 			$sourceIds = craft()->assetSources->getAllSourceIds();
 		}
 
-		$tree = craft()->assets->getFolderTreeBySourceIds($sourceIds);
-		$sources = $this->_assembleSourceList($tree);
+		if ($context == 'settings')
+		{
+			$additionalCriteria = array('parentId' => ':empty:');
+		}
+		else
+		{
+			$additionalCriteria = array();
+		}
+
+		$tree = craft()->assets->getFolderTreeBySourceIds($sourceIds, $additionalCriteria);
+		$sources = $this->_assembleSourceList($tree, $context != 'settings');
 
 		// Allow plugins to modify the sources
 		craft()->plugins->call('modifyAssetSources', array(&$sources, $context));
@@ -191,7 +200,7 @@ class AssetElementType extends BaseElementType
 	/**
 	 * @inheritDoc IElementType::defineSortableAttributes()
 	 *
-	 * @retrun array
+	 * @return array
 	 */
 	public function defineSortableAttributes()
 	{
@@ -478,7 +487,8 @@ class AssetElementType extends BaseElementType
 				'value'     => $element->filename,
 				'errors'    => $element->getErrors('filename'),
 				'first'     => true,
-				'required'  => true
+				'required'  => true,
+				'class'     => 'renameHelper'
 			)
 		));
 

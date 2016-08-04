@@ -66,7 +66,7 @@ class AssetsFieldType extends BaseElementFieldType
 		$folderOptions = array();
 		$sourceOptions = array();
 
-		foreach ($this->getElementType()->getSources() as $key => $source)
+		foreach ($this->getElementType()->getSources('settings') as $key => $source)
 		{
 			if (!isset($source['heading']))
 			{
@@ -123,6 +123,14 @@ class AssetsFieldType extends BaseElementFieldType
 				'<span data-icon="alert"></span> ' .
 				Craft::t('This field’s target subfolder path is invalid: {path}', array('path' => '<code>'.$this->getSettings()->singleUploadLocationSubpath.'</code>')) .
 				'</p>';
+		}
+		catch (InvalidSourceException $e)
+		{
+			$message = $this->getSettings()->useSingleFolder ? Craft::t('This field’s single upload location Assets Source is missing') : Craft::t('This field’s default upload location Assets Source is missing');
+			return '<p class="warning">' .
+			'<span data-icon="alert"></span> ' .
+			$message .
+			'</p>';
 		}
 	}
 
@@ -454,15 +462,15 @@ class AssetsFieldType extends BaseElementFieldType
 	 */
 	protected function getInputSources()
 	{
-		// Look for the single folder setting
 		$settings = $this->getSettings();
+
+		// Authorize for the single folder and the default upload folder, whichever was chosen.
+		$folderId = $this->_determineUploadFolderId($settings, false);
+		craft()->userSession->authorize('uploadToAssetSource:'.$folderId);
 
 		if ($settings->useSingleFolder)
 		{
-			$folderId = $this->_determineUploadFolderId($settings, false);
-			craft()->userSession->authorize('uploadToAssetSource:'.$folderId);
 			$folderPath = 'folder:'.$folderId.':single';
-
 			return array($folderPath);
 		}
 
@@ -520,19 +528,22 @@ class AssetsFieldType extends BaseElementFieldType
 	 */
 	private function _resolveSourcePathToFolderId($sourceId, $subpath, $createDynamicFolders = true)
 	{
+
+		// Get the root folder in the source
+		$rootFolder = craft()->assets->getRootFolderBySourceId($sourceId);
+
+		// Make sure the root folder actually exists
+		if (!$rootFolder)
+		{
+			throw new InvalidSourceException();
+		}
+
 		// Are we looking for a subfolder?
 		$subpath = is_string($subpath) ? trim($subpath, '/') : '';
 
 		if (strlen($subpath) === 0)
 		{
-			// Get the root folder in the source
-			$folder = craft()->assets->getRootFolderBySourceId($sourceId);
-
-			// Make sure the root folder actually exists
-			if (!$folder)
-			{
-				throw new Exception('Cannot find the target folder.');
-			}
+			$folder = $rootFolder;
 		}
 		else
 		{
@@ -572,13 +583,7 @@ class AssetsFieldType extends BaseElementFieldType
 				}
 
 				// Start at the root, and, go over each folder in the path and create it if it's missing.
-				$parentFolder = craft()->assets->getRootFolderBySourceId($sourceId);
-
-				// Make sure the root folder actually exists
-				if (!$parentFolder)
-				{
-					throw new Exception('Cannot find the target folder.');
-				}
+				$parentFolder = $rootFolder;
 
 				$segments = explode('/', $subpath);
 
@@ -691,13 +696,13 @@ class AssetsFieldType extends BaseElementFieldType
 		// Attempt to find the actual folder ID
 		try
 		{
-			$folderId = $this->_resolveSourcePathToFolderId($folderSourceId, $folderSubpath);
+			$folderId = $this->_resolveSourcePathToFolderId($folderSourceId, $folderSubpath, $createDynamicFolders);
 		}
 		catch (InvalidSubpathException $e)
 		{
 			// If this is a new element, the subpath probably just contained a token that returned null, like {id}
 			// so use the user's upload folder instead
-			if (empty($this->element->id))
+			if (empty($this->element->id) || !$createDynamicFolders)
 			{
 				$userModel = craft()->userSession->getUser();
 				$userFolder = craft()->assets->getUserFolder($userModel);

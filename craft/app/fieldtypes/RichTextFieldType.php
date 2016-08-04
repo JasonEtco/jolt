@@ -142,7 +142,7 @@ class RichTextFieldType extends BaseFieldType
 		$settings = array(
 			'id'              => craft()->templates->namespaceInputId($id),
 			'linkOptions'     => $this->_getLinkOptions(),
-			'assetSources'    => $this->_getAssetSources($this->getSettings()->availableAssetSources),
+			'assetSources'    => $this->_getAssetSources(),
 			'transforms'      => $this->_getTransforms(),
 			'elementLocale'   => $localeId,
 			'redactorConfig'  => JsonHelper::decode(JsonHelper::removeComments($configJs)),
@@ -230,7 +230,23 @@ class RichTextFieldType extends BaseFieldType
 		// Find any element URLs and swap them with ref tags
 		$value = preg_replace_callback('/(href=|src=)([\'"])[^\'"#]+?(#[^\'"#]+)?(?:#|%23)(\w+):(\d+)(:'.HandleValidator::$handlePattern.')?\2/', function($matches)
 		{
-			return $matches[1].$matches[2].'{'.$matches[4].':'.$matches[5].(!empty($matches[6]) ? $matches[6] : ':url').'}'.(!empty($matches[3]) ? $matches[3] : '').$matches[2];
+			$refTag = '{'.$matches[4].':'.$matches[5].(!empty($matches[6]) ? $matches[6] : ':url').'}';
+			$hash = (!empty($matches[3]) ? $matches[3] : '');
+
+			if ($hash)
+			{
+				// Make sure that the hash isn't actually part of the parsed URL
+				// (someone's Entry URL Format could be "#{slug}", etc.)
+				$url = craft()->elements->parseRefs($refTag);
+
+				if (mb_strpos($url, $hash) !== false)
+				{
+					$hash = '';
+				}
+			}
+
+
+			return $matches[1].$matches[2].$refTag.$hash.$matches[2];
 		}, $value);
 
 		// Encode any 4-byte UTF-8 characters.
@@ -292,7 +308,7 @@ class RichTextFieldType extends BaseFieldType
 		return array(
 			'configFile'            => AttributeType::String,
 			'cleanupHtml'           => array(AttributeType::Bool, 'default' => true),
-			'purifyHtml'            => array(AttributeType::Bool, 'default' => false),
+			'purifyHtml'            => array(AttributeType::Bool, 'default' => true),
 			'columnType'            => array(AttributeType::String),
 			'availableAssetSources' => AttributeType::Mixed,
 			'availableTransforms'   => AttributeType::Mixed,
@@ -321,7 +337,6 @@ class RichTextFieldType extends BaseFieldType
 
 		$sectionSources = $this->_getSectionSources();
 		$categorySources = $this->_getCategorySources();
-		$assetSources = $this->_getAssetSources();
 
 		if ($sectionSources)
 		{
@@ -338,15 +353,6 @@ class RichTextFieldType extends BaseFieldType
 				'optionTitle' => Craft::t('Link to a category'),
 				'elementType' => 'Category',
 				'sources' => $categorySources,
-			);
-		}
-
-		if ($assetSources)
-		{
-			$linkOptions[] = array(
-				'optionTitle' => Craft::t('Link to an asset'),
-				'elementType' => 'Asset',
-				'sources' => $assetSources,
 			);
 		}
 
@@ -416,13 +422,13 @@ class RichTextFieldType extends BaseFieldType
 	/**
 	 * Get available Asset sources.
 	 *
-	 * @param array|null $assetSourceIds The available asset source IDs (default is all of them)
-	 *
 	 * @return array
 	 */
-	private function _getAssetSources($assetSourceIds = null)
+	private function _getAssetSources()
 	{
 		$sources = array();
+
+		$assetSourceIds = $this->getSettings()->availableAssetSources;
 
 		if (!$assetSourceIds)
 		{
@@ -497,7 +503,7 @@ class RichTextFieldType extends BaseFieldType
 	 */
 	private function _includeFieldResources($configJs)
 	{
-		craft()->templates->includeCssResource('lib/redactor/redactor.css');
+		craft()->templates->includeCssResource('lib/redactor/redactor.min.css');
 
 		// Gotta use the uncompressed Redactor JS until the compressed one gets our Live Preview menu fix
 		craft()->templates->includeJsResource('lib/redactor/redactor.js');

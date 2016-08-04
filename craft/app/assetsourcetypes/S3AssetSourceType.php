@@ -415,7 +415,7 @@ class S3AssetSourceType extends BaseAssetSourceType
 			'bucket'     => array(AttributeType::String, 'required' => true),
 			'location'   => array(AttributeType::String, 'required' => true),
 			'publicURLs' => array(AttributeType::Bool,   'default' => true),
-			'urlPrefix'  => array(AttributeType::String, 'required' => true),
+			'urlPrefix'  => array(AttributeType::String),
 			'subfolder'  => array(AttributeType::String, 'default' => ''),
 			'expires'    => array(AttributeType::String, 'default' => ''),
 		);
@@ -431,9 +431,11 @@ class S3AssetSourceType extends BaseAssetSourceType
 	 */
 	protected function getNameReplacementInFolder(AssetFolderModel $folder, $fileName)
 	{
+		$baseFileName = IOHelper::getFileName($fileName, false);
 		$prefix = $this->_getPathPrefix().$folder->path;
+		
 		$this->_prepareForRequests();
-		$fileList = $this->_s3->getBucket($this->getSettings()->bucket, $prefix);
+		$fileList = $this->_s3->getBucket($this->getSettings()->bucket, $prefix.$baseFileName);
 
 		foreach ($fileList as &$file)
 		{

@@ -116,7 +116,8 @@ class EmailService extends BaseApplicationComponent
 			$emailModel->body     = Craft::t($key.'_body', null, null, 'en_us');
 		}
 
-		$tempTemplatesPath = '';
+		$templatesService = craft()->templates;
+		$oldTemplateMode = $templatesService->getTemplateMode();
 
 		if (craft()->getEdition() >= Craft::Client)
 		{
@@ -125,14 +126,15 @@ class EmailService extends BaseApplicationComponent
 
 			if (!empty($settings['template']))
 			{
-				$tempTemplatesPath = craft()->path->getSiteTemplatesPath();
+				$templatesService->setTemplateMode(TemplateMode::Site);
 				$template = $settings['template'];
 			}
 		}
 
 		if (empty($template))
 		{
-			$tempTemplatesPath = craft()->path->getCpTemplatesPath();
+			// Default to the _special/email.html template
+			$templatesService->setTemplateMode(TemplateMode::CP);
 			$template = '_special/email';
 		}
 
@@ -147,18 +149,14 @@ class EmailService extends BaseApplicationComponent
 			$emailModel->htmlBody.
 			"{% endset %}\n";
 
-		// Temporarily swap the templates path
-		$originalTemplatesPath = craft()->path->getTemplatesPath();
-		craft()->path->setTemplatesPath($tempTemplatesPath);
-
 		// Tell the template which email key was being requested
 		$variables['emailKey'] = $key;
 
 		// Send the email
 		$return = $this->_sendEmail($user, $emailModel, $variables);
 
-		// Return to the original templates path
-		craft()->path->setTemplatesPath($originalTemplatesPath);
+		// Return to the original template mode
+		$templatesService->setTemplateMode($oldTemplateMode);
 
 		return $return;
 	}
@@ -303,7 +301,7 @@ class EmailService extends BaseApplicationComponent
 
 				case EmailerType::Pop:
 				{
-					$pop = new \Pop3();
+					$pop = new \POP3();
 
 					if (!isset($emailSettings['host']) || !isset($emailSettings['port']) || !isset($emailSettings['username']) || !isset($emailSettings['password']) ||
 						StringHelper::isNullOrEmpty($emailSettings['host']) || StringHelper::isNullOrEmpty($emailSettings['port']) || StringHelper::isNullOrEmpty($emailSettings['username']) || StringHelper::isNullOrEmpty($emailSettings['password'])
@@ -336,9 +334,9 @@ class EmailService extends BaseApplicationComponent
 				}
 
 				default:
-					{
+				{
 					$email->isMail();
-					}
+				}
 			}
 
 			if (!$this->_processTestToEmail($email, 'Address'))
@@ -425,21 +423,21 @@ class EmailService extends BaseApplicationComponent
 				craft()->setLanguage($user->preferredLocale);
 			}
 
-			$email->Subject = craft()->templates->renderString($emailModel->subject, $variables);
+			$email->Subject = craft()->templates->renderString($emailModel->subject, $variables, true);
 
 			// If they populated an htmlBody, use it.
 			if ($emailModel->htmlBody)
 			{
-				$renderedHtmlBody = craft()->templates->renderString($emailModel->htmlBody, $variables);
+				$renderedHtmlBody = craft()->templates->renderString($emailModel->htmlBody, $variables, true);
 				$email->msgHTML($renderedHtmlBody);
-				$email->AltBody = craft()->templates->renderString($emailModel->body, $variables);
+				$email->AltBody = craft()->templates->renderString($emailModel->body, $variables, true);
 			}
 			else
 			{
 				// They didn't provide an htmlBody, so markdown the body.
-				$renderedHtmlBody = craft()->templates->renderString(StringHelper::parseMarkdown($emailModel->body), $variables);
+				$renderedHtmlBody = craft()->templates->renderString(StringHelper::parseMarkdown($emailModel->body), $variables, true);
 				$email->msgHTML($renderedHtmlBody);
-				$email->AltBody = craft()->templates->renderString($emailModel->body, $variables);
+				$email->AltBody = craft()->templates->renderString($emailModel->body, $variables, true);
 			}
 
 			craft()->setLanguage($oldLanguage);
