@@ -37,15 +37,17 @@
 		<section class="footer__sponsors">
 			<h4 class="footer__title">{{ siteName }} Sponsors</h4>
 
-			<ul class="footer__sponsor-list">
+            {% if footer.sponsors %}
+    			<ul class="footer__sponsor-list">
 
-				{% for block in footer.sponsors %}
-					<li>
-						<a href="{{ block.linkToSponsor }}" target="_blank">{{ block.sponsorName }}</a>
-					</li>
-				{% endfor %}
+    				{% for block in footer.sponsors %}
+    					<li>
+    						<a href="{{ block.linkToSponsor }}" target="_blank">{{ block.sponsorName }}</a>
+    					</li>
+    				{% endfor %}
 
-			</ul>
+    			</ul>
+            {% endif %}
 		</section>
 
 		<section class="footer__contact-info">
