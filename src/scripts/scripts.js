@@ -20,21 +20,15 @@ function start() {
   const abstractModalButton = document.getElementById('js--abstract-button');
   const abstractModalClose = document.getElementById('js--abstract-close');
 
-  abstractModalButton.addEventListener('click', () => {
-    abstractModal.classList.add('abstract-modal--open');
-    body.classList.add('body--no-scroll');
-  });
+  if (abstractModalButton && abstractModalClose) {
+    abstractModalButton.addEventListener('click', () => {
+      abstractModal.classList.add('abstract-modal--open');
+      body.classList.add('body--no-scroll');
+    });
 
-  abstractModalClose.addEventListener('click', () => {
-    abstractModal.classList.remove('abstract-modal--open');
-    body.classList.remove('body--no-scroll');
-  });
-
-  // Login Form
-  const loginModal = document.querySelector('.login-modal');
-  const loginButton = document.querySelector('.login-button');
-
-  loginButton.addEventListener('click', () => {
-    loginModal.style.display = 'block';
-  });
+    abstractModalClose.addEventListener('click', () => {
+      abstractModal.classList.remove('abstract-modal--open');
+      body.classList.remove('body--no-scroll');
+    });
+  }
 }
