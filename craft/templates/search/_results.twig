@@ -3,7 +3,7 @@
  # -----------------------
  #
  # This template gets loaded whenever /search/results is requested, because a
- # route has been set up from Settings > Routes to direct traffic to that URL
+ # route has been set up from Settings/Routes to direct traffic to that URL
  # to this template.
  #
  # The search form in the site's global header is set up to submit search
@@ -22,14 +22,14 @@
 
 	<header>
 		<h1>Search Results</h1>
-		<h3>You search for “{{ searchTerm }}”</h3>
+		<h3>You search for <strong>{{ searchTerm }}</strong></h3>
 	</header>
 
 	<section>
 
 			{# Were there any search results? #}
-			{% if searchResults|length %}
-				<h2>{{ searchResults|length }} results</h2>
+			{% if searchResults | length %}
+				<h2>{{ searchResults | length }} results</h2>
 
 				{# Loop through the results #}
 				{% for entry in searchResults %}
