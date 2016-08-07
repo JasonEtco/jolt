@@ -70,9 +70,10 @@
 			</a>
 
 			{% for entry in craft.entries.section('digest').limit(1) %}
-				<h3 class="home__section--secondary__title">
-					{{ entry.title }}
-				</h3>
+				<h2 class="home__section--secondary__title"> {{ entry.title }} </h2>
+				<span>{{ entry.authorName }}</span>
+
+				<p>{{ (entry.body | slice(0, 900) ~ '...') | markdown }}</p>
 			{% endfor %}
 		</div>
 	</section>

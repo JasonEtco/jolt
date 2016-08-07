@@ -68,7 +68,7 @@
       "stylelint-config-devshelf"
     ],
     "rules": {
-      "indentation": 4,
+      "indentation": "tab",
       "color-named": "always-where-possible",
       "no-browser-hacks": null
     }

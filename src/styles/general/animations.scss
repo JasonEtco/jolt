@@ -1,59 +1,62 @@
 .content-wrapper {
-    .scene-element {
-        animation-duration: 0.25s;
-        transition-timing-function: ease-in-out;
-        animation-fill-mode: both;
-            
-        &--fade-in {
-            animation-name: fade-in;
-        }
+	.scene-element {
+		transition-timing-function: $standard;
+		animation-duration: 200ms;
+		animation-fill-mode: both;
 
-        &--fade-in-up {
-            animation-name: fade-in-up;
-        }
+		&--fade-in {
+			animation-name: fade-in;
+		}
 
-        &--fade-in-down {
-            animation-name: fade-in-down;
-        }
-    }
+		&--fade-in-up {
+			animation-name: fade-in-up;
+		}
 
-    // Reverse "exit" animations
-    &.is-exiting {
-        .scene-element {
-            animation-direction: alternate-reverse;
-            animation-delay: 0s !important;
-        }
-    }
+		&--fade-in-down {
+			animation-name: fade-in-down;
+		}
+	}
+
+	// Reverse "exit" animations
+	&.is-exiting {
+		.scene-element {
+			animation-direction: alternate-reverse;
+			animation-delay: 0ms !important;
+		}
+	}
 }
 
 @keyframes fade-in {
-    0% {
-        opacity: 0;
-    }
-    100% {
-        opacity: 1;
-    }
+	0% {
+		opacity: 0;
+	}
+
+	100% {
+		opacity: 1;
+	}
 }
 
 
 @keyframes fade-in-up {
-    0% {
-        transform: translateY(30px);
-        opacity: 0;
-    }
-    100% {
-        transform: translateY(0);
-        opacity: 1;
-    }
+	0% {
+		transform: translateY(30px);
+		opacity: 0;
+	}
+
+	100% {
+		transform: translateY(0);
+		opacity: 1;
+	}
 }
 
 @keyframes fade-in-down {
-    0% {
-        transform: translateY(-30px);
-        opacity: 0;
-    }
-    100% {
-        transform: translateY(0);
-        opacity: 1;
-    }
+	0% {
+		transform: translateY(-30px);
+		opacity: 0;
+	}
+
+	100% {
+		transform: translateY(0);
+		opacity: 1;
+	}
 }

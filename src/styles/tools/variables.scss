@@ -2,6 +2,7 @@
 // ----------------------
 // 1. Colors
 // 2. Values
+// 3. Animations
 
 
 // Colors
@@ -28,3 +29,11 @@ $title-stack:  $title-family, Helvetica, Arial, sans-serif;
 
 $body-family: 'Roboto';
 $body-stack:  $body-family, Helvetica, Arial, sans-serif;
+
+// Animations
+// ---------------
+$standard: cubic-bezier(0.4, 0, 0.2, 1);
+$enter: cubic-bezier(0, 0, 0.2, 1);
+$exit: cubic-bezier(0.4, 0, 1, 1);
+$bounce: cubic-bezier(0.175, 0.885, 0.320, 1.275);
+$bounce-less: cubic-bezier(0.12, 0.85, 0.3, 1.1);
