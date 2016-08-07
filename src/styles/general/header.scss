@@ -35,7 +35,8 @@
 	}
 
 	&__button {
-		display: block;
+		display: inline-block;
+		text-decoration: none;
 		border: 0;
 		padding: 0.6em 1em;
 		border-radius: 5px;
@@ -44,8 +45,8 @@
 		text-transform: uppercase;
 		color: white;
 		font-size: 0.8rem;
+		float: right;
 		transition: background-color 150ms;
-		margin-left: auto;
 
 		&:hover {
 			background-color: darken($red, 10%);
@@ -73,6 +74,11 @@
 			border-bottom-right-radius: 5px;
 			color: white;
 			text-transform: uppercase;
+			transition: background-color 150ms;
+
+			&:hover {
+				background-color: darken($red, 10%);
+			}
 		}
 	}
 }
