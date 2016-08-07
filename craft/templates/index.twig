@@ -23,7 +23,7 @@
 
 	<section class="home__section--featured">
 		<div class="featured__inner">
-			
+
 			<div class="featured__issue">
 				<span>Current Issue</span>
 				{% for entry in craft.entries.section('volumes').limit(1).find() %}
@@ -54,8 +54,8 @@
 					{% if assets | length %}
 
 						{% for asset in assets %}
-						    | <a href="{{ asset.url }}">Read the Article</a>
-					    {% endfor %}
+								| <a href="{{ asset.url }}">Read the Article</a>
+					 		% endfor %}
 
 					{% endif %}
 				</div>
@@ -65,7 +65,7 @@
 	</section>
 
 	<section class="home__section--digest">
-	
+
 		{{ digest.getUrl() }}
 
 		<a href="{{ url('jolt-digest') }}" class="home__digest__link">
@@ -84,5 +84,3 @@
 	</div>
 
 {% endblock %}
-
-
