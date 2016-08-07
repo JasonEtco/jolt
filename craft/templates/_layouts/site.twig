@@ -22,7 +22,7 @@
 {# ------------------------------------------------------------------ #}
 
 {% block body %}
-    
+
 		{% include '_includes/global-nav' %}
 
 		<main class="content-wrapper" id="main" role="main">
@@ -65,17 +65,17 @@
 			{% endif %}
 
 		{% endblock %}
-			
+
 {% endblock %}
 
 {# ------------------------------------------------------------------ #}
 
 {% block footer %}
-   
-	<footer id="footer">
+
+	<footer class="footer">
 		<section class="footer__sponsors">
 			<h4 class="footer__title">{{ siteName }} Sponsors</h4>
-			
+
 			<ul class="footer__sponsor-list">
 
 				{% for block in footer.sponsors %}
@@ -83,7 +83,7 @@
 						<a href="{{ block.linkToSponsor }}" target="_blank">{{ block.sponsorName }}</a>
 					</li>
 				{% endfor %}
-				
+
 			</ul>
 		</section>
 
