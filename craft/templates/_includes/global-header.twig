@@ -18,11 +18,11 @@
 			{% if currentUser %}
 
 				<p>Hello {{ currentUser.friendlyName }}!</p>
-				<a href="{{ logoutPath }}" class="header__button">Logout</a>
+				<a href="/logout" class="header__button">Logout</a>
 
 			{% else %}
 
-				<button class="header__button">Login</button>
+				<a href="/admin/login" class="header__button">Login</a>
 
 			{% endif %}
 		</div>
