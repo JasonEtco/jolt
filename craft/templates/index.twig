@@ -22,13 +22,13 @@
 
 {% block content %}
 
-	<section class="home__section--featured">
+	<section class="home__section--featured scene-element scene-element--fade-in-down">
 		<div class="featured__inner">
 
-			<div class="featured__issue">
+			<div class="featured__issue scene-element scene-element--fade-in-right">
 				<span>Current Issue</span>
 				{% for entry in craft.entries.section('volumes').limit(1).find() %}
-					<h1 class="featured__title scene-element scene-element--fade-in-down"><a href="{{ entry.url }}">
+					<h1 class="featured__title"><a href="{{ entry.url }}">
 						{% if entry.publishedSpring %}
 							Spring {{ entry.publishedSpring.format('Y') }}
 						{% else %}
@@ -45,7 +45,7 @@
 
 	<section class="home__section--secondary">
 		<div class="home__section--secondary__column">
-			<h3>Featured Article</h3>
+			<h3 class="accent-title">Featured Article</h3>
 			<h2 class="home__section--secondary__title">{{ entry.featuredTitle }}</h2>
 			<span>{{ entry.authorName }}</span>
 

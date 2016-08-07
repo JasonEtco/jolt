@@ -15,6 +15,10 @@
 		&--fade-in-down {
 			animation-name: fade-in-down;
 		}
+
+		&--fade-in-right {
+			animation-name: fade-in-right;
+		}
 	}
 
 	// Reverse "exit" animations
@@ -57,6 +61,18 @@
 
 	100% {
 		transform: translateY(0);
+		opacity: 1;
+	}
+}
+
+@keyframes fade-in-right {
+	0% {
+		transform: translateX(-30px);
+		opacity: 0;
+	}
+
+	100% {
+		transform: translateX(0);
 		opacity: 1;
 	}
 }
