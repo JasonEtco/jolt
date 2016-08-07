@@ -45,11 +45,13 @@
 
 	<section class="home__section--secondary">
 		<div class="home__section--secondary__column">
-			<h3 class="accent-title">Featured Article</h3>
-			<h2 class="home__section--secondary__title">{{ entry.featuredTitle }}</h2>
-			<span>{{ entry.authorName }}</span>
+			<header class="home__section--secondary__meta">
+				<h3 class="accent-title">Featured Article</h3>
+				<h2 class="home__section--secondary__title">{{ entry.featuredTitle }}</h2>
+				<span>{{ entry.authorName }}</span>
+			</header>
 
-			<p>{{ (entry.featuredContent | slice(0, 400) ~ '...') | markdown }}</p>
+			<p class="home__section--secondary__text">{{ entry.featuredContent|striptags|replace({'&nbsp;':' '})|slice(0, 400) ~ '...' }}</p>
 
 			<div class="links">
 				<button id="js--abstract-button">Read the Abstract</button>
@@ -64,16 +66,17 @@
 		</div>
 
 		<div class="home__section--secondary__column">
-
-			<a href="{{ url('jolt-digest') }}" class="home__digest__link">
+			<a href="{{ url('jolt-digest') }}" class="home__section--secondary__digest-link">
 				{% include '_includes/digest-logo.svg' %}
 			</a>
 
 			{% for entry in craft.entries.section('digest').limit(1) %}
+			<header class="home__section--secondary__meta">
 				<h2 class="home__section--secondary__title"> {{ entry.title }} </h2>
-				<span>{{ entry.authorName }}</span>
+				<span>{{ entry.byline }}</span>
+			</header>
 
-				<p>{{ (entry.body | slice(0, 900) ~ '...') | markdown }}</p>
+			<p class="home__section--secondary__text">{{ entry.body|striptags|replace({'&nbsp;':' '})|slice(0, 400) ~ '...' }}</p>
 			{% endfor %}
 		</div>
 	</section>
