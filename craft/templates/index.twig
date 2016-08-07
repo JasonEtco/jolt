@@ -18,6 +18,7 @@
  #}
 
 {% extends "_layouts/site" %}
+{% set headerClass = "header--transparent" %}
 
 {% block content %}
 
@@ -39,41 +40,43 @@
 				{% endfor %}
 			</div>
 
-			<div class="featured__article">
-				<h3>Featured Article</h3>
-				<h2>{{ entry.featuredTitle }}</h2>
-				<span>{{ entry.authorName }}</span>
-
-				<p>{{ (entry.featuredContent | slice(0, 400) ~ '...') | markdown }}</p>
-
-				<div class="links">
-					<button id="js--abstract-button">Read the Abstract</button>
-
-					{% set assets = entry.asset %}
-
-					{% if assets | length %}
-
-						{% for asset in assets %}
-							<a href="{{ asset.url }}">Read the Article</a>
-				 		{% endfor %}
-
-					{% endif %}
-				</div>
-
-			</div>
 		</div>
 	</section>
 
-	<section class="home__section--digest">
+	<section class="home__section--secondary">
+		<div class="home__section--secondary__column">
+			<h3>Featured Article</h3>
+			<h2 class="home__section--secondary__title">{{ entry.featuredTitle }}</h2>
+			<span>{{ entry.authorName }}</span>
 
-		{{ digest.getUrl() }}
+			<p>{{ (entry.featuredContent | slice(0, 400) ~ '...') | markdown }}</p>
 
-		<a href="{{ url('jolt-digest') }}" class="home__digest__link">
-			{% include '_includes/digest-logo.svg' %}
-		</a>
+			<div class="links">
+				<button id="js--abstract-button">Read the Abstract</button>
 
-		<p class="home__digest__desc">{{ entry.joltDigestDescription }}</p>
+				{% set assets = entry.asset %}
+				{% if assets | length %}
+					{% for asset in assets %}
+						<a href="{{ asset.url }}" target="_blank">Read the Article</a>
+					{% endfor %}
+				{% endif %}
+			</div>
+		</div>
+
+		<div class="home__section--secondary__column">
+
+			<a href="{{ url('jolt-digest') }}" class="home__digest__link">
+				{% include '_includes/digest-logo.svg' %}
+			</a>
+
+			{% for entry in craft.entries.section('digest').limit(1) %}
+				<h3 class="home__section--secondary__title">
+					{{ entry.title }}
+				</h3>
+			{% endfor %}
+		</div>
 	</section>
+
 
 	<div class="abstract-modal">
 		<div class="abstract-modal__inner">

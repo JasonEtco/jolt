@@ -3,6 +3,14 @@
 	background-color: $blue;
 	padding: 32px 0;
 
+	&--transparent {
+		position: absolute;
+		z-index: 998;
+		top: 0;
+		left: 0;
+		background-color: transparent;
+	}
+
 	&__inner {
 		display: flex;
 		align-items: center;
@@ -24,5 +32,47 @@
 		&--teal		{ fill: $teal; }
 		&--blue		{ fill: $teal; }
 		&--yellow	{ fill: $yellow; }
+	}
+
+	&__button {
+		display: block;
+		border: 0;
+		padding: 0.6em 1em;
+		border-radius: 5px;
+		background-color: $red;
+		font-family: $body-stack;
+		text-transform: uppercase;
+		color: white;
+		font-size: 0.8rem;
+		transition: background-color 150ms;
+		margin-left: auto;
+
+		&:hover {
+			background-color: darken($red, 10%);
+		}
+	}
+
+	&__search {
+		display: flex;
+		font-size: 0.8rem;
+		margin-bottom: 0.5em;
+
+		&__input {
+			padding: 0.6em 1em;
+			border: 0;
+			border-top-left-radius: 5px;
+			border-bottom-left-radius: 5px;
+		}
+
+		&__button {
+			padding: 0.6em 1em;
+			margin: 0;
+			background-color: $red;
+			border: 0;
+			border-top-right-radius: 5px;
+			border-bottom-right-radius: 5px;
+			color: white;
+			text-transform: uppercase;
+		}
 	}
 }

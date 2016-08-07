@@ -1,4 +1,4 @@
-<header class="header">
+<header class="header {% if headerClass is defined %}{{ headerClass }}{% endif %}">
 	<div class="header__inner">
 
 		<div class="header__links">
@@ -9,21 +9,22 @@
 			<a href="{{ siteUrl }}" class="header__logo-link">{% include '_includes/jolt-logo.svg' %}</a>
 		</div>
 
-		<div id="search">
+		<div class="header__extra">
+			<form action="{{ url('search/results') }}" class="header__search">
+				<input class="header__search__input" type="search" name="q" placeholder="Search">
+				<button type="submit" name="search" class="header__search__button">Search</button>
+			</form>
+
 			{% if currentUser %}
 
 				<p>Hello {{ currentUser.friendlyName }}!</p>
-				<a href="{{ logoutPath }}" class="logout">Logout</a>
+				<a href="{{ logoutPath }}" class="header__button">Logout</a>
 
 			{% else %}
-				    
-				<button class="login-button">Login</button>
+
+				<button class="header__button">Login</button>
 
 			{% endif %}
-
-			<form action="{{ url('search/results') }}" class="search-form">
-				<input type="search" name="q" placeholder="Search">
-			</form>
 		</div>
 
 	</div>
