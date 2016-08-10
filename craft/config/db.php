@@ -10,16 +10,16 @@
 return array(
 
 	// The database server name or IP address. Usually this is 'localhost' or '127.0.0.1'.
-	'server' => 'localhost',
+	'server' => '159.203.189.136',
 
 	// The name of the database to select.
 	'database' => 'jolt-db',
 
 	// The database username to connect with.
-	'user' => 'root',
+	'user' => 'jolter',
 
 	// The database password to connect with.
-	'password' => '',
+	'password' => 'jolt2016',
 
 	// The prefix to use when naming tables. This can be no more than 5 characters.
 	'tablePrefix' => 'craft',
