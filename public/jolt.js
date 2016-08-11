@@ -1,5 +1,5 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
-'use strict';var wrap = document.getElementById('wrap');
+'use strict';var $wrap = $('#content-wrapper');
 var links = document.querySelectorAll('a');
 
 for (var i = 0; i < links.length; i++) {
@@ -14,6 +14,20 @@ for (var i = 0; i < links.length; i++) {
     History.pushState(null, pageTitle, el.href);
   });
 }
+
+History.Adapter.bind(window, 'statechange', function () {
+  var state = History.getState();
+
+  $.get(state.url, function (res) {
+    $.each($(res), function (index, elem) {
+      if ($wrap.selector !== "#" + elem.id) {
+        return;
+      }
+      $wrap.html($(elem).html());
+    });
+
+  });
+});
 
 function start() {
   // GLOBAL VARIABLES

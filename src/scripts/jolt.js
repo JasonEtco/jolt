@@ -1,4 +1,4 @@
-const wrap = document.getElementById('wrap');
+const $wrap = $('#content-wrapper');
 const links = document.querySelectorAll('a');
 
 for (var i = 0; i < links.length; i++) {
@@ -13,6 +13,20 @@ for (var i = 0; i < links.length; i++) {
     History.pushState(null, pageTitle, el.href);
   });
 }
+
+History.Adapter.bind(window, 'statechange', () => {
+  const state = History.getState();
+
+  $.get(state.url, (res) => {
+      $.each($(res), (index, elem) => {
+        if ($wrap.selector !== "#" + elem.id ) {
+          return;
+        }
+        $wrap.html($(elem).html());
+      });
+
+  });
+});
 
 function start() {
   // GLOBAL VARIABLES
