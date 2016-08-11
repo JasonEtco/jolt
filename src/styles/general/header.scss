@@ -1,7 +1,15 @@
 .header {
 	width: 100%;
-	background-color: $blue;
 	padding: 32px 0;
+	background-color: $blue;
+
+	&--transparent {
+		position: absolute;
+		z-index: 998;
+		top: 0;
+		left: 0;
+		background-color: transparent;
+	}
 
 	&__inner {
 		display: flex;
@@ -20,9 +28,61 @@
 		display: block;
 		height: 50px;
 
-		&--grey		{ fill: white; }
-		&--teal		{ fill: $teal; }
-		&--blue		{ fill: $teal; }
-		&--yellow	{ fill: $yellow; }
+		&--grey { fill: white; }
+
+		&--teal { fill: $teal; }
+
+		&--blue { fill: $teal; }
+
+		&--yellow { fill: $yellow; }
+	}
+
+	&__button {
+		display: inline-block;
+		padding: 0.6em 1em;
+		border: 0;
+		border-radius: 5px;
+		background-color: $red;
+		color: white;
+		font-size: 0.8rem;
+		font-family: $body-stack;
+		text-transform: uppercase;
+		text-decoration: none;
+		float: right;
+		transition: background-color 150ms;
+
+		&:hover {
+			background-color: darken($red, 10%);
+		}
+	}
+
+	&__search {
+		display: flex;
+		margin-bottom: 0.5em;
+		font-size: 0.8rem;
+
+		&__input {
+			padding: 0.6em 1em;
+			width: 20em;
+			border: 0;
+			border-top-left-radius: 5px;
+			border-bottom-left-radius: 5px;
+		}
+
+		&__button {
+			padding: 0.6em 1em;
+			border: 0;
+			border-top-right-radius: 5px;
+			border-bottom-right-radius: 5px;
+			margin: 0;
+			background-color: $red;
+			color: white;
+			text-transform: uppercase;
+			transition: background-color 150ms;
+
+			&:hover {
+				background-color: darken($red, 10%);
+			}
+		}
 	}
 }

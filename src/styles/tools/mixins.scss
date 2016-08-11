@@ -1,5 +1,27 @@
 @mixin defWidth {
 	width: 100%;
 	max-width: $max-width;
-	margin: 0 auto;
+	margin-right: auto;
+	margin-left: auto;
+}
+
+@mixin link($color) {
+	position: relative;
+	color: $color;
+	text-decoration: none;
+
+	&::after {
+		content: '';
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		width: 100%;
+		height: 1px;
+		background-color: rgba($color, 0.6);
+		transition: background-color 150ms $standard;
+	}
+
+	&:hover::after {
+		background-color: $color;
+	}
 }

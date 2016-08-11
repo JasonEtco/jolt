@@ -1,0 +1,165 @@
+.home__section--featured {
+	position: relative;
+	padding-top: 4rem;
+	padding-bottom: 200px;
+	background-image: url('../images/Circuit.png');
+	background-size: 400px;
+	background-repeat: repeat;
+	background-color: $blue;
+
+	&::after {
+		content: '';
+		position: absolute;
+		z-index: 1;
+		bottom: 0;
+		left: 0;
+		width: 100%;
+		height: 140px;
+		margin-top: -140px;
+		background: url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201%201%22%20preserveAspectRatio%3D%22none%22%3E%3Cpolygon%20fill%3D%22%23fff%22%20points%3D%220%2C1%201%2C1%201%2C0%22%2F%3E%3C%2Fsvg%3E');
+	}
+}
+
+.featured {
+	&__inner {
+		position: relative;
+		z-index: 2;
+		top: 90px;
+		margin-bottom: 100px;
+
+		@include defWidth;
+	}
+
+	&__issue {
+		color: white;
+		font-size: 0.8em;
+		max-width: 600px;
+		animation-delay: 150ms;
+
+		p { max-width: 300px; }
+
+		a {
+
+			@include link($yellow);
+		}
+	}
+
+	&__title {
+		margin: 0 0 0.4em;
+		font-size: 5rem;
+		font-weight: 700;
+		font-family: $title-stack;
+
+		> a {
+			position: relative;
+			color: inherit;
+			text-decoration: none;
+
+			&::after {
+				content: '';
+				position: absolute;
+				z-index: -1;
+				bottom: -0.1em;
+				left: 0;
+				width: 100%;
+				height: 0.1em;
+				background-color: $yellow;
+				transform-origin: left center;
+				transform: scaleX(0.2);
+				transition: transform 200ms $standard;
+			}
+
+			&:hover::after {
+				transform: scaleX(1);
+			}
+		}
+
+	}
+}
+
+.home__section--secondary {
+	display: flex;
+	width: 1024px;
+	max-width: 100%;
+	margin: 0 auto;
+	font-size: 0.9rem;
+
+	&__column {
+		width: 45%;
+		margin: 0 5%;
+
+		&:first-of-type { margin-left: 0; }
+
+		&:last-of-type { margin-right: 0; }
+	}
+
+	&__meta {
+		position: relative;
+		padding-bottom: 2em;
+		margin-bottom: 2em;
+
+		&::after {
+			content: '';
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			width: 20%;
+			height: 2px;
+			background-color: $light-blue;
+		}
+	}
+
+	&__title {
+		font-size: 1.4rem;
+		font-weight: 500;
+	}
+
+	&__author {
+		font-size: 0.8rem;
+	}
+
+	&__digest-link {
+		svg {
+			width: 100%;
+			max-width: 240px;
+		}
+	}
+
+	&__text {
+		> a {
+
+			@include link($light-blue);
+		}
+	}
+}
+
+.abstract-modal {
+	position: fixed;
+	z-index: 98;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.5);
+
+	opacity: 0;
+	visibility: hidden;
+
+	transition: all 0.25s ease-in-out;
+	transition-delay: 0ms;
+
+	&__inner {
+		position: relative;
+		top: 50%;
+		padding: 1em;
+		margin: 0 auto;
+		max-width: 400px;
+		background-color: $lightgrey;
+		transform: translateY(-50%);
+	}
+
+	&.abstract-modal--open {
+		opacity: 1;
+		visibility: visible;
+	}
+}

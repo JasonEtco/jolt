@@ -2,6 +2,7 @@
 // ----------------------
 // 1. Colors
 // 2. Values
+// 3. Animations
 
 
 // Colors
@@ -9,8 +10,10 @@
 $grey:		#969696;
 $lightgrey:	#f7f7f7;
 $teal:		#0f7693;
-$blue:		#2a4a92;
+$blue:		#191970;
+$light-blue: #43b0f2;
 $yellow:	#ffcc00;
+$red:	    #751c18;
 
 
 // Values
@@ -22,8 +25,16 @@ $nav-width: 300px;
 
 // Fonts
 // ---------------
-$title-family: 'Roboto Mono';
+$title-family: 'Source Sans Pro';
 $title-stack:  $title-family, Helvetica, Arial, sans-serif;
 
 $body-family: 'Roboto';
 $body-stack:  $body-family, Helvetica, Arial, sans-serif;
+
+// Animations
+// ---------------
+$standard: cubic-bezier(0.4, 0, 0.2, 1);
+$enter: cubic-bezier(0, 0, 0.2, 1);
+$exit: cubic-bezier(0.4, 0, 1, 1);
+$bounce: cubic-bezier(0.175, 0.885, 0.320, 1.275);
+$bounce-less: cubic-bezier(0.12, 0.85, 0.3, 1.1);
