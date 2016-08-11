@@ -15,76 +15,39 @@
 
 {% extends "_layouts/base" %}
 
-{% block header %}
-    {% include '_includes/global-header' %}
-{% endblock %}
-
 {# ------------------------------------------------------------------ #}
 
 {% block body %}
-    
-		{% include '_includes/global-nav' %}
 
-		<main class="content-wrapper" id="main" role="main">
+		<main class="content-wrapper" id="content-wrapper" role="main">
 
+            {% include '_includes/global-header' %}
+            {% include '_includes/global-nav' %}
 			{% block content %}{% endblock %}
 
 		</main>
 
-		{% block login %}
-
-			{% if not currentUser %}
-
-				<div class="login-modal" style="display: none;">
-
-					<form method="post" accept-charset="UTF-8">
-					    {{ getCsrfInput() }}
-					    <input type="hidden" name="action" value="users/login">
-
-					    <h3><label for="loginName">Username or email</label></h3>
-					    <input id="loginName" type="text" name="loginName"
-					        value="{{ craft.session.rememberedUsername }}">
-
-					    <h3><label for="password">Password</label></h3>
-					    <input id="password" type="password" name="password">
-
-					    <label>
-					        <input type="checkbox" name="rememberMe" value="1">
-					        Remember me
-					    </label>
-
-					    <input type="submit" value="Login">
-
-					    {% if errorMessage is defined %}
-					        <p>{{ errorMessage }}</p>
-					    {% endif %}
-					</form>
-
-				</div>
-
-			{% endif %}
-
-		{% endblock %}
-			
 {% endblock %}
 
 {# ------------------------------------------------------------------ #}
 
 {% block footer %}
-   
-	<footer id="footer">
+
+	<footer class="footer">
 		<section class="footer__sponsors">
 			<h4 class="footer__title">{{ siteName }} Sponsors</h4>
-			
-			<ul class="footer__sponsor-list">
 
-				{% for block in footer.sponsors %}
-					<li>
-						<a href="{{ block.linkToSponsor }}" target="_blank">{{ block.sponsorName }}</a>
-					</li>
-				{% endfor %}
-				
-			</ul>
+            {% if footer.sponsors %}
+    			<ul class="footer__sponsor-list">
+
+    				{% for block in footer.sponsors %}
+    					<li>
+    						<a href="{{ block.linkToSponsor }}" target="_blank">{{ block.sponsorName }}</a>
+    					</li>
+    				{% endfor %}
+
+    			</ul>
+            {% endif %}
 		</section>
 
 		<section class="footer__contact-info">

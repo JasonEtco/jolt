@@ -6,7 +6,8 @@ body {
 	}
 }
 
-h1, h2, h3 {
+.accent-title {
+	color: $grey;
 	font-family: $title-stack;
-	font-weight: 500;
+	font-size: 1.2rem;
 }

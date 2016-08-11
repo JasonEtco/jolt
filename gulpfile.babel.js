@@ -128,7 +128,7 @@ function serve(done) {
   gulp.watch('src/scripts/**/*.js')
     .on('change', gulp.series(scripts, reload));
 
-  gulp.watch('src/images/**/*')
+  gulp.watch('src/images/**/*.{png, jpg, jpeg}')
     .on('change', gulp.series(images, reload));
 
   done();

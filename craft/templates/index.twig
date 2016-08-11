@@ -18,16 +18,17 @@
  #}
 
 {% extends "_layouts/site" %}
+{% set headerClass = "header--transparent" %}
 
 {% block content %}
 
-	<section class="home__section--featured">
+	<section class="home__section--featured scene-element scene-element--fade-in-down">
 		<div class="featured__inner">
-			
-			<div class="featured__issue">
+
+			<div class="featured__issue scene-element scene-element--fade-in-right">
 				<span>Current Issue</span>
 				{% for entry in craft.entries.section('volumes').limit(1).find() %}
-					<h1 class="featured__title scene-element scene-element--fade-in-down"><a href="{{ entry.url }}">
+					<h1 class="featured__title"><a href="{{ entry.url }}">
 						{% if entry.publishedSpring %}
 							Spring {{ entry.publishedSpring.format('Y') }}
 						{% else %}
@@ -39,41 +40,47 @@
 				{% endfor %}
 			</div>
 
-			<div class="featured__article">
-				<h3>Featured Article</h3>
-				<h2>{{ entry.featuredTitle }}</h2>
-				<span>{{ entry.authorName }}</span>
-
-				<p>{{ (entry.featuredContent | slice(0, 400) ~ '...') | markdown }}</p>
-
-				<div class="links">
-					<button id="js--abstract-button">Read the Abstract</button>
-
-					{% set assets = entry.asset %}
-
-					{% if assets | length %}
-
-						{% for asset in assets %}
-						    | <a href="{{ asset.url }}">Read the Article</a>
-					    {% endfor %}
-
-					{% endif %}
-				</div>
-
-			</div>
 		</div>
 	</section>
 
-	<section class="home__section--digest">
-	
-		{{ digest.getUrl() }}
+	<section class="home__section--secondary">
+		<div class="home__section--secondary__column">
+			<header class="home__section--secondary__meta">
+				<h3 class="accent-title">Featured Article</h3>
+				<h2 class="home__section--secondary__title">{{ entry.featuredTitle }}</h2>
+				<span>{{ entry.authorName }}</span>
+			</header>
 
-		<a href="{{ url('jolt-digest') }}" class="home__digest__link">
-			{% include '_includes/digest-logo.svg' %}
-		</a>
+			<p class="home__section--secondary__text">{{ entry.featuredContent|striptags|replace({'&nbsp;':' '})|slice(0, 400) ~ '...' }}</p>
 
-		<p class="home__digest__desc">{{ entry.joltDigestDescription }}</p>
+			<div class="links">
+				<button id="js--abstract-button">Read the Abstract</button>
+
+				{% set assets = entry.asset %}
+				{% if assets | length %}
+					{% for asset in assets %}
+						<a href="{{ asset.url }}" target="_blank">Read the Article</a>
+					{% endfor %}
+				{% endif %}
+			</div>
+		</div>
+
+		<div class="home__section--secondary__column">
+			<a href="{{ url('jolt-digest') }}" class="home__section--secondary__digest-link">
+				{% include '_includes/digest-logo.svg' %}
+			</a>
+
+			{% for entry in craft.entries.section('digest').limit(1) %}
+			<header class="home__section--secondary__meta">
+				<h2 class="home__section--secondary__title"> {{ entry.title }} </h2>
+				<span>{{ entry.byline }}</span>
+			</header>
+
+			<p class="home__section--secondary__text">{{ entry.body|striptags|replace({'&nbsp;':' '})|slice(0, 400) ~ '...' }}</p>
+			{% endfor %}
+		</div>
 	</section>
+
 
 	<div class="abstract-modal">
 		<div class="abstract-modal__inner">
@@ -84,5 +91,3 @@
 	</div>
 
 {% endblock %}
-
-

@@ -50,7 +50,7 @@
     "pageres": "^4.1.1",
     "psi": "^2.0.2",
     "run-sequence": "^1.0.1",
-    "stylelint": "^6.6.0",
+    "stylelint": "^7.1.0",
     "stylelint-config-devshelf": "^1.0.1",
     "stylelint-scss": "^1.1.1",
     "sw-precache": "^2.2.0",
@@ -68,7 +68,7 @@
       "stylelint-config-devshelf"
     ],
     "rules": {
-      "indentation": 4,
+      "indentation": "tab",
       "color-named": "always-where-possible",
       "no-browser-hacks": null
     }
