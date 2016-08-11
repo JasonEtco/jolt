@@ -72,10 +72,7 @@ function lint(done) {
 // `.babelrc` file.
 function scripts(done) {
   gulp.src([
-    './src/scripts/*.js',
-    './src/scripts/scripts.js',
-    './src/scripts/smoothstate_init.js',
-    // Other scripts
+    './src/scripts/**/*.js',
   ])
     .pipe($.sourcemaps.init())
     .pipe($.babel())
