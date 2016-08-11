@@ -2,7 +2,6 @@
 	<button id="js--nav-close">CLOSE</button>
 
 	<ul>
-
 		{# Shows all single sections #}
 		{# {% set sections = craft.sections.getAllSections() %}
 
@@ -17,32 +16,20 @@
 		{% endfor %}#}
 
 		{% for block in globalNav.navigationItem %}
-
-	        <li class="nav__list-item">
-
-	         	{% if block.type == "linkToEntry" %}
-
-	         	    <a href="{{ block.entry.first().getUrl() }}" class="nav__link">{{ block.entryLabel }}</a>
-
-	         	{% elseif block.type == "linkToCustomUrl" %}
-
-	         	    <a href="{{ block.customUrl }}" target="_blank" class="nav__link">{{ block.customLabel }}</a>
-
-	         	{% endif %}
-
-	    	</li>
-
+			<li class="nav__list-item">
+				{% if block.type == 'linkToEntry' %}
+					<a href="{{ block.entry.first().getUrl() }}" class="nav__link">{{ block.entryLabel }}</a>
+				{% elseif block.type == 'linkToCustomUrl' %}
+					<a href="{{ block.customUrl }}" target="_blank" class="nav__link">{{ block.customLabel }}</a>
+				{% endif %}
+			</li>
 		{% endfor %}
 
 		{% if currentUser %}
-			
 			{% set wiki = craft.entries.section('internalWikiIndex').first() %}
-
 			<li class="nav__list-item nav__list-item--wiki">
 				<a href="{{ wiki.url }}" target="_blank" class="nav__link">{{ wiki.title }}</a>
 			</li>
-
 		{% endif %}
-
 	</ul>
 </nav>
