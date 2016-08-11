@@ -15,9 +15,7 @@
 </head>
 
 <body class="{% if bodyClass is defined %}{{ bodyClass }}{% endif %}">
-	{% block header %}{% endblock %}
 	{% block body %}{% endblock %}
-	{% block footer %}{% endblock %}
 
 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
 	<script type="text/javascript" src="{{ siteUrl }}scripts/main.min.js"></script>
