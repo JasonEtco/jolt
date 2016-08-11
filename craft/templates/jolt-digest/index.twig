@@ -16,7 +16,9 @@
 {% block content %}
 	<h1>Articles</h1>
 
-	{% for entry in craft.entries.section('digest').find() %}
+	{% paginate craft.entries.section('digest').limit(10) as pageInfo, pageEntries %}
+
+	{% for entry in pageEntries %}
 		<article>
 			<h3><a href="{{ entry.url }}">{{ entry.title }}</a></h3>
 			<p>Posted on {{ entry.postDate.format('F d, Y') }}</p>
@@ -24,4 +26,7 @@
 			<p><a href="{{ entry.url }}">Continue reading</a></p>
 		</article>
 	{% endfor %}
+
+	{% if pageInfo.prevUrl %}<a href="{{ pageInfo.prevUrl }}">Previous Page</a>{% endif %}
+	{% if pageInfo.nextUrl %}<a href="{{ pageInfo.nextUrl }}">Next Page</a>{% endif %}
 {% endblock %}
