@@ -8,7 +8,7 @@
 		<meta charset="utf-8">
 		<title>{% if title is defined %}{{ title }} - {% endif %}{{ siteName }}</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<link rel="stylesheet" type="text/css" href="{{ siteUrl }}styles/styles.css">
+		<link rel="stylesheet" type="text/css" href="{{ siteUrl }}/styles.css">
 
 		<link href="https://fonts.googleapis.com/css?family=Roboto:400|Source+Sans+Pro:400,700" rel="stylesheet" type="text/css">
 	{% endblock %}
@@ -19,8 +19,10 @@
 	{% block body %}{% endblock %}
 	{% block footer %}{% endblock %}
 
-	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
-	<script type="text/javascript" src="{{ siteUrl }}scripts/main.min.js"></script>
+	<!-- <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script> -->
+
+	<script type="text/javascript" src="{{ siteUrl }}/lib/native.history.js"></script>
+	<script type="text/javascript" src="{{ siteUrl }}/jolt.js"></script>
 </body>
 
 </html>

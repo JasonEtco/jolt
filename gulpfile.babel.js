@@ -1,212 +1,137 @@
-/**
- *  Flow base
- */
+import autoprefixer from 'autoprefixer';
+import babelify     from 'babelify';
+import browser      from 'browser-sync';
+import browserify   from 'browserify';
+import cssnano      from 'cssnano';
+import del          from 'del';
+import exorcist     from 'exorcist';
+import gulp         from 'gulp';
+import plugins      from 'gulp-load-plugins';
+import source       from 'vinyl-source-stream';
+import watchify     from 'watchify';
+import pkg          from './package.json';
 
-// 'use strict';
+const $ = plugins();
+const arg = process.argv[2];
+const prod = (arg === 'prod');
 
-import gulp from 'gulp';
-import del from 'del';
-import browserSync from 'browser-sync';
-import gulpLoadPlugins from 'gulp-load-plugins';
-import { output as pagespeed } from 'psi';
-import pkg from './package.json';
+gulp.task('build',
+  gulp.parallel(move, bowerMove, scripts, styles));
 
-const $ = gulpLoadPlugins();
-const reload = browserSync.reload;
-
-// Optimize images
-function images(done) {
-  gulp.src('src/images/**/*')
-    .pipe($.imagemin({
-      progressive: true,
-      interlaced: true,
-    }))
-    .pipe(gulp.dest('public/images'))
-    .pipe($.size({ title: 'images' }));
-  done();
-}
-
-// Compile and automatically prefix stylesheets
-function styles(done) {
-  const AUTOPREFIXER_BROWSERS = [
-    'ie >= 10',
-    'ie_mob >= 10',
-    'ff >= 30',
-    'chrome >= 34',
-    'safari >= 7',
-    'opera >= 23',
-    'ios >= 7',
-    'android >= 4.4',
-    'bb >= 10',
-  ];
-
-  // For best performance, don't add Sass partials to `gulp.src`
-  gulp.src([
-    'src/styles/styles.scss',
-  ])
-    .pipe($.sourcemaps.init())
-    .pipe($.sass({
-      precision: 10,
-    }).on('error', $.sass.logError))
-    .pipe($.autoprefixer(AUTOPREFIXER_BROWSERS))
-    // Concatenate and minify styles
-    .pipe($.if('*.css', $.cssnano()))
-    .pipe($.size({ title: 'styles' }))
-    .pipe($.sourcemaps.write('./'))
-    .pipe(gulp.dest('public/styles'))
-    .pipe(browserSync.stream({ match: '**/*.css' }));
-  done();
-}
-
-// Lint scripts
-function lint(done) {
-  gulp.src('src/scripts/**/*.js')
-    .pipe($.eslint())
-    .pipe($.eslint.format())
-    .pipe($.if(!browserSync.active, $.eslint.failOnError()));
-  done();
-}
-
-// Concatenate and minify JavaScript. Optionally transpiles ES2015 code to ES5.
-// to enable ES2015 support remove the line `"only": "gulpfile.babel.js",` in the
-// `.babelrc` file.
-function scripts(done) {
-  gulp.src([
-    './src/scripts/*.js',
-    './src/scripts/scripts.js',
-    './src/scripts/smoothstate_init.js',
-    // Other scripts
-  ])
-    .pipe($.sourcemaps.init())
-    .pipe($.babel())
-    .pipe($.sourcemaps.write())
-    .pipe($.concat('main.min.js'))
-    .pipe($.uglify())
-    // Output files
-    .pipe($.size({ title: 'scripts' }))
-    .pipe($.sourcemaps.write('.'))
-    .pipe(gulp.dest('public/scripts'));
-  done();
-}
-
-// Lint twig - Rules https://github.com/yaniswang/HTMLHint/wiki/Rules
-function htmlhint(done) {
-  gulp.src('craft/templates/**/*.twig')
-    .pipe($.htmlhint({
-      'doctype-first': false,
-      'tag-self-close': false,
-      'tagname-lowercase': true,
-      'id-unique': true,
-      'attr-lowercase': ['viewBox', 'test'],
-    }))
-    .pipe($.htmlhint.reporter());
-  done();
-}
-
-// Clean output directory
-function clean(done) {
-  del(['public/styles', 'public/scripts'], { dot: true });
-  done();
-}
-
-// Watch files for changes & reload
-function serve(done) {
-  browserSync({
-    notify: false,
-    // Customize the Browsersync console logging prefix
-    logPrefix: 'Flow',
-    // https: true,
-    proxy: `http://${pkg.name}.dev`,
-  });
-
-  gulp.watch('craft/templates/**/*.twig')
-    .on('change', gulp.series(htmlhint, reload));
-
-  gulp.watch('src/styles/**/*.{scss,css}')
-    .on('change', gulp.series(styles));
-
-  gulp.watch('src/scripts/**/*.js')
-    .on('change', gulp.series(scripts, reload));
-
-  gulp.watch('src/images/**/*.{png, jpg, jpeg}')
-    .on('change', gulp.series(images, reload));
-
-  done();
-}
-
-// Build production files, the default task
 gulp.task('default',
-  gulp.series(clean, styles,
-    gulp.parallel(scripts, images), serve));
+  gulp.series('build', browsersync, watch));
 
-// need to add css source map then wont need dist
-gulp.task('dist',
-  gulp.series(clean, styles,
-    gulp.parallel(scripts, images)));
+gulp.task('prod',
+  gulp.series('build', favicons));
 
-// Run PageSpeed Insights
-gulp.task('pagespeed', cb =>
-  pagespeed(pkg.domain, {
-    strategy: 'mobile',
-  }, cb)
-);
+// Move files to build dir
+const filesToMove = [
+  'src/images/**/*',
+];
+function move(done) {
+  gulp.src(filesToMove, { base: './src' })
+  .pipe($.if(prod, $.imagemin()))
+  .pipe(gulp.dest('public'));
+  done();
+}
 
-const realFavicon = require('gulp-real-favicon');
-const fs = require('fs');
+function bowerMove(done) {
+  gulp.src('bower_components/**/*.{js,map}')
+  .pipe($.flatten())
+  .pipe(gulp.dest('public/lib'));
+  done();
+}
 
-const FAVICON_DATA_FILE = 'faviconData.json';
+// Move favicons to build dir
+function favicons(done) {
+  gulp.src('src/favicons/**/*')
+  .pipe($.imagemin())
+  .pipe(gulp.dest('public'));
+  done();
+}
 
-gulp.task('generate-favicon', (done) => {
-  realFavicon.generateFavicon({
-    masterPicture: './public/images/logo.png',
-    dest: './public/favicon',
-    iconsPath: '/favicon',
-    design: {
-      ios: {
-        pictureAspect: 'noChange',
-      },
-      desktopBrowser: {},
-      windows: {
-        pictureAspect: 'noChange',
-        backgroundColor: '#da532c',
-        onConflict: 'override',
-      },
-      androidChrome: {
-        pictureAspect: 'noChange',
-        themeColor: '#ffffff',
-        manifest: {
-          name: 'Craft CMS',
-          display: 'browser',
-          orientation: 'notSet',
-          onConflict: 'override',
-          declared: true,
-        },
-      },
-      safariPinnedTab: {
-        pictureAspect: 'silhouette',
-        themeColor: '#5bbad5',
-      },
-    },
-    settings: {
-      scalingAlgorithm: 'Mitchell',
-      errorOnImageTooSmall: false,
-    },
-    markupFile: FAVICON_DATA_FILE,
-  }, () => done());
-});
+// Compile ES6, ES7 into JS
+function buildScript(file, jswatch) {
+  const props = {
+    entries: [`src/scripts/${file}`],
+    debug: true,
+    cache: {},
+    packageCache: {},
+    transform: [babelify.configure({
+      presets: ['es2015', 'react', 'stage-0'],
+      plugins: ['transform-decorators-legacy'],
+    })],
+  };
 
-gulp.task('inject-favicon-markups', () => {
-  gulp.src(['./craft/templates/_layout.twig'])
-    .pipe(realFavicon
-      .injectFaviconMarkups(JSON.parse(fs.readFileSync(FAVICON_DATA_FILE)).favicon.html_code))
-    .pipe(gulp.dest('./craft/templates/'));
-});
+  // watchify() if watch requested, otherwise run browserify() once
+  const bundler = jswatch ? watchify(browserify(props)) : browserify(props);
 
-gulp.task('check-for-favicon-update', () => {
-  const currentVersion = JSON.parse(fs.readFileSync(FAVICON_DATA_FILE)).version;
-  realFavicon.checkForUpdates(currentVersion, (err) => {
-    if (err) {
-      throw err;
-    }
+  function rebundle() {
+    const stream = bundler.bundle();
+    return stream
+      .pipe(exorcist('public/jolt.js.map'))
+      .pipe(source(file))
+      .pipe($.if(prod, $.streamify($.uglify())))
+      .pipe(gulp.dest('public'))
+      .pipe(browser.reload({ stream: true }));
+  }
+
+  // listen for an update and run rebundle
+  bundler.on('update', () => {
+    rebundle();
+    $.util.log('Rebundle...');
   });
-});
+
+  // run it once the first time buildScript is called
+  return rebundle();
+}
+
+function scripts(done) {
+  buildScript('jolt.js', false);
+  done();
+}
+
+// Compile Sass into CSS
+function styles(done) {
+  const processors = [
+    autoprefixer,
+    cssnano,
+  ];
+  gulp.src('src/styles/styles.scss')
+  .pipe($.wait(500))
+  .pipe($.sourcemaps.init())
+  .pipe($.sass().on('error', $.sass.logError))
+  .pipe($.if(prod, $.postcss(processors)))
+  .pipe($.sourcemaps.write('.'))
+  .pipe(gulp.dest('public'))
+  .pipe(browser.stream({ match: '**/*.css' })); // Filters out map from stream
+  done();
+}
+
+// Proxy the server with browsersync
+function browsersync(done) {
+  browser.init({ proxy: `http://${pkg.name}.dev` }, done());
+}
+
+// Browsersync-less browser navigation
+function browse(done) {
+  gulp.src(__filename)
+  .pipe($.open({ uri: `http://${pkg.name}.dev` }));
+  done();
+}
+
+// Generate API documentation
+function apidoc(done) {
+  $.apidoc({
+    src: 'routes/',
+    dest: 'docs/',
+  }, done);
+}
+
+// Watch for file changes
+function watch(done) {
+  gulp.watch(filesToMove).on('change', gulp.series(move, browser.reload));
+  gulp.watch('src/styles/**/*.scss').on('change', gulp.series(styles));
+  buildScript('jolt.js', true);
+  done();
+}

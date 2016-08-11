@@ -1,12 +1,20 @@
 {
-    'extends': 'airbnb',
+  'parser': 'babel-eslint',
+  'extends': 'airbnb',
 
-    'rules': {
-      'new-cap': 1,
-      'max-len': 1,
-    },
+  'globals': {
+    'zxcvbn': true
+  },
 
-    'env': {
-      jquery: true,
+  'parserOptions': {
+    'ecmaFeatures': {
+      'experimentalObjectRestSpread': true
     }
+  },
+
+  'rules': {
+    'no-underscore-dangle': [2, { "allow": ['_id'] }],
+    'new-cap': 1,
+    'max-len': 1,
+  }
 }
