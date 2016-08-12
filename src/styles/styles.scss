@@ -1,11 +1,15 @@
-@import "tools/mixins";
-@import "tools/normalize";
-@import "tools/variables";
+// Tools and CSS Libraries
+@import 'tools/mixins';
+@import 'tools/variables';
+@import 'tools/normalize';
 
-@import "general/base";
-@import "general/header";
-@import "general/footer";
-@import "general/nav";
-@import "general/animations";
+// General Styles
+@import 'general/base';
+@import 'general/header';
+@import 'general/footer';
+@import 'general/nav';
+@import 'general/animations';
 
-@import "views/index";
+// View-Specific Styles
+@import 'views/index';
+@import 'views/volumes';

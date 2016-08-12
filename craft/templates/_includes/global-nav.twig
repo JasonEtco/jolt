@@ -1,20 +1,9 @@
 <nav class="global-nav" id="js--global-nav">
-	<button id="js--nav-close">CLOSE</button>
+	<button class="nav__close" id="js--nav-close">CLOSE</button>
 
-	<ul>
-		{# Shows all single sections #}
-		{# {% set sections = craft.sections.getAllSections() %}
+	<a href="{{ siteUrl }}" class="nav__logo">{% include '_includes/jolt-logo.svg' %}</a>
 
-		{% for singleSection in sections if singleSection.type == 'single' and not singleSection.isHomepage(false) %}
-
-		    {% set singleEntry = craft.entries.sectionId(singleSection.id).first %}
-
-		     <li class="nav__link">
-				<a href="{{ singleEntry.url }}" class="section-link">{{ singleSection }}</a>
-			</li>
-
-		{% endfor %}#}
-
+	<ul class="nav__list">
 		{% for block in globalNav.navigationItem %}
 			<li class="nav__list-item">
 				{% if block.type == 'linkToEntry' %}
@@ -27,8 +16,8 @@
 
 		{% if currentUser %}
 			{% set wiki = craft.entries.section('internalWikiIndex').first() %}
-			<li class="nav__list-item nav__list-item--wiki">
-				<a href="{{ wiki.url }}" target="_blank" class="nav__link">{{ wiki.title }}</a>
+			<li class="nav__list-item">
+				<a href="{{ wiki.url }}" class="nav__link">{{ wiki.title }}</a>
 			</li>
 		{% endif %}
 	</ul>

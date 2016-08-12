@@ -1,3 +1,61 @@
+.global-nav {
+	position: fixed;
+	z-index: 999;
+	top: 0;
+	left: -$nav-width;
+	width: $nav-width;
+	height: 100%;
+	background-color: $dark-blue;
+	color: white;
+
+	transition: transform 200ms;
+	transition-timing-function: $exit;
+
+	&.nav--open {
+		transform: translateX(100%);
+		transition-timing-function: $enter;
+	}
+}
+
+.nav {
+	&__close {
+		position: absolute;
+		top: 0;
+		left: 0;
+		border: none;
+		background: none;
+		color: white;
+	}
+
+	&__logo {
+		display: block;
+		box-sizing: border-box;
+		padding: 0 2em;
+		margin: 2em 0;
+
+		svg { fill: white; }
+	}
+
+	&__list {
+		padding: 0;
+		margin: 0;
+		list-style-type: none;
+	}
+
+	&__link {
+		display: block;
+		box-sizing: border-box;
+		width: 100%;
+		padding: 1em;
+		color: white;
+		text-decoration: none;
+
+		&:hover {
+			background-color: lighten($dark-blue, 10%);
+		}
+	}
+}
+
 .nav-button {
 	position: relative;
 	width: 28px;
@@ -35,20 +93,22 @@
 	&:hover span::before { transform: translateY(4px); }
 }
 
-.global-nav {
+.overlay {
 	position: fixed;
-	z-index: 999;
+	z-index: 998;
 	top: 0;
-	left: -$nav-width;
-	width: $nav-width;
+	left: 0;
+	width: 100%;
 	height: 100%;
-	background-color: $grey;
+	background-color: black;
+	opacity: 0;
+	visibility: hidden;
+	transition: opacity 200ms, visibility 200ms;
+	transition-timing-function: $standard;
+	transition-delay: 0ms;
 
-	transition: transform 200ms;
-	transition-timing-function: $exit;
-
-	&.nav--open {
-		transform: translateX($nav-width);
-		transition-timing-function: $enter;
+	&.is-visible {
+		opacity: 0.5;
+		visibility: visible;
 	}
 }
