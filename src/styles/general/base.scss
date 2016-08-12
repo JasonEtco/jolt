@@ -4,10 +4,22 @@ body {
 	&.body--no-scroll {
 		overflow-y: hidden;
 	}
+
+	&.body--blue {
+		background-color: $dark-blue;
+	}
 }
 
 .accent-title {
 	color: $grey;
 	font-family: $title-stack;
 	font-size: 1.2rem;
+}
+
+.accent-type {
+	color: $blue;
+	font-family: $body-stack;
+	font-size: 0.8rem;
+	text-transform: uppercase;
+	letter-spacing: 0.2em;
 }
