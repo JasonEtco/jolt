@@ -12,18 +12,16 @@
 	</header>
 
 	<aside class="digest__sidebar">
-		<form class="byCategory" action="">
-			<select name="byCategory" id="byCategory">
-				{% for category in craft.categories('digestCategories') %}
-					<option value="{{ category.slug }}" class="form__option">
-						{% if category.level != 1 %}
-							{% for level in 0..category.level - 1 %}&nbsp;{% endfor %}
-						{% endif %}
-						{{ category.title }}
-					</option>
-				{% endfor %}
-			</select>
-		</form>
+		<select name="byCategory" id="byCategory">
+			{% for category in craft.categories('digestCategories') %}
+				<option value="{{ category.slug }}" class="form__option">
+					{% if category.level != 1 %}
+						{% for level in 0..category.level - 1 %}&nbsp;{% endfor %}
+					{% endif %}
+					{{ category.title }}
+				</option>
+			{% endfor %}
+		</select>
 	</aside>
 
 	<section class="digest__posts">
