@@ -1,6 +1,9 @@
 .header {
 	width: 100%;
 	padding: 32px 0;
+	background-image: url('../images/Circuit.png');
+	background-size: 400px;
+	background-repeat: repeat;
 	background-color: $blue;
 
 	&--transparent {

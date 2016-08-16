@@ -1,31 +1,39 @@
-{#
- # Articles index template
- # -------------------
- #
- # This template is loaded whenever http://example.com/news is
- # requested, because it is located at news/index.html in your
- # craft/templates/ folder.
- #
- # See this page for more details on how Craft routes requests:
- # http://craftcms.com/docs/routing
- #}
-
 {% extends "_layouts/site" %}
 {% set title = "JOLT Digest" %}
 
 {% block content %}
-	<h1>Articles</h1>
+	<header class="digest__header">
+		<nav class="digest__nav">
+			<a href="#">link</a>
+			<a href="#">link</a>
+			<a href="#">link</a>
+			<a href="#">link</a>
+		</nav>
+	</header>
 
-	{% paginate craft.entries.section('digest').limit(10) as pageInfo, pageEntries %}
+	<section class="digest__posts">
+		{% paginate craft.entries.section('digest').limit(10) as pageInfo, pageEntries %}
 
-	{% for entry in pageEntries %}
-		<article>
-			<h3><a href="{{ entry.url }}">{{ entry.title }}</a></h3>
-			<p>Posted on {{ entry.postDate.format('F d, Y') }}</p>
-			{{ entry.body.getPage(1) }}
-			<p><a href="{{ entry.url }}">Continue reading</a></p>
+		{% for entry in pageEntries %}
+		<article class="digest__home__post">
+
+			{% if entry.mainImage|length %}
+			<div class="digest__home__post__image">
+				<img src="{{ entry.mainImage.first().url }}" alt="{{ entry.title }}">
+			</div>
+			{% endif %}
+
+			<div class="digest__home__post__content {% if not entry.mainImage|length %}digest__home__post__content--full{% endif %}">
+				<a class="digest__home__post__title" href="{{ entry.url }}">{{ entry.title }}</a>
+				<span class="digest__home__post__date">Posted on {{ entry.postDate.format('F d, Y') }}</span>
+				{{ entry.body|striptags|replace({'&nbsp;':' '})|slice(0, 400) }}
+				<a class="digest__home__post__continue" href="{{ entry.url }}">Continue reading</a>
+			</div>
+
 		</article>
-	{% endfor %}
+		{% endfor %}
+	</section>
+
 
 	{% if pageInfo.prevUrl %}<a href="{{ pageInfo.prevUrl }}">Previous Page</a>{% endif %}
 	{% if pageInfo.nextUrl %}<a href="{{ pageInfo.nextUrl }}">Next Page</a>{% endif %}

@@ -16,10 +16,13 @@
 	border-radius: 3px;
 	box-shadow: 0 2px 4px rgba(black, 0.2);
 	background-color: white;
+	font-size: 0.9rem;
 
 	&:not(:first-of-type) { margin-top: 1em; }
 
 	> h2 { margin-top: 0; }
+
+	li { margin: 1em 0; }
 
 	&__section:not(:first-of-type) {
 		margin-top: 2em;
@@ -41,11 +44,25 @@
 			list-style-type: none;
 			padding: 0;
 			margin: 0;
+
+			&-item {
+				margin-top: 0.2em;
+
+				&:first-of-type { margin-top: 0; }
+			}
 		}
 
 		&__link {
 			display: block;
+			padding: 0.2em 0;
+			border-bottom: 1px dotted rgba($blue, 0.2);
+			color: $blue;
 			white-space: pre;
+			text-decoration: none;
+
+			&:hover {
+				border-bottom-color: $blue;
+			}
 		}
 	}
 }
