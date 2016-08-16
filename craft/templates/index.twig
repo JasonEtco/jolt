@@ -32,7 +32,7 @@
 				<span>{{ entry.authorName }}</span>
 			</header>
 
-			<p class="home__section--secondary__text">{{ entry.featuredContent|striptags|replace({'&nbsp;':' '})|slice(0, 400) ~ '...' }}</p>
+			<p class="home__section--secondary__text">{{ entry.featuredContent|hacksaw(words='80', allow='<h1><h2><h3><h4><h5>', append='...') }}</p>
 
 			<div class="links">
 				<button id="js--abstract-button">Read the Abstract</button>
@@ -57,7 +57,7 @@
 				<span>{{ entry.byline }}</span>
 			</header>
 
-			<p class="home__section--secondary__text">{{ entry.body|striptags|replace({'&nbsp;':' '})|slice(0, 400) ~ '...' }}</p>
+			<p class="home__section--secondary__text">{{ entry.body|hacksaw(words='80', allow='<h1><h2><h3><h4><h5>', append='...') }}</p>
 			{% endfor %}
 		</div>
 	</section>

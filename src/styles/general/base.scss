@@ -29,3 +29,9 @@ body {
 	border-radius: 3px;
 	background-color: white;
 }
+
+.form__option {
+	&--2 {
+		margin-left: 16px;
+	}
+}

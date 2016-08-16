@@ -54,6 +54,13 @@
 				font-size: 1.2rem;
 			}
 
+			&__date {
+				display: block;
+				margin-bottom: 2em;
+
+				+ * { margin-top: 0; }
+			}
+
 			&__continue {
 				display: inline-block;
 				padding: 0.2em 0;

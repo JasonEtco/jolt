@@ -11,6 +11,21 @@
 		</nav>
 	</header>
 
+	<aside class="digest__sidebar">
+		<form class="byCategory" action="">
+			<select name="byCategory" id="byCategory">
+				{% for category in craft.categories('digestCategories') %}
+					<option value="{{ category.slug }}" class="form__option">
+						{% if category.level != 1 %}
+							{% for level in 0..category.level - 1 %}&nbsp;{% endfor %}
+						{% endif %}
+						{{ category.title }}
+					</option>
+				{% endfor %}
+			</select>
+		</form>
+	</aside>
+
 	<section class="digest__posts">
 		{% paginate craft.entries.section('digest').limit(10) as pageInfo, pageEntries %}
 
@@ -26,8 +41,8 @@
 			<div class="digest__home__post__content {% if not entry.mainImage|length %}digest__home__post__content--full{% endif %}">
 				<a class="digest__home__post__title" href="{{ entry.url }}">{{ entry.title }}</a>
 				<span class="digest__home__post__date">Posted on {{ entry.postDate.format('F d, Y') }}</span>
-				{{ entry.body|striptags|replace({'&nbsp;':' '})|slice(0, 400) }}
-				<a class="digest__home__post__continue" href="{{ entry.url }}">Continue reading</a>
+				{{ entry.body|hacksaw(words='100', allow='<h1><h2><h3><h4><h5>', append='...') }}
+				<br /><a class="digest__home__post__continue" href="{{ entry.url }}">Continue reading</a>
 			</div>
 
 		</article>
