@@ -11,7 +11,7 @@
 			</nav>
 
 			<div class="digest__header__cat">
-				<label for="byCategory">Search by Category</label>
+				<label for="byCategory">Search by Category:</label>
 				<select class="" name="byCategory" id="byCategory">
 					{% for category in craft.categories('digestCategories') %}
 						<option value="{{ category.slug }}" class="form__option">
