@@ -3,26 +3,28 @@
 
 {% block content %}
 	<header class="digest__header">
-		<nav class="digest__nav">
-			<a href="#">link</a>
-			<a href="#">link</a>
-			<a href="#">link</a>
-			<a href="#">link</a>
-		</nav>
-	</header>
+		<div class="digest__header__inner">
+			<nav class="digest__header__nav">
+				{% for category in digestNav.digestCategory %}
+					<a class="digest__header__link" href="/jolt-digest/category/?cat={{ category.slug }}">{{ category.title }}</a>
+				{% endfor %}
+			</nav>
 
-	<aside class="digest__sidebar">
-		<select name="byCategory" id="byCategory">
-			{% for category in craft.categories('digestCategories') %}
-				<option value="{{ category.slug }}" class="form__option">
-					{% if category.level != 1 %}
-						{% for level in 0..category.level - 1 %}&nbsp;{% endfor %}
-					{% endif %}
-					{{ category.title }}
-				</option>
-			{% endfor %}
-		</select>
-	</aside>
+			<div class="digest__header__cat">
+				<label for="byCategory">Search by Category</label>
+				<select class="" name="byCategory" id="byCategory">
+					{% for category in craft.categories('digestCategories') %}
+						<option value="{{ category.slug }}" class="form__option">
+							{% if category.level != 1 %}
+								{% for level in 0..category.level - 1 %}&nbsp;{% endfor %}
+							{% endif %}
+							{{ category.title }}
+						</option>
+					{% endfor %}
+				</select>
+			</div>
+		</div>
+	</header>
 
 	<section class="digest__posts">
 		{% paginate craft.entries.section('digest').limit(10) as pageInfo, pageEntries %}
@@ -39,7 +41,7 @@
 			<div class="digest__home__post__content {% if not entry.mainImage|length %}digest__home__post__content--full{% endif %}">
 				<a class="digest__home__post__title" href="{{ entry.url }}">{{ entry.title }}</a>
 				<span class="digest__home__post__date">Posted on {{ entry.postDate.format('F d, Y') }}</span>
-				{{ entry.body|hacksaw(words='100', allow='<h1><h2><h3><h4><h5>', append='...') }}
+				{{ entry.body|hacksaw(words='60', allow='<h1><h2><h3><h4><h5>', append='...') }}
 				<br /><a class="digest__home__post__continue" href="{{ entry.url }}">Continue reading</a>
 			</div>
 
