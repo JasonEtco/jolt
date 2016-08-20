@@ -19,13 +19,12 @@
 
 {% block body %}
 
-		<main class="content-wrapper" id="content-wrapper" role="main">
-
-            {% include '_includes/global-header' %}
-            {% include '_includes/global-nav' %}
+        {% include '_includes/global-header' %}
+        {% include '_includes/global-nav' %}
+		<main class="main" role="main">
 			{% block content %}{% endblock %}
-			{% include '_includes/global-footer' %}
 		</main>
+		{% include '_includes/global-footer' %}
 
 		<div class="overlay"></div>
 

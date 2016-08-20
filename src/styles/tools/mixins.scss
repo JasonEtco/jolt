@@ -25,3 +25,11 @@
 		background-color: $color;
 	}
 }
+
+@mixin accent-type($color) {
+	color: $color;
+	font-family: $body-stack;
+	font-size: 0.8rem;
+	text-transform: uppercase;
+	letter-spacing: 0.2em;
+}

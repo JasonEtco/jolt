@@ -42,7 +42,7 @@ class FeedMeService extends BaseApplicationComponent
         $processedEntries = array();
         $hasAnyErrors = false;
 
-        $time_start = microtime(true); 
+        $time_start = microtime(true);
         FeedMePlugin::log($feed->name . ': Processing started', LogLevel::Info, true);
 
         foreach ($nodes as $key => $node) {
@@ -82,7 +82,7 @@ class FeedMeService extends BaseApplicationComponent
 
         $criteria = craft()->feedMe_entry->setCriteria($feed);
 
-        
+
         // Start looping through all the mapped fields - grab their data from the feed node
         foreach ($fields as $itemNode => $handle) {
 

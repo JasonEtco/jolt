@@ -39,17 +39,56 @@
 			{% endif %}
 
 			<div class="digest__home__post__content {% if not entry.mainImage|length %}digest__home__post__content--full{% endif %}">
-				<a class="digest__home__post__title" href="{{ entry.url }}">{{ entry.title }}</a>
-				<span class="digest__home__post__date">Posted on {{ entry.postDate.format('F d, Y') }}</span>
-				{{ entry.body|hacksaw(words='60', allow='<h1><h2><h3><h4><h5>', append='...') }}
-				<br /><a class="digest__home__post__continue" href="{{ entry.url }}">Continue reading</a>
+				<div>
+					<a class="digest__home__post__title" href="{{ entry.url }}">{{ entry.title }}</a>
+					<span class="digest__home__post__date">Posted on {{ entry.postDate.format('F d, Y') }}</span>
+					{{ entry.body|hacksaw(words='60', allow='<h1><h2><h3><h4><h5><img>', append='...') }}
+					<br /><a class="digest__home__post__continue" href="{{ entry.url }}">Continue reading</a>
+				</div>
+
+				<div class="digest__home__post__cat-list">
+					{% for category in entry.digestCategory.limit(3) %}
+					    <a class="digest__home__post__cat" href="/jolt-digest/category/?cat={{ category.slug }}">{{ category }}</a>
+					{% endfor %}
+				</div>
 			</div>
 
 		</article>
 		{% endfor %}
+
+		<div class="digest__posts__controls">
+			{% if pageInfo.prevUrl %}
+				<a class="digest__posts__control" href="{{ pageInfo.prevUrl }}">
+					Previous Page
+					<svg class="digest__posts__control__arrow digest__posts__control__arrow--left" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 31.49 31.49" style="enable-background:new 0 0 31.49 31.49;" xml:space="preserve">
+						<path style="fill:#1E201D;" d="M10.273,5.009c0.444-0.444,1.143-0.444,1.587,0c0.429,0.429,0.429,1.143,0,1.571l-8.047,8.047h26.554 c0.619,0,1.127,0.492,1.127,1.111c0,0.619-0.508,1.127-1.127,1.127H3.813l8.047,8.032c0.429,0.444,0.429,1.159,0,1.587 c-0.444,0.444-1.143,0.444-1.587,0l-9.952-9.952c-0.429-0.429-0.429-1.143,0-1.571L10.273,5.009z"/>
+					</svg>
+				</a>
+			{% else %}
+				<span class="digest__posts__control digest__posts__control--disabled">
+					Previous Page
+					<svg class="digest__posts__control__arrow digest__posts__control__arrow--left" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 31.49 31.49" style="enable-background:new 0 0 31.49 31.49;" xml:space="preserve">
+						<path style="fill:#1E201D;" d="M10.273,5.009c0.444-0.444,1.143-0.444,1.587,0c0.429,0.429,0.429,1.143,0,1.571l-8.047,8.047h26.554 c0.619,0,1.127,0.492,1.127,1.111c0,0.619-0.508,1.127-1.127,1.127H3.813l8.047,8.032c0.429,0.444,0.429,1.159,0,1.587 c-0.444,0.444-1.143,0.444-1.587,0l-9.952-9.952c-0.429-0.429-0.429-1.143,0-1.571L10.273,5.009z"/>
+					</svg>
+				</span>
+			{% endif %}
+			{% if pageInfo.nextUrl %}
+				<a class="digest__posts__control" href="{{ pageInfo.nextUrl }}">
+					Next Page
+					<svg class="digest__posts__control__arrow digest__posts__control__arrow--right" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 31.49 31.49" style="enable-background:new 0 0 31.49 31.49;" xml:space="preserve">
+						<path style="fill:#1E201D;" d="M21.205,5.007c-0.429-0.444-1.143-0.444-1.587,0c-0.429,0.429-0.429,1.143,0,1.571l8.047,8.047H1.111 C0.492,14.626,0,15.118,0,15.737c0,0.619,0.492,1.127,1.111,1.127h26.554l-8.047,8.032c-0.429,0.444-0.429,1.159,0,1.587 c0.444,0.444,1.159,0.444,1.587,0l9.952-9.952c0.444-0.429,0.444-1.143,0-1.571L21.205,5.007z"/>
+					</svg>
+				</a>
+			{% else %}
+				<span class="digest__posts__control digest__posts__control--disabled">
+					Next Page
+					<svg class="digest__posts__control__arrow digest__posts__control__arrow--right" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 31.49 31.49" style="enable-background:new 0 0 31.49 31.49;" xml:space="preserve">
+						<path style="fill:#1E201D;" d="M21.205,5.007c-0.429-0.444-1.143-0.444-1.587,0c-0.429,0.429-0.429,1.143,0,1.571l8.047,8.047H1.111 C0.492,14.626,0,15.118,0,15.737c0,0.619,0.492,1.127,1.111,1.127h26.554l-8.047,8.032c-0.429,0.444-0.429,1.159,0,1.587 c0.444,0.444,1.159,0.444,1.587,0l9.952-9.952c0.444-0.429,0.444-1.143,0-1.571L21.205,5.007z"/>
+					</svg>
+				</span>
+			{% endif %}
+		</div>
 	</section>
 
 
-	{% if pageInfo.prevUrl %}<a href="{{ pageInfo.prevUrl }}">Previous Page</a>{% endif %}
-	{% if pageInfo.nextUrl %}<a href="{{ pageInfo.nextUrl }}">Next Page</a>{% endif %}
 {% endblock %}
