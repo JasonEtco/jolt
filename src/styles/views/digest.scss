@@ -98,10 +98,9 @@
 			border-bottom: 1px solid lighten($grey, 20%);
 			margin-top: 2em;
 			font-size: 0.8rem;
+			line-height: 1.4;
 
-			&:nth-child(1), &:nth-child(2) { margin-top: 0; }
-
-			&:nth-child(2n)::before {
+			&:nth-child(2n + 1):not(:first-child)::before {
 				content: '';
 				position: absolute;
 				top: 0;
@@ -109,6 +108,20 @@
 				width: 1px;
 				height: calc(100% - 2em);
 				background-color: lighten($grey, 20%);
+			}
+
+			&--newest {
+				width: 100%;
+				max-width: 700px;
+				margin-top: 0;
+				font-size: 0.9rem;
+				line-height: 1.6;
+
+				.digest__post__content-inner {
+					white-space: pre-line;
+					max-height: 800px;
+					overflow-y: hidden;
+				}
 			}
 
 			&__image {
@@ -129,7 +142,7 @@
 				align-items: flex-start;
 				justify-content: space-between;
 				flex-direction: column;
-				line-height: 1.4;
+				line-height: inherit;
 			}
 
 			&__title {
