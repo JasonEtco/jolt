@@ -19,11 +19,18 @@ const abstractModalButton = document.getElementById('js--abstract-button');
 const abstractModalClose = document.getElementById('js--abstract-close');
 
 if (abstractModalButton && abstractModalClose) {
+  document.onkeydown = e => {
+    if (e.keyCode === 27) {
+      abstractModal.classList.remove('abstract-modal--open');
+      document.body.classList.remove('body--no-scroll');
+    }
+  };
+
   function toggleAbstractClasses() {
     abstractModal.classList.toggle('abstract-modal--open');
     document.body.classList.toggle('body--no-scroll');
   }
-  
+
   abstractModalButton.addEventListener('click', () => toggleAbstractClasses());
   abstractModalClose.addEventListener('click', () => toggleAbstractClasses());
 }

@@ -1,10 +1,11 @@
 .footer {
 	width: 100%;
-	padding: 1em 0;
+	padding: 5em 0 3em;
 	border-top: 3px solid $yellow;
 	flex: none;
-	background-color: $blue;
-	color: white;
+	background-color: $dark-blue;
+	color: $soft-blue;
+	font-size: 0.8rem;
 
 	&__inner {
 		display: flex;
@@ -18,6 +19,7 @@
 		margin-top: 0;
 		color: $yellow;
 		font-weight: 400;
+		font-size: 1rem;
 	}
 
 	&__sponsor {
@@ -26,7 +28,7 @@
 			list-style-type: none;
 		}
 
-		@include link(white);
+		@include link($soft-blue);
 	}
 
 	&__address p {
@@ -36,4 +38,6 @@
 	&__copyright {
 		display: block;
 	}
+
+	&__contact-info a { color: lighten($soft-blue, 20%); }
 }

@@ -35,12 +35,12 @@
 			<p class="home__section--secondary__text">{{ entry.featuredContent|hacksaw(words='80', allow='<h1><h2><h3><h4><h5>', append='...') }}</p>
 
 			<div class="links">
-				<button id="js--abstract-button">Read the Abstract</button>
+				<button class="btn btn--blue" id="js--abstract-button">Read the Abstract</button>
 
 				{% set assets = entry.asset %}
 				{% if assets | length %}
 					{% for asset in assets %}
-						<a href="{{ asset.url }}" target="_blank">Read the Article</a>
+						<a class="link" href="{{ asset.url }}" target="_blank">Read the Article</a>
 					{% endfor %}
 				{% endif %}
 			</div>
@@ -67,7 +67,7 @@
 		<div class="abstract-modal__inner">
 			<button id="js--abstract-close">CLOSE</button>
 
-			<p>{{ entry.featuredContent | markdown }}</p>
+			<p>{{ entry.featuredContent }}</p>
 		</div>
 	</div>
 

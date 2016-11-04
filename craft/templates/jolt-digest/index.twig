@@ -28,6 +28,7 @@
 
 	<section class="digest__posts">
 		{% set newestEntry = craft.entries.section('digest').first() %}
+		<div class="digest__home__featured">
 		<article class="digest__home__post digest__home__post--newest">
 			{% if newestEntry.mainImage|length %}
 			<div class="digest__home__post__image">
@@ -50,6 +51,26 @@
 				</div>
 			</div>
 		</article>
+
+			<div>
+			{% for entry in craft.entries.section('digest').offset(1).limit(4) %}
+				<article class="digest__home__featured__post">
+
+					{% if entry.mainImage|length %}
+						<img src="{{ entry.mainImage.first().url }}" alt="{{ entry.title }}">
+					{% endif %}
+
+					<div class="digest__home__featured__post__content">
+						<div>
+							<span class="digest__home__featured__post__date">{{ entry.postDate.format('F d, Y') }}</span>
+							<a class="digest__home__featured__post__title" href="{{ entry.url }}">{{ entry.title }}</a>
+						</div>
+					</div>
+
+				</article>
+			{% endfor %}
+			</div>
+		</div>
 
 		{% paginate craft.entries.section('digest').offset(1).limit(10) as pageInfo, pageEntries %}
 

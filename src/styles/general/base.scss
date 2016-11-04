@@ -44,3 +44,37 @@ body {
 		margin-left: 16px;
 	}
 }
+
+.btn {
+	display: inline-block;
+	padding: 0.6em 1em;
+	border: 0;
+	border-radius: 5px;
+	background-color: $red;
+	color: white;
+	font-size: 0.8rem;
+	font-family: $body-stack;
+	text-transform: uppercase;
+	text-decoration: none;
+	transition: background-color 150ms;
+
+	&:hover {
+		background-color: darken($red, 10%);
+	}
+
+	&--blue {
+		background-color: $blue;
+
+		&:hover {
+			background-color: darken($blue, 10%);
+		}
+	}
+}
+
+.link {
+	@include link($blue);
+}
+
+.link--red {
+	@include link($red);
+}

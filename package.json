@@ -70,7 +70,9 @@
     "rules": {
       "indentation": "tab",
       "color-named": "always-where-possible",
-      "no-browser-hacks": null
+      "no-browser-hacks": null,
+      "at-rule-empty-line-before": null,
+      "function-url-data-uris": null
     }
   },
   "dependencies": {}
