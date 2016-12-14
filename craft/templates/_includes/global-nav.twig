@@ -7,7 +7,7 @@
 		{% for block in globalNav.navigationItem %}
 			<li class="nav__list-item">
 				{% if block.type == 'linkToEntry' %}
-					<a href="{{ block.entry.first().getUrl() }}" class="nav__link">{{ block.entryLabel }}</a>
+					<a href="{{ block.entry.first().url }}" class="nav__link">{{ block.entryLabel }}</a>
 				{% elseif block.type == 'linkToCustomUrl' %}
 					<a href="{{ block.customUrl }}" target="_blank" class="nav__link">{{ block.customLabel }}</a>
 				{% endif %}

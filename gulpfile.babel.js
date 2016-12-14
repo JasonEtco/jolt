@@ -58,15 +58,6 @@ function styles(done) {
   done();
 }
 
-// Lint scripts
-function lint(done) {
-  gulp.src('src/scripts/**/*.js')
-    .pipe($.eslint())
-    .pipe($.eslint.format())
-    .pipe($.if(!browserSync.active, $.eslint.failOnError()));
-  done();
-}
-
 // Concatenate and minify JavaScript. Optionally transpiles ES2015 code to ES5.
 // to enable ES2015 support remove the line `"only": "gulpfile.babel.js",` in the
 // `.babelrc` file.
@@ -83,20 +74,6 @@ function scripts(done) {
     .pipe($.size({ title: 'scripts' }))
     .pipe($.sourcemaps.write('.'))
     .pipe(gulp.dest('public/scripts'));
-  done();
-}
-
-// Lint twig - Rules https://github.com/yaniswang/HTMLHint/wiki/Rules
-function htmlhint(done) {
-  gulp.src('craft/templates/**/*.twig')
-    .pipe($.htmlhint({
-      'doctype-first': false,
-      'tag-self-close': false,
-      'tagname-lowercase': true,
-      'id-unique': true,
-      'attr-lowercase': ['viewBox', 'test'],
-    }))
-    .pipe($.htmlhint.reporter());
   done();
 }
 
@@ -117,7 +94,7 @@ function serve(done) {
   });
 
   gulp.watch('craft/templates/**/*.twig')
-    .on('change', gulp.series(htmlhint, reload));
+    .on('change', gulp.series(reload));
 
   gulp.watch('src/styles/**/*.{scss,css}')
     .on('change', gulp.series(styles));

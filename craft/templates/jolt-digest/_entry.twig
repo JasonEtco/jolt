@@ -16,17 +16,41 @@
 {% extends "_layouts/site" %}
 
 {% block content %}
+	{% include '_includes/digest-nav' %}
 
-	<article>
+	<div class="digest-post-wrapper">
+		<article class="digest-post">
+			<header class="digest-post__header">
+				<div class="digest-post__header__inner">
+					<h1 class="digest-post__title">{{ entry.title }}</h1>
+					<h2 class="digest-post__byline">{{ entry.byline }}</h2>
+					<span class="digest-post__postDate">{{ entry.postDate.format('F d, Y') }}</span>
+				</div>
+			</header>
 
-		<header>
-			<h1>{{ entry.title }}</h1>
-			<h2>{{ entry.byline }}</h2>
-			<span>{{ entry.postDate }}</span>
-		</header>
+			<main class="digest-post__body">
+				{{ entry.body }}
+			</main>
+		</article>
 
-		{{ entry.body }}
+		<aside class="digest-post__aside">
+		{% for entry in craft.entries.section('digest').offset(1).limit(4) %}
+			<article class="digest__home__featured__post">
 
-	</article>
+				{% if entry.mainImage|length %}
+					<img src="{{ entry.mainImage.first().url }}" alt="{{ entry.title }}">
+				{% endif %}
+
+				<div class="digest__home__featured__post__content">
+					<div>
+						<span class="digest__home__featured__post__date">{{ entry.postDate.format('F d, Y') }}</span>
+						<a class="digest__home__featured__post__title" href="{{ entry.url }}">{{ entry.title }}</a>
+					</div>
+				</div>
+
+			</article>
+		{% endfor %}
+		</aside>
+	</div>
 	
 {% endblock %}

@@ -19,7 +19,7 @@
 			{% if currentUser %}
 
 				<p>Hello {{ currentUser.friendlyName }}!</p>
-				<a href="/logout" class="header__button">Logout</a>
+				<a href="{{ logoutUrl }}" class="header__button">Logout</a>
 
 			{% else %}
 

@@ -1,0 +1,23 @@
+<header class="digest__header">
+    <div class="digest__header__inner">
+        <nav class="digest__header__nav">
+            {% for category in digestNav.digestCategory %}
+                <a class="digest__header__link" href="/jolt-digest/category/?cat={{ category.slug }}">{{ category.title }}</a>
+            {% endfor %}
+        </nav>
+
+        {# <div class="digest__header__cat">
+            <label for="byCategory">Search by Category:</label>
+            <select class="" name="byCategory" id="byCategory">
+                {% for category in craft.categories('digestCategories') %}
+                    <option value="{{ category.slug }}" class="form__option">
+                        {% if category.level != 1 %}
+                            {% for level in 0..category.level - 1 %}&nbsp;{% endfor %}
+                        {% endif %}
+                        {{ category.title }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div> #}
+    </div>
+</header>

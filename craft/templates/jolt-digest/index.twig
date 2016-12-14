@@ -2,57 +2,35 @@
 {% set title = "JOLT Digest" %}
 
 {% block content %}
-	<header class="digest__header">
-		<div class="digest__header__inner">
-			<nav class="digest__header__nav">
-				{% for category in digestNav.digestCategory %}
-					<a class="digest__header__link" href="/jolt-digest/category/?cat={{ category.slug }}">{{ category.title }}</a>
-				{% endfor %}
-			</nav>
-
-			<div class="digest__header__cat">
-				<label for="byCategory">Search by Category:</label>
-				<select class="" name="byCategory" id="byCategory">
-					{% for category in craft.categories('digestCategories') %}
-						<option value="{{ category.slug }}" class="form__option">
-							{% if category.level != 1 %}
-								{% for level in 0..category.level - 1 %}&nbsp;{% endfor %}
-							{% endif %}
-							{{ category.title }}
-						</option>
-					{% endfor %}
-				</select>
-			</div>
-		</div>
-	</header>
+	{% include '_includes/digest-nav' %}
 
 	<section class="digest__posts">
 		{% set newestEntry = craft.entries.section('digest').first() %}
 		<div class="digest__home__featured">
-		<article class="digest__home__post digest__home__post--newest">
-			{% if newestEntry.mainImage|length %}
-			<div class="digest__home__post__image">
-				<img src="{{ newestEntry.mainImage.first().url }}" alt="{{ newestEntry.title }}">
-			</div>
-			{% endif %}
-
-			<div class="digest__home__post__content {% if not newestEntry.mainImage|length %}digest__home__post__content--full{% endif %}">
-				<div class="digest__post__content-inner">
-					<a class="digest__home__post__title" href="{{ newestEntry.url }}">{{ newestEntry.title }}</a>
-					<span class="digest__home__post__date">Posted on {{ newestEntry.postDate.format('F d, Y') }}</span>
-					{{ newestEntry.body }}
+			<article class="digest__home__post digest__home__post--newest">
+				{% if newestEntry.mainImage|length %}
+				<div class="digest__home__post__image">
+					<img src="{{ newestEntry.mainImage.first().url }}" alt="{{ newestEntry.title }}">
 				</div>
-				<a class="digest__home__post__continue" href="{{ newestEntry.url }}">Continue reading</a>
+				{% endif %}
 
-				<div class="digest__home__post__cat-list">
-					{% for category in newestEntry.digestCategory.limit(5) %}
-						<a class="digest__home__post__cat" href="/jolt-digest/category/?cat={{ category.slug }}">{{ category }}</a>
-					{% endfor %}
+				<div class="digest__home__post__content {% if not newestEntry.mainImage|length %}digest__home__post__content--full{% endif %}">
+					<div class="digest__post__content-inner">
+						<a class="digest__home__post__title" href="{{ newestEntry.url }}">{{ newestEntry.title }}</a>
+						<span class="digest__home__post__date">Posted on {{ newestEntry.postDate.format('F d, Y') }}</span>
+						{{ newestEntry.body }}
+					</div>
+					<a class="digest__home__post__continue" href="{{ newestEntry.url }}">Continue reading</a>
+
+					<div class="digest__home__post__cat-list">
+						{% for category in newestEntry.digestCategory.limit(5) %}
+							<a class="digest__home__post__cat" href="/jolt-digest/category/?cat={{ category.slug }}">{{ category }}</a>
+						{% endfor %}
+					</div>
 				</div>
-			</div>
-		</article>
+			</article>
 
-			<div>
+			<aside>
 			{% for entry in craft.entries.section('digest').offset(1).limit(4) %}
 				<article class="digest__home__featured__post">
 
@@ -69,7 +47,7 @@
 
 				</article>
 			{% endfor %}
-			</div>
+			</aside>
 		</div>
 
 		{% paginate craft.entries.section('digest').offset(1).limit(10) as pageInfo, pageEntries %}

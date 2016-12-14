@@ -68,7 +68,6 @@
       "stylelint-config-devshelf"
     ],
     "rules": {
-      "indentation": "tab",
       "color-named": "always-where-possible",
       "no-browser-hacks": null,
       "at-rule-empty-line-before": null,
