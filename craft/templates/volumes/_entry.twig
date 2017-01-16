@@ -3,46 +3,59 @@
 {% block content %}
 	<article class="volume-wrapper">
 		<div class="volume__volumes">
-			<section class="volume volume__fall">
+			<section class="volume volume--fall">
 				<h2>{{ entry.title }}, Number 1: Fall {{ entry.publishedFall.format('Y') }}</h2>
 
-				{# {{ entry.tableOfContentsFall }} #}
-				<section>
-					<h3 class="accent-type">Articles</h3>
-					<div class="volume__articles">{{ entry.articlesFall }}</div>
-				</section>
-				{% for block in entry.newSectionFall %}
+				<div class="volume__volume">
+					{# {{ entry.tableOfContentsFall }} #}
 					<section class="volume__section">
-					    <h3 class="accent-type">{{ block.heading }}</h3>
-					    <div class="volume__notes">{{ block.sectionContent }}</div>
+						<h3 class="accent-type">Articles</h3>
+						<div class="volume__articles">{{ entry.articlesFall }}</div>
 					</section>
-				{% endfor %}
+					{% for block in entry.newSectionFall %}
+						<section class="volume__section">
+								<h3 class="accent-type">{{ block.heading }}</h3>
+								<div class="volume__notes">{{ block.sectionContent }}</div>
+						</section>
+					{% endfor %}
+				</div>
 			</section>
 
 			{% if entry.publishedSpring %}
-				<section class="volume volume__spring">
+				<section class="volume volume--spring">
 					<h2>{{ entry.title }}, Number 2: Spring {{ entry.publishedSpring.format('Y') }}</h2>
-
-					{# {{ entry.tableOfContentsSpring }} #}
-					<section>
-						<h3 class="accent-type">Articles</h3>
-						<div class="volume__articles">{{ entry.articlesSpring }}</div>
-					</section>
-					{% for block in entry.newSectionSpring %}
+					<div class="volume__volume">
+						{# {{ entry.tableOfContentsSpring }} #}
 						<section class="volume__section">
-						    <h3 class="accent-type">{{ block.heading }}</h3>
-						    <div class="volume__notes">{{ block.sectionContent }}</div>
+							<h3 class="accent-type">Articles</h3>
+							<div class="volume__articles">{{ entry.articlesSpring }}</div>
 						</section>
-					{% endfor %}
-				</section>
+						{% for block in entry.newSectionSpring %}
+							<section class="volume__section">
+									<h3 class="accent-type">{{ block.heading }}</h3>
+									<div class="volume__notes">{{ block.sectionContent }}</div>
+							</section>
+						{% endfor %}
+					</section>
+				</div>
 			{% endif %}
 		</div>
 
 		<aside class="volume__nav">
+			<h4>Previous Volumes</h4>
 			<ul class="volume__nav__list">
 				{% for entry in craft.entries.section('volumes').limit(5).find() %}
 					<li class="volume__nav__list-item"><a href="{{ entry.url }}" class="volume__nav__link">{{ entry.title }}</a></li>
 				{% endfor %}
+
+				{# Temporary #}
+				<li class="volume__nav__list-item"><a href="#" class="volume__nav__link">Volume 28</a></li>
+				<li class="volume__nav__list-item"><a href="#" class="volume__nav__link">Volume 27</a></li>
+				<li class="volume__nav__list-item"><a href="#" class="volume__nav__link">Volume 26</a></li>
+				<li class="volume__nav__list-item"><a href="#" class="volume__nav__link">Volume 25</a></li>
+				<li class="volume__nav__list-item"><a href="#" class="volume__nav__link">Volume 24</a></li>
+				<li class="volume__nav__list-item"><a href="#" class="volume__nav__link">Volume 23</a></li>
+				<li class="volume__nav__list-item"><a href="#" class="volume__nav__link">Volume 22</a></li>
 			</ul>
 		</aside>
 	</article>

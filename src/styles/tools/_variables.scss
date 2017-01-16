@@ -8,7 +8,7 @@
 // Colors
 // ---------------
 $grey:		#969696;
-$lightgrey:	#f7f7f7;
+$lightgrey:	lighten($grey, 35%);
 $teal:		#0f7693;
 $blue:		#191970;
 $light-blue: #43b0f2;
