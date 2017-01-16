@@ -14,7 +14,7 @@ if (nav) {
     if (e.keyCode === 27 && nav.classList.contains('nav--open')) toggleNavClasses();
   });
 
-  navButton.addEventListener('click', () => toggleNavClasses());
-  navClose.addEventListener('click', () => toggleNavClasses());
-  overlay.addEventListener('click', () => toggleNavClasses());
+  navButton.onclick = () => toggleNavClasses();
+  navClose.onclick = () => toggleNavClasses();
+  overlay.onclick = () => toggleNavClasses();
 }

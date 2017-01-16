@@ -13,6 +13,6 @@ if (abstractModalButton && abstractModalClose) {
     if (e.keyCode === 27 && abstractModal.classList.contains('abstract-modal--open')) toggleAbstractClasses();
   });
 
-  abstractModalButton.addEventListener('click', () => toggleAbstractClasses());
-  abstractModalClose.addEventListener('click', () => toggleAbstractClasses());
+  abstractModalButton.onclick = () => toggleAbstractClasses();
+  abstractModalClose.onclick = () => toggleAbstractClasses();
 }
