@@ -47,7 +47,7 @@
 		</div>
 
 		<div class="home__section--secondary__column">
-			<a href="{{ url('jolt-digest') }}" class="home__section--secondary__digest-link">
+			<a href="{{ craft.entries.section('digestIndex').first().url }}" class="home__section--secondary__digest-link">
 				{% include '_includes/digest-logo.svg' %}
 			</a>
 
