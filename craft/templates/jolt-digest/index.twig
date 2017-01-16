@@ -4,23 +4,23 @@
 {% block content %}
 	{% include '_includes/digest-nav' %}
 
-	<section class="digest__posts">
 		{% set newestEntry = craft.entries.section('digest').first() %}
 		<div class="digest__home__featured">
 			<article class="digest__home__post digest__home__post--newest">
+				<h2 class="digest__home__title">Featured Article</h2>
 				{% if newestEntry.mainImage|length %}
-				<div class="digest__home__post__image">
+				<a href="{{ newestEntry.url }}" class="digest__home__post__image">
 					<img src="{{ newestEntry.mainImage.first().url }}" alt="{{ newestEntry.title }}">
-				</div>
+				</a>
 				{% endif %}
 
 				<div class="digest__home__post__content {% if not newestEntry.mainImage|length %}digest__home__post__content--full{% endif %}">
 					<div class="digest__post__content-inner">
 						<a class="digest__home__post__title" href="{{ newestEntry.url }}">{{ newestEntry.title }}</a>
 						<span class="digest__home__post__date">Posted on {{ newestEntry.postDate.format('F d, Y') }}</span>
-						{{ newestEntry.body }}
+						<div>{{ newestEntry.body|hacksaw(words='120', allow='<h1><h2><h3><h4><h5><img>', append='...') }}</div>
+						<a class="digest__home__post__continue" href="{{ newestEntry.url }}">Continue reading</a>
 					</div>
-					<a class="digest__home__post__continue" href="{{ newestEntry.url }}">Continue reading</a>
 
 					<div class="digest__home__post__cat-list">
 						{% for category in newestEntry.digestCategory.limit(5) %}
@@ -30,7 +30,8 @@
 				</div>
 			</article>
 
-			<aside>
+			<aside class="digest__aside">
+				<h2 class="digest__home__title">Recent Articles</h2>
 			{% for entry in craft.entries.section('digest').offset(1).limit(4) %}
 				<article class="digest__home__featured__post">
 
@@ -50,6 +51,7 @@
 			</aside>
 		</div>
 
+	<section class="digest__posts">
 		{% paginate craft.entries.section('digest').offset(1).limit(10) as pageInfo, pageEntries %}
 
 		{% for entry in pageEntries %}

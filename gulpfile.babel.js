@@ -4,15 +4,19 @@
 
 // 'use strict';
 
+import autoprefixer from 'autoprefixer';
+import cssnano from 'cssnano';
 import gulp from 'gulp';
 import del from 'del';
 import browserSync from 'browser-sync';
 import gulpLoadPlugins from 'gulp-load-plugins';
-import { output as pagespeed } from 'psi';
 import pkg from './package.json';
+
 
 const $ = gulpLoadPlugins();
 const reload = browserSync.reload;
+const arg = process.argv[2];
+const prod = (arg === 'prod');
 
 // Optimize images
 function images(done) {
@@ -26,35 +30,20 @@ function images(done) {
   done();
 }
 
-// Compile and automatically prefix stylesheets
+// Compile Sass into CSS
 function styles(done) {
-  const AUTOPREFIXER_BROWSERS = [
-    'ie >= 10',
-    'ie_mob >= 10',
-    'ff >= 30',
-    'chrome >= 34',
-    'safari >= 7',
-    'opera >= 23',
-    'ios >= 7',
-    'android >= 4.4',
-    'bb >= 10',
+  const processors = [
+    autoprefixer,
+    cssnano,
   ];
-
-  // For best performance, don't add Sass partials to `gulp.src`
-  gulp.src([
-    'src/styles/styles.scss',
-  ])
-    .pipe($.sourcemaps.init())
-    .pipe($.sass({
-      precision: 10,
-    }).on('error', $.sass.logError))
-    .pipe($.autoprefixer(AUTOPREFIXER_BROWSERS))
-    // Concatenate and minify styles
-    .pipe($.if('*.css', $.cssnano()))
-    .pipe($.size({ title: 'styles' }))
-    .pipe($.sourcemaps.write('./'))
-    .pipe(gulp.dest('public/styles'))
-    .pipe(browserSync.stream({ match: '**/*.css' }));
+  gulp.src('src/styles/styles.scss')
+  .pipe($.wait(500))
+  .pipe($.sourcemaps.init())
+  .pipe($.sass().on('error', $.sass.logError))
+  .pipe($.if(prod, $.postcss(processors)))
+  .pipe($.sourcemaps.write('.'))
+  .pipe(gulp.dest('public/styles'))
+  .pipe(browserSync.stream({ match: '**/*.css' })); // Filters out map from stream
   done();
 }
 
@@ -113,74 +102,7 @@ gulp.task('default',
   gulp.series(clean, styles,
     gulp.parallel(scripts, images), serve));
 
-// need to add css source map then wont need dist
-gulp.task('dist',
+// need to add css source map then wont need prod
+gulp.task('prod',
   gulp.series(clean, styles,
     gulp.parallel(scripts, images)));
-
-// Run PageSpeed Insights
-gulp.task('pagespeed', cb =>
-  pagespeed(pkg.domain, {
-    strategy: 'mobile',
-  }, cb)
-);
-
-const realFavicon = require('gulp-real-favicon');
-const fs = require('fs');
-
-const FAVICON_DATA_FILE = 'faviconData.json';
-
-gulp.task('generate-favicon', (done) => {
-  realFavicon.generateFavicon({
-    masterPicture: './public/images/logo.png',
-    dest: './public/favicon',
-    iconsPath: '/favicon',
-    design: {
-      ios: {
-        pictureAspect: 'noChange',
-      },
-      desktopBrowser: {},
-      windows: {
-        pictureAspect: 'noChange',
-        backgroundColor: '#da532c',
-        onConflict: 'override',
-      },
-      androidChrome: {
-        pictureAspect: 'noChange',
-        themeColor: '#ffffff',
-        manifest: {
-          name: 'Craft CMS',
-          display: 'browser',
-          orientation: 'notSet',
-          onConflict: 'override',
-          declared: true,
-        },
-      },
-      safariPinnedTab: {
-        pictureAspect: 'silhouette',
-        themeColor: '#5bbad5',
-      },
-    },
-    settings: {
-      scalingAlgorithm: 'Mitchell',
-      errorOnImageTooSmall: false,
-    },
-    markupFile: FAVICON_DATA_FILE,
-  }, () => done());
-});
-
-gulp.task('inject-favicon-markups', () => {
-  gulp.src(['./craft/templates/_layout.twig'])
-    .pipe(realFavicon
-      .injectFaviconMarkups(JSON.parse(fs.readFileSync(FAVICON_DATA_FILE)).favicon.html_code))
-    .pipe(gulp.dest('./craft/templates/'));
-});
-
-gulp.task('check-for-favicon-update', () => {
-  const currentVersion = JSON.parse(fs.readFileSync(FAVICON_DATA_FILE)).version;
-  realFavicon.checkForUpdates(currentVersion, (err) => {
-    if (err) {
-      throw err;
-    }
-  });
-});

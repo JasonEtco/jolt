@@ -42,13 +42,12 @@
         }
     }
 
-
     &__posts {
         display: flex;
         justify-content: space-between;
         width: $max-width;
         max-width: 100%;
-        margin: 2em auto 0;
+        margin: 0 auto;
         flex-wrap: wrap;
 
         &__control {
@@ -89,13 +88,30 @@
         }
     }
 
+    &__aside {
+        max-width: 300px;
+        padding: 0 1em 1em;
+        background-color: lighten($grey, 35%);
+    }
+
     &__home {
         &__featured {
             display: flex;
+            width: 100%;
+            max-width: $max-width;
+            margin: 0 auto;
 
             &__post {
                 padding: 3em 0;
                 border-bottom: 1px solid lighten($grey, 20%);
+
+                &:first-of-type {
+                    padding-top: 0;
+                }
+
+                &:last-of-type {
+                    border-bottom: none;
+                }
 
                 &__title {
                     display: block;
@@ -114,17 +130,28 @@
             }
         }
 
+        &__title {
+            margin: 1em 0;
+            color: $blue;
+            font-family: $fancy-stack;
+        }
+
         &__post {
             position: relative;
             box-sizing: border-box;
             width: calc(50% - 1em);
-            padding: 2em;
+            padding: 3em 3em 3em 0;
             border-bottom: 1px solid lighten($grey, 20%);
             margin-top: 2em;
             font-size: 0.8rem;
             line-height: 1.4;
 
-            &:nth-child(2n + 1):not(:first-child)::before {
+            &:nth-child(2n) {
+                padding-right: 0;
+                padding-left: 3em;
+            }
+
+            &:nth-child(2n):not(:first-child)::before {
                 content: '';
                 position: absolute;
                 top: 0;
@@ -135,11 +162,13 @@
             }
 
             &--newest {
-                width: 100%;
-                max-width: 700px;
+                width: auto;
+                padding: 0;
                 margin-top: 0;
+                margin-right: 2em;
                 font-size: 0.9rem;
                 line-height: 1.6;
+                max-width: $max-width - 360px;
 
                 .digest__post__content-inner {
                     //white-space: pre-line;
@@ -149,9 +178,9 @@
             }
 
             &__image {
+                display: block;
                 width: 100%;
-                max-width: 200px;
-                margin-bottom: 2em;
+                margin-bottom: 3em;
 
                 img {
                     display: block;
@@ -167,6 +196,11 @@
                 justify-content: space-between;
                 flex-direction: column;
                 line-height: inherit;
+
+                img {
+                    display: block;
+                    margin: 0.4em 0;
+                }
             }
 
             &__title {
