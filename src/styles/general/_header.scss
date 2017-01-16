@@ -23,6 +23,15 @@
 		@include defWidth;
 	}
 
+	&__user {
+		display: flex;
+		align-items: center;
+		justify-content: flex-end;
+		color: white;
+
+		a { margin-left: 1em; }
+	}
+
 	&__links {
 		display: flex;
 		align-items: center;
