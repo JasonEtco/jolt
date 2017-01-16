@@ -169,12 +169,6 @@
                 font-size: 0.9rem;
                 line-height: 1.6;
                 max-width: $max-width - 360px;
-
-                .digest__post__content-inner {
-                    //white-space: pre-line;
-                    max-height: 800px;
-                    overflow-y: hidden;
-                }
             }
 
             &__image {
