@@ -17,7 +17,7 @@
 		{% if currentUser %}
 			{% set wiki = craft.entries.section('internalWikiIndex').first() %}
 			<li class="nav__list-item">
-				<a href="{{ wiki.url }}" class="nav__link">{{ wiki.title }}</a>
+				<a href="{{ wiki.url }}" class="nav__link">Internal Wiki</a>
 			</li>
 		{% endif %}
 	</ul>
