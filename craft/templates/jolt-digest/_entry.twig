@@ -22,8 +22,18 @@
 		<article class="digest-post">
 			<header class="digest-post__header">
 				<div class="digest-post__header__inner">
+					{% if entry.mainImage|length %}
+						<div class="digest-post__image">
+							<img src="{{ entry.mainImage.first().url }}" alt="{{ entry.title }}">
+						</div>
+					{% endif %}
+
 					<h1 class="digest-post__title">{{ entry.title }}</h1>
-					<h2 class="digest-post__byline">{{ entry.byline }}</h2>
+
+					{% if entry.byline %}
+						<h2 class="digest-post__byline">{{ entry.byline }}</h2>
+					{% endif %}
+
 					<span class="digest-post__postDate">{{ entry.postDate.format('F d, Y') }}</span>
 				</div>
 			</header>

@@ -17,7 +17,24 @@
             width: 100%;
             max-width: 720px;
             margin: 0 auto;
+
+            &::after {
+                content: '';
+                display: block;
+                width: 100%;
+                height: 1px;
+                border-bottom: 1px dotted $grey;
+                margin-top: 3em;
+            }
         }
+    }
+
+    + .digest__aside .digest__home__featured__post:first-of-type {
+        padding-top: 3em;
+    }
+
+    &__image {
+        margin-bottom: 2em;
     }
 
     &__title {
@@ -27,9 +44,8 @@
     }
 
     &__byline {
-        &:empty {
-            display: none;
-        }
+        margin-bottom: 0;
+        font-size: 1.2rem;
     }
 
     &__postDate {
@@ -51,17 +67,17 @@
                 content: '';
                 position: absolute;
                 z-index: -1;
-                bottom: 0;
+                bottom: 2px;
                 left: -0.5%;
                 width: 101%;
                 height: 100%;
                 background-color: $yellow;
-                transform: scaleY(0.2);
+                transform: scaleY(0.1);
                 transform-origin: center bottom;
                 transition: transform 150ms $standard;
             }
 
-            &:hover::after { transform: scaleY(0.4); }
+            &:hover::after { transform: scaleY(0.3); }
         }
     }
 }
