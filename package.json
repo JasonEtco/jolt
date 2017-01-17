@@ -1,6 +1,7 @@
 {
   "name": "jolt",
   "domain": "jolt.dev",
+  "version": "1.0.0",
   "favicon": {
     "windows": {
       "backgroundColor": "#da532c"
@@ -72,7 +73,10 @@
       "no-browser-hacks": null,
       "at-rule-empty-line-before": null,
       "function-url-data-uris": null
-    }
+    },
+    "ignoreFiles": [
+      "craft/**/*"
+    ]
   },
   "dependencies": {
     "autoprefixer": "^6.6.1",
