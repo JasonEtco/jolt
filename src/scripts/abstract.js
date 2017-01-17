@@ -10,7 +10,9 @@ function toggleAbstractClasses() {
 
 if (abstractModalButton && abstractModalClose) {
   window.addEventListener('keydown', e => {
-    if (e.keyCode === 27 && abstractModal.classList.contains('abstract-modal--open')) toggleAbstractClasses();
+    if (e.keyCode === 27 && abstractModal.classList.contains('abstract-modal--open')) {
+      toggleAbstractClasses();
+    }
   });
 
   abstractModalButton.onclick = () => toggleAbstractClasses();
