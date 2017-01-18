@@ -59,25 +59,7 @@
         line-height: 1.6em;
 
         p a {
-            position: relative;
-            display: inline-block;
-            text-decoration: none;
-
-            &::after {
-                content: '';
-                position: absolute;
-                z-index: -1;
-                bottom: 2px;
-                left: -0.5%;
-                width: 101%;
-                height: 100%;
-                background-color: $yellow;
-                transform: scaleY(0.1);
-                transform-origin: center bottom;
-                transition: transform 150ms $standard;
-            }
-
-            &:hover::after { transform: scaleY(0.3); }
+            @include underline(blue, $yellow);
         }
     }
 }
