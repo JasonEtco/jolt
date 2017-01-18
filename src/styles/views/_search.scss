@@ -1,0 +1,22 @@
+.search {
+    &__header, &__results {
+        width: 100%;
+        max-width: $max-width;
+        margin: 0 auto;
+    }
+
+    &__results {
+        margin-bottom: 2em;
+    }
+
+    &__result {
+        @extend %card;
+        padding: 2em;
+
+        &:not(:first-of-type) { margin-top: 1em; }
+
+        a {
+            @include underline($blue, $yellow);
+        }
+    }
+}

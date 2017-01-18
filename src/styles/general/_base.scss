@@ -1,80 +1,84 @@
 html { height: 100%; }
 
 body {
-	display: flex;
-	height: 100%;
-	flex-direction: column;
-	font-family: $body-stack;
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    font-family: $body-stack;
 
-	&.body--no-scroll {
-		overflow-y: hidden;
-	}
+    &.body--no-scroll {
+        overflow-y: hidden;
+    }
 
-	&.body--blue {
-		background-color: $dark-blue;
-	}
+    &.body--blue {
+        background-color: $dark-blue;
+    }
+
+    &.body--grey {
+        background-color: $lightgrey;
+    }
 }
 
 .main {
-	flex: 1 0 auto;
+    flex: 1 0 auto;
 }
 
 .accent-title {
-	color: $grey;
-	font-family: $title-stack;
-	font-size: 1.2rem;
+    color: $grey;
+    font-family: $title-stack;
+    font-size: 1.2rem;
 }
 
 .accent-type {
-	color: $blue;
-	font-family: $body-stack;
-	font-size: 0.8rem;
-	text-transform: uppercase;
-	letter-spacing: 0.2em;
+    color: $blue;
+    font-family: $body-stack;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
 }
 
 %card {
-	box-shadow: 0 2px 4px rgba(black, 0.1);
-	border-radius: 3px;
-	background-color: white;
+    box-shadow: 0 2px 4px rgba(black, 0.1);
+    border-radius: 3px;
+    background-color: white;
 }
 
 .form__option {
-	&--2 {
-		margin-left: 16px;
-	}
+    &--2 {
+        margin-left: 16px;
+    }
 }
 
 .btn {
-	display: inline-block;
-	padding: 0.6em 1em;
-	border: 0;
-	border-radius: 5px;
-	background-color: $red;
-	color: white;
-	font-size: 0.8rem;
-	font-family: $body-stack;
-	text-transform: uppercase;
-	text-decoration: none;
-	transition: background-color 150ms;
+    display: inline-block;
+    padding: 0.6em 1em;
+    border: 0;
+    border-radius: 5px;
+    background-color: $red;
+    color: white;
+    font-size: 0.8rem;
+    font-family: $body-stack;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: background-color 150ms;
 
-	&:hover {
-		background-color: darken($red, 10%);
-	}
+    &:hover {
+        background-color: darken($red, 10%);
+    }
 
-	&--blue {
-		background-color: $blue;
+    &--blue {
+        background-color: $blue;
 
-		&:hover {
-			background-color: darken($blue, 10%);
-		}
-	}
+        &:hover {
+            background-color: darken($blue, 10%);
+        }
+    }
 }
 
 .link {
-	@include link($blue);
+    @include link($blue);
 }
 
 .link--red {
-	@include link($red);
+    @include link($red);
 }

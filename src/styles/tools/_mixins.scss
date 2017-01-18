@@ -37,10 +37,10 @@
 @mixin underline($color, $secondaryColor: $color) {
     color: $color;
     text-decoration: none;
-    text-shadow: 1px 1px 0 #fff, -1px 1px 0 #fff, 2px 0 0 #fff, -2px 0 0 #fff;
-    box-shadow: inset 0 -1px 0 0 #fff, inset 0 -3px 0 0 lighten($secondaryColor, 20%);
+    text-shadow: 1px 1px 0 white, -1px 1px 0 white, 2px 0 0 white, -2px 0 0 white;
+    box-shadow: inset 0 -1px 0 0 white, inset 0 -3px 0 0 lighten($secondaryColor, 20%);
 
     &:hover {
-        box-shadow: inset 0 -1px 0 0 #fff, inset 0 -3px 0 0 $secondaryColor;
+        box-shadow: inset 0 -1px 0 0 white, inset 0 -3px 0 0 $secondaryColor;
     }
 }

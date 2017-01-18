@@ -1,4 +1,6 @@
 {% extends "_layouts/site" %}
+{% set bodyClass = "body--grey" %}
+{% set headerClass = "header--sticky" %}
 
 {# Get the requested search term and find the matching entries #}
 {% set searchTerm = craft.request.getParam('q') %}
@@ -6,12 +8,12 @@
 
 {% block content %}
 
-	<header>
+	<header class="search__header">
 		<h1>Search Results</h1>
 		<h3>You search for <strong>{{ searchTerm }}</strong></h3>
 	</header>
 
-	<section>
+	<section class="search__results">
 
 			{# Were there any search results? #}
 			{% if searchResults | length %}
@@ -19,9 +21,9 @@
 
 				{# Loop through the results #}
 				{% for entry in searchResults %}
-					<div>
+					<div class="search__result">
 						<span class="post-date">{{ entry.postDate.format('m.d.Y') }}</span>
-						<h2>{{ entry.getLink() }}</h2>
+						<h2 class="link-wrapper">{{ entry.getLink() }}</h2>
 					</div>
 				{% endfor %}
 
