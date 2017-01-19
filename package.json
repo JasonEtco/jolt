@@ -75,7 +75,8 @@
       "function-url-data-uris": null
     },
     "ignoreFiles": [
-      "craft/**/*"
+      "craft/**/*",
+      "public/**/*"
     ]
   },
   "dependencies": {
