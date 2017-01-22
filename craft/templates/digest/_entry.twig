@@ -43,22 +43,13 @@
 			</main>
 		</article>
 
-		<aside class="digest__aside">
-		{% for entry in craft.entries.section('digest').offset(1).limit(4) %}
-			<article class="digest__home__featured__post">
-
-				{% if entry.mainImage|length %}
-					<img src="{{ entry.mainImage.first().url }}" alt="{{ entry.title }}">
-				{% endif %}
-
-				<div class="digest__home__featured__post__content">
-					<div>
-						<span class="digest__home__featured__post__date">{{ entry.postDate.format('F d, Y') }}</span>
-						<a class="digest__home__featured__post__title" href="{{ entry.url }}">{{ entry.title }}</a>
-					</div>
-				</div>
-
-			</article>
+		<aside class="digest__aside aside">
+			<h2 class="digest__home__title">Recent Articles</h2>
+		{% for entry in craft.entries.section('digest').limit(4) %}
+				<article class="digest__home__featured__post">
+					<span class="digest__home__featured__post__date">{{ entry.postDate.format('F d, Y') }}</span>
+					<a class="digest__home__featured__post__title" href="{{ entry.url }}">{{ entry.title }}</a>
+				</article>
 		{% endfor %}
 		</aside>
 	</div>

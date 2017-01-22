@@ -19,4 +19,9 @@
             @include underline($blue, $yellow);
         }
     }
+
+    &__post-date {
+        display: block;
+        margin-top: 1em;
+    }
 }

@@ -10,20 +10,24 @@
 
 	<header class="search__header">
 		<h1>Search Results</h1>
-		<h3>You search for <strong>{{ searchTerm }}</strong></h3>
+		<span>You searched for <strong>{{ searchTerm }}</strong></span>
 	</header>
 
 	<section class="search__results">
 
 			{# Were there any search results? #}
 			{% if searchResults | length %}
-				<h2>{{ searchResults | length }} results</h2>
+				<h2 class="search__title accent-title">{{ searchResults | length }} results</h2>
 
 				{# Loop through the results #}
 				{% for entry in searchResults %}
 					<div class="search__result">
-						<span class="post-date">{{ entry.postDate.format('m.d.Y') }}</span>
-						<h2 class="link-wrapper">{{ entry.getLink() }}</h2>
+						<h2 class="link-wrapper" style="margin-top: 0;">{{ entry.getLink() }}</h2>
+						{% if entry.byline %}
+							<span class="search__byline">{{ entry.byline }}</span>
+						{% endif %}
+						<span class="search__post-date accent-type">{{ entry.postDate.format('F j, Y') }}</span>
+
 					</div>
 				{% endfor %}
 

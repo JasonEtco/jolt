@@ -1,0 +1,33 @@
+.symposium {
+    &-wrapper {
+        display: flex;
+        width: 100%;
+        max-width: $max-width;
+        justify-content: space-between;
+        margin: 0 auto;
+    }
+
+    &__article {
+        margin-right: 6em;
+        margin-bottom: 3em;
+        font-size: 0.9rem;
+        max-width: 600px;
+
+        p { line-height: 1.4em; }
+    }
+
+    &__title {
+        color: $grey;
+        font-family: $fancy-stack;
+
+        &::after {
+            content: '';
+            display: block;
+            width: 100%;
+            max-width: 50px;
+            height: 2px;
+            margin: 1em 0;
+            background-color: $red;
+        }
+    }
+}

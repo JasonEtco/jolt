@@ -1,7 +1,52 @@
 {% extends "_layouts/site" %}
-
+{% set symposiums = craft.entries.section('symposiums') %}
+{% set parent = craft.entries.id(entry.id).first() %}
+{% set isFirst = craft.entries.section('symposiums').first().id == entry.id %}
+ 
 {% block content %}
 
-	{{ entry.title }}
+	<div class="symposium-wrapper">
+		<article class="symposium__article">
+			<h1 class="symposium__title">{{ entry.title }}</h1>
+			<div class="symposium__content">
+				{{ entry.body }}
+			</div>
+		</article>
+
+		<aside class="aside">
+			{% if parent %}
+				{% if parent.children|length %}
+					<nav>
+						<h4 class="aside__title">{{ parent.title }}</h4>
+						<ul class="aside__list">
+							{% for child in parent.children %}
+								<li class="aside__list-item"><a href="{{ child.url }}" class="aside__list-item__link">{{ child.title }}</a></li>
+							{% endfor %}
+						</ul>
+					</nav>
+				{% endif %}
+			{% endif %}
+
+
+			<nav class="symposium__aside">
+				{% if isFirst %}
+					<h4 class="aside__title">Past Symposiums</h4>
+				{% else %}
+					<h4 class="aside__title">More Symposiums</h4>
+				{% endif %}
+
+				<ul class="aside__list">
+					{% for symp in symposiums.level(1) %}
+
+						{% if entry.id != symp.id %}
+							<li class="aside__list-item"><a href="{{ symp.url }}" class="aside__list-item__link">{{ symp.title }}</a></li>
+						{% endif %}
+
+					{% endfor %}
+				</ul>
+			</nav>
+		</aside>
+
+	</div>
 
 {% endblock %}

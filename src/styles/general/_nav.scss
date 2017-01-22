@@ -1,114 +1,114 @@
 .global-nav {
-	position: fixed;
-	z-index: 999;
-	top: 0;
-	left: -$nav-width;
-	width: $nav-width;
-	height: 100%;
-	background-color: $dark-blue;
-	color: white;
+    position: fixed;
+    z-index: 999;
+    top: 0;
+    left: -$nav-width;
+    width: $nav-width;
+    height: 100%;
+    background-color: $dark-blue;
+    color: white;
 
-	transition: transform 200ms;
-	transition-timing-function: $exit;
+    transition: transform 200ms;
+    transition-timing-function: $exit;
 
-	&.nav--open {
-		transform: translateX(100%);
-		transition-timing-function: $enter;
-	}
+    &.nav--open {
+        transform: translateX(100%);
+        transition-timing-function: $enter;
+    }
 }
 
 .nav {
-	&__close {
-		position: absolute;
-		top: 0;
-		left: 0;
-		border: none;
-		background: none;
-		color: white;
-	}
+    &__close {
+        position: absolute;
+        top: 0;
+        left: 0;
+        border: none;
+        background: none;
+        color: white;
+    }
 
-	&__logo {
-		display: block;
-		box-sizing: border-box;
-		padding: 0 2em;
-		margin: 2em 0;
+    &__logo {
+        display: block;
+        box-sizing: border-box;
+        padding: 0 2em;
+        margin: 2em 0;
 
-		svg { fill: white; }
-	}
+        svg { fill: white; }
+    }
 
-	&__list {
-		padding: 0;
-		margin: 0;
-		list-style-type: none;
-	}
+    &__list {
+        padding: 0;
+        margin: 0;
+        list-style-type: none;
+    }
 
-	&__link {
-		display: block;
-		box-sizing: border-box;
-		width: 100%;
-		padding: 1em;
-		color: white;
-		text-decoration: none;
+    &__link {
+        display: block;
+        box-sizing: border-box;
+        width: 100%;
+        padding: 1em;
+        color: white;
+        text-decoration: none;
 
-		&:hover {
-			background-color: lighten($dark-blue, 10%);
-		}
-	}
+        &:hover {
+            background-color: lighten($dark-blue, 10%);
+        }
+    }
 }
 
 .nav-button {
-	position: relative;
-	width: 28px;
-	height: 30px;
-	padding: 0;
-	border: none;
-	margin-right: $spacing;
-	background: transparent;
-	outline: none;
+    position: relative;
+    width: 28px;
+    height: 30px;
+    padding: 0;
+    border: none;
+    margin-right: $spacing;
+    background: transparent;
+    outline: none;
 
-	span {
-		display: block;
-		width: 100%;
-		height: 2px;
-		background-color: white;
+    span {
+        display: block;
+        width: 100%;
+        height: 2px;
+        background-color: white;
 
-		&::after, &::before {
-			content: '';
-			position: absolute;
-			left: 0;
-			display: block;
-			width: 100%;
-			height: 2px;
-			background-color: white;
-			transition: transform 0.25s ease-in-out;
-		}
+        &::after, &::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            display: block;
+            width: 100%;
+            height: 2px;
+            background-color: white;
+            transition: transform 0.25s ease-in-out;
+        }
 
-		&::after { top: 4px; }
+        &::after { top: 4px; }
 
-		&::before { bottom: 4px; }
-	}
+        &::before { bottom: 4px; }
+    }
 
-	&:hover span::after { transform: translateY(-4px); }
+    &:hover span::after { transform: translateY(-4px); }
 
-	&:hover span::before { transform: translateY(4px); }
+    &:hover span::before { transform: translateY(4px); }
 }
 
 .overlay {
-	position: fixed;
-	z-index: 998;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	background-color: black;
-	opacity: 0;
-	visibility: hidden;
-	transition: opacity 200ms, visibility 200ms;
-	transition-timing-function: $standard;
-	transition-delay: 0ms;
+    position: fixed;
+    z-index: 998;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 200ms, visibility 200ms;
+    transition-timing-function: $standard;
+    transition-delay: 0ms;
 
-	&.is-visible {
-		opacity: 0.5;
-		visibility: visible;
-	}
+    &.is-visible {
+        opacity: 0.5;
+        visibility: visible;
+    }
 }

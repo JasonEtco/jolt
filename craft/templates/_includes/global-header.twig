@@ -1,7 +1,7 @@
 <header class="header {% if headerClass is defined %}{{ headerClass }}{% endif %}">
-	{% cache globally %}
 	<div class="header__inner">
 
+		{% cache globally %}
 		<div class="header__links">
 			<button class="nav-button" id="js--nav-button">
 				<span></span>
@@ -9,17 +9,20 @@
 
 			<a href="{{ siteUrl }}" class="header__logo-link">{% include '_includes/jolt-logo.svg' %}</a>
 		</div>
+		{% endcache %}
 
 		<div class="header__extra">
+			{% cache globally %}
 			<form action="{{ url('search/results') }}" class="header__search">
 				<input class="header__search__input" type="search" name="q" placeholder="Search">
 				<button type="submit" name="search" class="header__search__button">Search</button>
 			</form>
+			{% endcache %}
 
 			{% if currentUser %}
 
 				<div class="header__user">
-					<p>Hello {{ currentUser.friendlyName }}!</p>
+					<p style="margin: 0;">Hello {{ currentUser.friendlyName }}!</p>
 					<a href="{{ logoutUrl }}" class="header__button">Logout</a>
 				</div>
 
@@ -30,5 +33,4 @@
 			{% endif %}
 		</div>
 	</div>
-	{% endcache %}
 </header>
