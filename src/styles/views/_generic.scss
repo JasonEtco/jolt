@@ -1,0 +1,45 @@
+.generic {
+    &-wrapper {
+        box-sizing: border-box;
+        width: 100%;
+        max-width: $max-width;
+        padding: 2em 6em 4em;
+        margin: 0 auto;
+        background-color: white;
+
+        @include media($on-mobile) {
+            padding: 2em;
+        }
+    }
+
+    &__article {
+        margin-bottom: 3em;
+        font-size: 0.9rem;
+
+        p {
+            line-height: 1.4em;
+
+            a {
+                @include underline(blue, $yellow);
+            }
+        }
+
+        figure {
+            margin: 0;
+        }
+    }
+
+    &__title {
+        font-family: $fancy-stack;
+
+        &::after {
+            content: '';
+            display: block;
+            width: 100%;
+            max-width: 50px;
+            height: 2px;
+            margin: 1em 0;
+            background-color: $red;
+        }
+    }
+}

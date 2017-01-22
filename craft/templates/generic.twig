@@ -1,0 +1,13 @@
+{% extends "_layouts/site" %}
+{% set title = entry.title %}
+{% set bodyClass = 'body--grey' %}
+
+{% block content %}
+<div class="generic-wrapper">
+	<h1 class="generic__title">{{ entry.title }}</h1>
+
+	<div class="generic__article">
+		{{ entry.body }}
+	</div>
+</div>
+{% endblock %}

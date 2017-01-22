@@ -1,3 +1,14 @@
+$on-mobile: 768px;
+$on-tablet: 1024px;
+$on-laptop: 1500px;
+
+@mixin media($max-width) {
+    @media screen and (max-width: $max-width) {
+        @content;
+    }
+}
+
+
 @mixin defWidth {
     width: 100%;
     max-width: $max-width;
