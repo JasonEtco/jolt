@@ -1,24 +1,44 @@
 {% extends "_layouts/site" %}
 {% set title = "Speakers" %}
+{% set bodyClass = "body--grey" %}
 
 {% block content %}
+	<section class="speakers">
+		<header class="speakers__header">
+			<h1 class="speakers__title">{{ entry.title }}</h1>
+			{{ entry.body }}
+		</header>
 
-	<table>
-		<tbody>
-			{% for block in entry.speakers %}
-				<tr>
-					<td>{{ block.speakerTitle }}</td>
-					<td>{{ block.date.format('F j, Y') }}</td>
-					{% if block.moreInfo %}
-						<td>{{ block.speakerTitle }}</td>
-					{% endif %}
+		<h4 style="margin: 2em 0 0;">Past Speakers</h4>
 
-					{% if block.externalLink %}
-						<td><a href="{{ block.externalLink }}">External Link</a></td>
-					{% endif %}
-				</tr>
-			{% endfor %}			
-		</tbody>
-	</table>
+		<table class="speakers__table">
+			<tbody>
+				{% for block in entry.speakers %}
+					<tr class="speakers__row">
+						<td class="speakers__data">{{ block.speakerTitle }}</td>
+						<td class="speakers__data speakers__data--date">{{ block.date.format('F j, Y') }}</td>
+
+						<td class="speakers__data">
+							{% if block.moreInfo %}
+								<button class="speakers__more-info-btn">More Info</button><div class="speakers__more-info">{{ block.moreInfo }}</div>
+							{% endif %}
+							{% if block.externalLink %}
+								<a href="{{ block.externalLink }}">External Link</a>
+							{% endif %}
+						</td>
+
+					</tr>
+				{% endfor %}			
+			</tbody>
+		</table>
+	</section>
+
+	<div class="speakers-modal">
+		<div class="speakers-modal__inner">
+			<button id="js--speakers-close">CLOSE</button>
+			<div class="speakers-modal__content"></div>
+		</div>
+		<div class="speakers-modal__overlay"></div>
+	</div>
 
 {% endblock %}

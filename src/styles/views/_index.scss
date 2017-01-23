@@ -144,8 +144,6 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-
     opacity: 0;
     visibility: hidden;
 
@@ -161,8 +159,20 @@
         transform: translateY(-50%);
     }
 
+    &__overlay {
+        position: absolute;
+        z-index: -1;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: black;
+        opacity: 0.5;
+    }
+
     &.abstract-modal--open {
         opacity: 1;
         visibility: visible;
     }
 }
+

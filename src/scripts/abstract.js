@@ -2,6 +2,8 @@
 const abstractModal = document.querySelector('.abstract-modal');
 const abstractModalButton = document.getElementById('js--abstract-button');
 const abstractModalClose = document.getElementById('js--abstract-close');
+const abstractModalOverlay = document.querySelector('.abstract-modal__overlay');
+
 
 function toggleAbstractClasses() {
   abstractModal.classList.toggle('abstract-modal--open');
@@ -17,4 +19,5 @@ if (abstractModalButton && abstractModalClose) {
 
   abstractModalButton.onclick = () => toggleAbstractClasses();
   abstractModalClose.onclick = () => toggleAbstractClasses();
+  abstractModalOverlay.onclick = () => toggleAbstractClasses();
 }
