@@ -1,0 +1,20 @@
+.calendar {
+    display: flex;
+    justify-content: center;
+    box-sizing: border-box;
+    width: 100%;
+    max-width: $max-width;
+    padding: 2em 6em 4em;
+    margin: 0 auto;
+    flex-direction: column;
+    background-color: white;
+
+    @include media($on-mobile) {
+        padding: 2em;
+    }
+
+    h1 {
+        margin-top: 0;
+        font-family: $fancy-stack;
+    }
+}

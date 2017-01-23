@@ -1,0 +1,17 @@
+{% extends "_layouts/site" %}
+{% set title = "Event Calendar" %}
+{% set bodyClass = "body--grey" %}
+
+{% block content %}
+	<section class="calendar">
+		<h1>Calendar of Events</h1>
+		<iframe
+			src="https://calendar.google.com/calendar/embed?src=on5o6trqj7i925evegvrehorr8%40group.calendar.google.com&amp;ctz=America/New_York"
+			style="border: 0"
+			width="100%"
+			height="600px"
+			frameborder="0"
+			scrolling="no">
+		</iframe>
+	</section>
+{% endblock %}
