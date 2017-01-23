@@ -1,0 +1,24 @@
+{% extends "_layouts/site" %}
+{% set title = "Speakers" %}
+
+{% block content %}
+
+	<table>
+		<tbody>
+			{% for block in entry.speakers %}
+				<tr>
+					<td>{{ block.speakerTitle }}</td>
+					<td>{{ block.date.format('F j, Y') }}</td>
+					{% if block.moreInfo %}
+						<td>{{ block.speakerTitle }}</td>
+					{% endif %}
+
+					{% if block.externalLink %}
+						<td><a href="{{ block.externalLink }}">External Link</a></td>
+					{% endif %}
+				</tr>
+			{% endfor %}			
+		</tbody>
+	</table>
+
+{% endblock %}
