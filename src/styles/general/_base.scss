@@ -88,6 +88,13 @@ body {
     padding: 1em;
     background-color: $lightgrey;
 
+    @include media($on-mobile) {
+        width: 100%;
+        max-width: none;
+        padding: 1em;
+        box-sizing: border-box;
+    }
+
     &__title {
         margin-top: 0;
         color: $grey;

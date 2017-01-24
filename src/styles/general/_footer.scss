@@ -7,6 +7,11 @@
 	color: $soft-blue;
 	font-size: 0.8rem;
 
+		@include media($on-mobile) {
+			box-sizing: border-box;
+			padding: 2em;
+	}
+
 	&__inner {
 		display: flex;
 		justify-content: space-between;
