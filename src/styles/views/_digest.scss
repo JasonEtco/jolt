@@ -50,6 +50,15 @@
         margin: 0 auto;
         flex-wrap: wrap;
 
+        @include media($on-tablet) {
+            padding: 0 1em !important;
+            box-sizing: border-box;
+        }
+
+        @include media($on-mobile) {
+            display: block;
+        }
+
         &__control {
             &s {
                 display: flex;
@@ -146,8 +155,8 @@
             }
 
             @include media($on-mobile) {
-                padding: 0 1em !important;
-                box-sizing: border-box;
+                width: 100%;
+                padding: 0 !important;
             }
 
             &:nth-child(2n):not(:first-child)::before {
@@ -158,6 +167,10 @@
                 width: 1px;
                 height: calc(100% - 2em);
                 background-color: lighten($grey, 20%);
+
+                @include media($on-mobile) {
+                    display: none;
+                }
             }
 
             &--newest {
@@ -169,10 +182,14 @@
                 line-height: 1.6;
                 max-width: $max-width - 360px;
 
+                @include media($on-tablet) {
+                    padding: 0 1em !important;
+                    box-sizing: border-box;
+                }
+
                 @include media($on-mobile) {
                     width: 100%;
                     max-width: none;
-                    padding: 0 2em;
                     margin: 0;
                 }
             }

@@ -1,15 +1,16 @@
 <header class="header {% if headerClass is defined %}{{ headerClass }}{% endif %}">
 	<div class="header__inner">
 
-		{% cache globally %}
 		<div class="header__links">
 			<button class="nav-button" id="js--nav-button">
 				<span></span>
 			</button>
 
 			<a href="{{ siteUrl }}" class="header__logo-link">{% include '_includes/jolt-logo.svg' %}</a>
+			{% if digestLogo is defined and digestLogo == true %}
+				<a href="{{ siteUrl }}" class="header__digest-logo">{% include '_includes/digest-logo.svg' %}</a>
+			{% endif %}
 		</div>
-		{% endcache %}
 
 		<div class="header__extra">
 			{% cache globally %}

@@ -1,5 +1,6 @@
 {% extends "_layouts/site" %}
 {% set title = "JOLT Digest" %}
+{% set digestLogo = true %}
 {% paginate craft.entries.section('digest').offset(1).limit(10) as pageInfo, pageEntries %}
 
 {% block content %}

@@ -30,8 +30,14 @@
 
         @include defWidth;
 
+        @include media($on-tablet) {
+            padding: 0 1em;
+            box-sizing: border-box;
+        }
+
         @include media($on-mobile) {
             display: block;
+            padding: 0;
         }
     }
 
@@ -47,6 +53,16 @@
     &__links {
         display: flex;
         align-items: center;
+
+        @include media($on-tablet) {
+            flex-wrap: wrap;
+            
+            &::before {
+                content: '';
+                width: 100%;
+                order: 1;
+            }
+        }
 
         @include media($on-mobile) {
             justify-content: center;
@@ -64,6 +80,28 @@
         &--blue { fill: $teal; }
 
         &--yellow { fill: $yellow; }
+    }
+
+    &__digest-logo {
+        display: block;
+        width: 200px;
+        margin-left: 1em;
+
+        svg {
+            width: 100%;
+
+            .digest-logo__jolt path { fill: white; }
+        }
+
+        @include media($on-tablet) {
+            order: 2;
+            margin-top: 1em;
+            margin-left: 3.5em;
+        }
+
+        @include media($on-mobile) {
+            display: none;
+        }
     }
 
     &__button {

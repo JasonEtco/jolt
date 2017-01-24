@@ -7,7 +7,7 @@
 	color: $soft-blue;
 	font-size: 0.8rem;
 
-		@include media($on-mobile) {
+		@include media($on-tablet) {
 			box-sizing: border-box;
 			padding: 2em;
 	}
