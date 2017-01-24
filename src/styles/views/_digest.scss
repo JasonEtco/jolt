@@ -145,6 +145,11 @@
                 padding-left: 3em;
             }
 
+            @include media($on-mobile) {
+                padding: 0 1em !important;
+                box-sizing: border-box;
+            }
+
             &:nth-child(2n):not(:first-child)::before {
                 content: '';
                 position: absolute;
@@ -163,6 +168,13 @@
                 font-size: 0.9rem;
                 line-height: 1.6;
                 max-width: $max-width - 360px;
+
+                @include media($on-mobile) {
+                    width: 100%;
+                    max-width: none;
+                    padding: 0 2em;
+                    margin: 0;
+                }
             }
 
             &__image {
@@ -188,6 +200,7 @@
                 img {
                     display: block;
                     margin: 0.4em 0;
+                    max-width: 100%;
                 }
             }
 
@@ -247,6 +260,12 @@
 
                 &:first-of-type { margin-left: 0; }
             }
+        }
+    }
+
+    &__aside {
+        @include media($on-mobile) {
+            display: none;
         }
     }
 }

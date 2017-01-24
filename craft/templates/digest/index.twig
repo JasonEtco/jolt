@@ -1,9 +1,10 @@
 {% extends "_layouts/site" %}
 {% set title = "JOLT Digest" %}
+{% paginate craft.entries.section('digest').offset(1).limit(10) as pageInfo, pageEntries %}
 
 {% block content %}
 	{% include '_includes/digest-nav' %}
-
+		{% if pageInfo.currentPage == 1 %}
 		{% set newestEntry = craft.entries.section('digest').first() %}
 		<div class="digest__home__featured">
 			<article class="digest__home__post digest__home__post--newest">
@@ -40,10 +41,9 @@
 			{% endfor %}
 			</aside>
 		</div>
+		{% endif %}
 
 	<section class="digest__posts">
-		{% paginate craft.entries.section('digest').offset(1).limit(10) as pageInfo, pageEntries %}
-
 		{% for entry in pageEntries %}
 		<article class="digest__home__post">
 
