@@ -30,6 +30,7 @@
         margin-right: 6em;
 
         @include media($on-mobile) {
+            margin-top: 0;
             margin-right: 0;
         }
     }
