@@ -29,6 +29,10 @@
         justify-content: space-between;
 
         @include defWidth;
+
+        @include media($on-mobile) {
+            display: block;
+        }
     }
 
     &__user {
@@ -43,6 +47,10 @@
     &__links {
         display: flex;
         align-items: center;
+
+        @include media($on-mobile) {
+            justify-content: center;
+        }
     }
 
     .jolt-logo {
@@ -74,6 +82,11 @@
         &:hover {
             background-color: darken($red, 10%);
         }
+
+        @include media($on-mobile) {
+            float: none;
+            font-size: 0.7rem;
+        }
     }
 
     &__search {
@@ -81,12 +94,22 @@
         margin-bottom: 0.5em;
         font-size: 0.8rem;
 
+        @include media($on-mobile) {
+            justify-content: center;
+            margin: 0 0.5em 0 0;
+            font-size: 0.7rem;
+        }
+
         &__input {
             width: 20em;
             padding: 0.6em 1em;
             border: 0;
             border-top-left-radius: 5px;
             border-bottom-left-radius: 5px;
+
+            @include media($on-mobile) {
+                width: 18em;
+            }
         }
 
         &__button {
@@ -103,6 +126,15 @@
             &:hover {
                 background-color: darken($red, 10%);
             }
+        }
+    }
+
+    &__extra {
+        @include media($on-mobile) {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 1em;
         }
     }
 }

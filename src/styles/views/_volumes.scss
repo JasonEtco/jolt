@@ -1,26 +1,48 @@
 .volume {
+    padding-left: 2em;
     font-size: 0.75rem;
+
+    @include media($on-mobile) {
+        padding-left: 0;
+    }
+
+    &:last-of-type {
+        padding-bottom: 6em;
+    }
 
     &-wrapper {
         display: flex;
+        box-sizing: border-box;
         width: 100%;
         max-width: $max-width;
-        padding-bottom: 4em;
+        padding: 0 0 0 2em;
         margin: 0 auto;
+        background-color: white;
+
+        @include media($on-mobile) {
+            display: block;
+            padding: 2em;
+        }
     }
 
     &__volumes {
-        margin-top: 2em;
+        margin-top: 3em;
         margin-right: 6em;
+
+        @include media($on-mobile) {
+            margin-right: 0;
+        }
     }
 
-    &--spring::before {
-        content: '';
-        display: block;
-        width: 100%;
-        height: 1px;
-        border-bottom: 1px dotted $grey;
-        margin: 3em 0;
+    &--spring {
+        &::before {
+            content: '';
+            display: block;
+            width: 100%;
+            height: 1px;
+            border-bottom: 1px dotted $grey;
+            margin: 3em 0;
+        }
     }
 
     > h2 {
@@ -46,6 +68,10 @@
                 border-color: $blue;
             }
         }
+
+        @include media($on-mobile) {
+            display: block;
+        }
     }
 
 
@@ -54,6 +80,12 @@
 
         &:first-child {
             margin-right: 6em;
+        }
+
+        @include media($on-mobile) {
+            &:first-child {
+                margin-right: 0;
+            }
         }
     }
 
