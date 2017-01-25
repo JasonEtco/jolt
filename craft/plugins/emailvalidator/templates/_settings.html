@@ -1,0 +1,10 @@
+{% import '_includes/forms' as forms %}
+
+{{ forms.textareaField({
+	label: "Allowed Emails"|t,
+	id: 'allowedEmails',
+	class: 'redactor',
+	name: 'allowedEmails',
+	value: settings.allowedEmails is defined ? settings.allowedEmails : '',
+	errors: settings.getErrors('allowedEmails')
+}) }}
