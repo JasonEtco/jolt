@@ -1,66 +1,75 @@
 {% extends "_layouts/base" %}
 {% set title = "Login" %}
+{% set bodyClass = "body--blue" %}
 
 {% block body %}
-	<form method="post" accept-charset="UTF-8">
-		{{ getCsrfInput() }}
-		<input type="hidden" name="action" value="users/login">
+	<main class="login">
+		{% include "_includes/jolt-logo.svg" %}
+		<div class="login__forms">
+			<section class="login__login">
+				<h2>Log in</h2>
+				<form method="post" accept-charset="UTF-8">
+					{{ getCsrfInput() }}
+					<input type="hidden" name="action" value="users/login">
 
-		<h3><label for="loginName">Username or email</label></h3>
-		<input id="loginName" type="text" name="loginName"
-				value="{{ craft.session.rememberedUsername }}">
+					<h3><label for="loginName">Email</label></h3>
+					<input id="loginName" type="text" name="loginName"
+							value="{{ craft.session.rememberedUsername }}">
 
-		<h3><label for="password">Password</label></h3>
-		<input id="password" type="password" name="password">
+					<h3><label for="password">Password</label></h3>
+					<input id="password" type="password" name="password">
 
-		<label>
-				<input type="checkbox" name="rememberMe" value="1">
-				Remember me
-		</label>
+					<label style="display: block">
+							<input type="checkbox" name="rememberMe" value="1">
+							Remember me
+					</label>
 
-		<input type="submit" value="Login">
+					<input type="submit" value="Login">
 
-		{% if errorMessage is defined %}
-				<p>{{ errorMessage }}</p>
-		{% endif %}
-	</form>
+					{% if errorMessage is defined %}
+							<p>{{ errorMessage }}</p>
+					{% endif %}
+					<p><a href="{{ url('forgotpassword') }}">Forget your password?</a></p>
+				</form>
+			</section>
 
-	<p><a href="{{ url('forgotpassword') }}">Forget your password?</a></p>
+			<section class="login__signup">
+				<h2>Sign up</h2>
+				<form method="post" accept-charset="UTF-8" onsubmit="return validateSignup()">
+					{{ getCsrfInput() }}
+					<input type="hidden" name="action" value="users/saveUser">
+					<input type="hidden" name="redirect" value="">
 
-	<h1>Sign up:</h1>
-	
-	<form class="login__signup" method="post" accept-charset="UTF-8" onsubmit="return validateSignup()">
-    {{ getCsrfInput() }}
-    <input type="hidden" name="action" value="users/saveUser">
-    <input type="hidden" name="redirect" value="">
+					{% macro errorList(errors) %}
+							{% if errors %}
+									<ul class="errors">
+											{% for error in errors %}
+													<li>{{ error }}</li>
+											{% endfor %}
+									</ul>
+							{% endif %}
+					{% endmacro %}
 
-    {% macro errorList(errors) %}
-        {% if errors %}
-            <ul class="errors">
-                {% for error in errors %}
-                    <li>{{ error }}</li>
-                {% endfor %}
-            </ul>
-        {% endif %}
-    {% endmacro %}
+					{% from _self import errorList %}
 
-    {% from _self import errorList %}
+					<h3><label for="email">Email</label></h3>
+					<input id="email" type="email" name="email" required
+							{%- if account is defined %} value="{{ account.email }}"{% endif %}>
 
-    <h3><label for="email">Email</label></h3>
-    <input id="email" type="email" name="email" required
-        {%- if account is defined %} value="{{ account.email }}"{% endif %}>
+					{% if account is defined %}
+							{{ errorList(account.getErrors('email')) }}
+					{% endif %}
 
-    {% if account is defined %}
-        {{ errorList(account.getErrors('email')) }}
-    {% endif %}
+					<h3><label for="password">Password</label></h3>
+					<input id="password" type="password" name="password" required>
 
-    <h3><label for="password">Password</label></h3>
-    <input id="password" type="password" name="password" required>
+					{% if account is defined %}
+							{{ errorList(account.getErrors('password')) }}
+					{% endif %}
 
-    {% if account is defined %}
-        {{ errorList(account.getErrors('password')) }}
-    {% endif %}
-
-    <input type="submit" value="Register">
-	</form>
+					<input type="submit" value="Register">
+				</form>
+			</section>
+		</div>
+	</main>
 {% endblock %}
