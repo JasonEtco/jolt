@@ -10,7 +10,7 @@
     background-color: white;
 
     @include media($on-mobile) {
-        padding: 2em;
+        padding: 1em;
     }
 
     h1 {

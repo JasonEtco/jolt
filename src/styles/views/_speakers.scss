@@ -11,7 +11,7 @@
     }
 
     @include media($on-mobile) {
-        padding: 2em;
+        padding: 1em;
     }
 
     &__title {
@@ -46,6 +46,12 @@
 
         &:first-of-type {
             padding-left: 0;
+        }
+
+        &:nth-child(2) {
+            @include media($on-mobile) {
+                display: none;
+            }
         }
 
         &:last-of-type {
