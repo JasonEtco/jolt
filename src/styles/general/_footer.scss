@@ -17,6 +17,10 @@
 		justify-content: space-between;
 
 		@include defWidth;
+
+		@include media($on-mobile) {
+				display: block;
+		}
 	}
 
 	&__title {
@@ -33,16 +37,22 @@
 			list-style-type: none;
 		}
 
-		@include link($soft-blue);
+		@include underline($soft-blue, $soft-blue, $dark-blue);
 	}
 
 	&__address p {
 		margin-top: 0;
+
+			@include media($on-mobile) {
+				margin-top: 2em;
+		}
 	}
 
 	&__copyright {
 		display: block;
 	}
 
-	&__contact-info a { color: lighten($soft-blue, 20%); }
+	&__contact-info a { 
+		@include underline(lighten($soft-blue, 20%), lighten($soft-blue, 20%), $dark-blue);
+	}
 }

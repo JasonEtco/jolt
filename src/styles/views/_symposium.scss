@@ -5,6 +5,10 @@
         max-width: $max-width;
         justify-content: space-between;
         margin: 0 auto;
+
+        @include media($on-mobile) {
+            display: block;
+        }
     }
 
     &__article {
@@ -13,7 +17,19 @@
         font-size: 0.9rem;
         max-width: 600px;
 
+        ul {
+            padding: 1em;
+        }
+
         p { line-height: 1.4em; }
+
+        @include media($on-tablet) {
+            padding: 0 1em;
+        }
+
+        @include media($on-mobile) {
+            margin-right: 0;
+        }
     }
 
     &__title {
