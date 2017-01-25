@@ -20,38 +20,64 @@
 .nav {
     &__close {
         position: absolute;
-        top: 0;
-        left: 0;
-        border: none;
-        background: none;
-        color: white;
+        top: 1em;
+        right: 1em;
+
+        svg { fill: $soft-blue; }
+
+        &:hover svg { fill: white; }
     }
 
     &__logo {
         display: block;
         box-sizing: border-box;
         padding: 0 2em;
-        margin: 2em 0;
+        margin: 3em 0 2em;
 
-        svg { fill: white; }
+        svg { fill: $lightgrey; }
     }
 
     &__list {
         padding: 0;
         margin: 0;
         list-style-type: none;
+
+        &-item {
+            &:not(:last-of-type) {
+                border-bottom: 1px solid darken($soft-blue, 20%);
+            }
+        }
     }
 
     &__link {
+        position: relative;
         display: block;
         box-sizing: border-box;
         width: 100%;
-        padding: 1em;
-        color: white;
+        padding: 1em 2em;
+        font-family: $fancy-stack;
+        color: $lightgrey;
         text-decoration: none;
+        transition: transform 150ms $standard;
 
-        &:hover {
-            background-color: lighten($dark-blue, 10%);
+        &:hover, &.is-active {
+            transform: translateX(1em);
+
+            &::before {
+                transform: translateX(-0.2em) scaleX(1);
+            }
+        }
+
+        &::before {
+            content: '';
+            position: absolute;
+            top: calc(50% - 2px);
+            left: 0;
+            width: 1em;
+            height: 4px;
+            background-color: $yellow;
+            transform: translateX(0) scaleX(0);
+            transition: transform 150ms $standard;
         }
     }
 }

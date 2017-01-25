@@ -1,6 +1,6 @@
 const nav = document.getElementById('js--global-nav');
 const navButton = document.getElementById('js--nav-button');
-const navClose = document.getElementById('js--nav-close');
+const navClose = document.querySelector('.nav__close');
 const overlay = document.querySelector('.overlay');
 
 function toggleNavClasses() {

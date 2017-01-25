@@ -83,6 +83,22 @@ body {
     @include link($red);
 }
 
+.btn--close {
+    display: block;
+    padding: 0;
+    border: none;
+    width: 1em;
+    height: 1em;
+    background: none;
+
+    svg {
+        fill: white;
+        width: 100%;
+        height: 100%;
+        transition: all 150ms $standard;
+    }
+}
+
 .aside {
     max-width: 300px;
     padding: 1em;
