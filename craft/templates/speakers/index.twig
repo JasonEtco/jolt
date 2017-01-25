@@ -35,7 +35,7 @@
 
 	<div class="speakers-modal">
 		<div class="speakers-modal__inner">
-			<button id="js--speakers-close">CLOSE</button>
+			{% include "_includes/close.twig" with { 'class': 'speakers-modal__close' } %}
 			<div class="speakers-modal__content"></div>
 		</div>
 		<div class="speakers-modal__overlay"></div>

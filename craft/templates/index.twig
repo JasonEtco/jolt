@@ -25,6 +25,7 @@
 	</section>
 
 	<section class="home__section--secondary">
+		{% if entry.featuredTitle %}
 		<div class="home__section--secondary__column">
 			<header class="home__section--secondary__meta">
 				<h3 class="accent-title">Featured Article</h3>
@@ -45,8 +46,9 @@
 				{% endif %}
 			</div>
 		</div>
+		{% endif %}
 
-		<div class="home__section--secondary__column">
+		<div class="home__section--secondary__column {% if not entry.featuredTitle %}single{% endif %}">
 			<a href="{{ craft.entries.section('digestIndex').first().url }}" class="home__section--secondary__digest-link">
 				{% include '_includes/digest-logo.svg' %}
 			</a>
@@ -65,7 +67,7 @@
 
 	<div class="abstract-modal">
 		<div class="abstract-modal__inner">
-			<button id="js--abstract-close">CLOSE</button>
+			{% include "_includes/close.twig" with { 'class': 'abstract-modal__close' } %}
 
 			<p>{{ entry.featuredContent }}</p>
 		</div>

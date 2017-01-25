@@ -14,6 +14,8 @@
     &.nav--open {
         transform: translateX(100%);
         transition-timing-function: $enter;
+
+        .nav__close { opacity: 1; visibility: visible; }
     }
 }
 
@@ -21,11 +23,9 @@
     &__close {
         position: absolute;
         top: 1em;
-        right: 1em;
-
-        svg { fill: $soft-blue; }
-
-        &:hover svg { fill: white; }
+        right: -2em;
+        opacity: 0;
+        visibility: hidden;
     }
 
     &__logo {

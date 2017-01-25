@@ -1,7 +1,7 @@
 // Abstract Modal
 const abstractModal = document.querySelector('.abstract-modal');
 const abstractModalButton = document.getElementById('js--abstract-button');
-const abstractModalClose = document.getElementById('js--abstract-close');
+const abstractModalClose = document.querySelector('.abstract-modal__close');
 const abstractModalOverlay = document.querySelector('.abstract-modal__overlay');
 
 

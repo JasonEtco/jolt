@@ -96,7 +96,14 @@
         margin: 0 auto;
         max-width: 400px;
         background-color: $lightgrey;
+        border-radius: 3px;
         transform: translateY(-50%);
+    }
+
+    &__close {
+        position: absolute;
+        top: -2em;
+        right: 0;
     }
 
     &__overlay {

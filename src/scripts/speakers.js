@@ -1,6 +1,6 @@
 const btns = document.querySelectorAll('.speakers__more-info-btn');
 const speakerModal = document.querySelector('.speakers-modal');
-const speakerModalClose = document.getElementById('js--speakers-close');
+const speakerModalClose = document.querySelector('.speakers-modal__close');
 const speakerModalOverlay = document.querySelector('.speakers-modal__overlay');
 
 

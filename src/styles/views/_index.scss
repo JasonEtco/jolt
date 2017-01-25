@@ -93,6 +93,11 @@
         width: 45%;
         margin: 0 5%;
 
+        &.single {
+            width: 50%;
+            margin-top: 2em;
+        }
+
         &:first-of-type {
             margin-left: 0;
 
@@ -166,8 +171,13 @@
     height: 100%;
     opacity: 0;
     visibility: hidden;
-
     transition: all 250ms ease-in-out;
+
+    &__close {
+        position: absolute;
+        top: -2em;
+        right: 0;
+    }
 
     &__inner {
         position: relative;
@@ -175,6 +185,7 @@
         padding: 1em;
         margin: 0 auto;
         max-width: 400px;
+        border-radius: 3px;
         background-color: $lightgrey;
         transform: translateY(-50%);
     }
