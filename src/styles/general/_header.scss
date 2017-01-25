@@ -52,6 +52,13 @@
         color: white;
 
         a { margin-left: 1em; }
+
+        @include media($on-mobile) {
+            p { display: none; }
+
+            a { margin: 0; }
+        }
+
     }
 
     &__links {
