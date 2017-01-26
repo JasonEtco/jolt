@@ -30,10 +30,20 @@ class EmailValidatorPlugin extends BasePlugin
 		));
   }
 
+	public function prepSettings($settings)
+	{
+
+			return $settings;
+	}
+
 	protected function defineSettings()
 	{
 		return array(
-			'allowedEmails' => array(AttributeType::String, 'label' => 'Speedbump Text')
+			'allowedEmails' => array(
+				AttributeType::String,
+				'label' => 'Allowed Emails',
+				'default' => array('gmail.com')
+			)
 		);
 	}
 
@@ -50,12 +60,19 @@ class EmailValidatorPlugin extends BasePlugin
 			{
 				$email = $user->name;
 
-				// Check for valid email address
-				if ($email !== 'jasonetco@gmail2.com')
-				{
-					// Cancel user save
-					$event->performAction = false;
+				$allowedEmails = craft()->plugins->getPlugin('EmailValidator')->getSettings()->allowedEmails;
+
+				foreach ($allowedEmails as $e) {
+						if (strpos($email, $e[0]) !== false) {
+								$event->performAction = true;
+								return true;
+						}
 				}
+
+				craft()->userSession->setFlash('email', 'You need to use a Harvard Law School email.');
+				// Cancel user save
+				$event->performAction = false;
+				return false;
 			}
 		});
 	}

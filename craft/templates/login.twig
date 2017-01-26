@@ -50,6 +50,10 @@
 							{% endif %}
 					{% endmacro %}
 
+					{% if craft.session.hasFlash('email') %}
+						<h1>{{ craft.session.getFlash('email') }}</h1>
+					{% endif %}
+
 					{% from _self import errorList %}
 
 					<h3><label for="email">Email</label></h3>
@@ -59,7 +63,7 @@
 					{% if account is defined %}
 							{{ errorList(account.getErrors('email')) }}
 					{% endif %}
-
+				
 					<h3><label for="password">Password</label></h3>
 					<input id="password" type="password" name="password" required>
 
@@ -72,4 +76,12 @@
 			</section>
 		</div>
 	</main>
+
+	<script>
+		var allowedEmails = [
+			{% for email in craft.emailValidator.getAllowedEmails() %}
+				'{{ email[0] }}',
+			{% endfor %}
+		];
+	</script>
 {% endblock %}
