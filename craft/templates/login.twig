@@ -4,37 +4,39 @@
 
 {% block body %}
 	<main class="login">
-		{% include "_includes/jolt-logo.svg" %}
+		<a href="{{ siteUrl }}" class="login__logo">
+			{% include "_includes/jolt-logo.svg" %}
+		</a>
 		<div class="login__forms">
 			<section class="login__login">
-				<h2>Log in</h2>
+				<h2 style="margin-top: 0;">Log in</h2>
 				<form method="post" accept-charset="UTF-8">
 					{{ getCsrfInput() }}
 					<input type="hidden" name="action" value="users/login">
 
 					<h3><label for="loginName">Email</label></h3>
-					<input id="loginName" type="text" name="loginName"
+					<input id="loginName" type="text" name="loginName" autofocus
 							value="{{ craft.session.rememberedUsername }}">
 
 					<h3><label for="password">Password</label></h3>
 					<input id="password" type="password" name="password">
 
-					<label style="display: block">
+					<label class="remember-me">
 							<input type="checkbox" name="rememberMe" value="1">
 							Remember me
 					</label>
 
-					<input type="submit" value="Login">
+					<p><a href="{{ url('forgotpassword') }}">Forget your password?</a></p>
+					<button class="btn" type="submit">Login</button>
 
 					{% if errorMessage is defined %}
 							<p>{{ errorMessage }}</p>
 					{% endif %}
-					<p><a href="{{ url('forgotpassword') }}">Forget your password?</a></p>
 				</form>
 			</section>
 
 			<section class="login__signup">
-				<h2>Sign up</h2>
+				<h2 style="margin-top: 0;">Sign up</h2>
 				<form method="post" accept-charset="UTF-8" onsubmit="return validateSignup()">
 					{{ getCsrfInput() }}
 					<input type="hidden" name="action" value="users/saveUser">
@@ -71,7 +73,7 @@
 							{{ errorList(account.getErrors('password')) }}
 					{% endif %}
 
-					<input type="submit" value="Register">
+					<button class="btn" type="submit">Register</button>
 				</form>
 			</section>
 		</div>
