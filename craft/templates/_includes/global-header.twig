@@ -2,8 +2,15 @@
 	<div class="header__inner">
 
 		<div class="header__links">
-			<button class="nav-button" id="js--nav-button">
-				<span></span>
+			<button
+				class="nav-button"
+				id="js--nav-button"
+				role="button"
+				aria-label="Menu button"
+				aria-controls="global-nav"
+				aria-haspopup="true"
+			>
+				<span aria-hidden="true"></span>
 			</button>
 
 			<a href="{{ siteUrl }}" class="header__logo-link">{% include '_includes/jolt-logo.svg' %}</a>
@@ -15,7 +22,7 @@
 		<div class="header__extra">
 			{% cache globally %}
 			<form action="{{ url('search/results') }}" class="header__search">
-				<input class="header__search__input" type="search" name="q" placeholder="Search">
+				<input aria-label="Search" class="header__search__input" type="search" name="q" placeholder="Search">
 				<button type="submit" name="search" class="header__search__button">Search</button>
 			</form>
 			{% endcache %}

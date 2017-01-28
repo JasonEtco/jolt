@@ -3,10 +3,10 @@
 	{% set handle = section.handle %}
 {% endif %}
 
-<nav class="global-nav" id="js--global-nav">
+<nav class="global-nav" id="global-nav" aria-label="Main navigation" aria-hidden="true">
 	{% include "_includes/close.twig" with { 'class': 'nav__close' } %}
 
-	<a href="{{ siteUrl }}" class="nav__logo">{% include '_includes/jolt-logo.svg' %}</a>
+	<a href="{{ siteUrl }}" class="nav__logo" role="banner">{% include '_includes/jolt-logo.svg' %}</a>
 
 	<ul class="nav__list">
 		{% for block in globalNav.navigationItem %}
@@ -21,9 +21,9 @@
 						{% endif %}
 					{% endif %}
 
-					<a href="{{ block.entry.first().url }}" class="nav__link {% if isActive is defined and isActive %}is-active{% endif %}">{{ block.entryLabel }}</a>
+					<a tabindex="-1" href="{{ block.entry.first().url }}" class="nav__link {% if isActive is defined and isActive %}is-active{% endif %}">{{ block.entryLabel }}</a>
 				{% elseif block.type == 'linkToCustomUrl' %}
-					<a href="{{ block.customUrl }}" target="_blank" class="nav__link">{{ block.customLabel }}</a>
+					<a tabindex="-1" href="{{ block.customUrl }}" target="_blank" class="nav__link">{{ block.customLabel }}</a>
 				{% endif %}
 			</li>
 		{% endfor %}
