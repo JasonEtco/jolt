@@ -69,7 +69,10 @@
 		<div class="abstract-modal__inner">
 			{% include "_includes/close.twig" with { 'class': 'abstract-modal__close' } %}
 
-			<p>{{ entry.featuredContent }}</p>
+			<header class="abstract-modal__header">
+				<h3>{{ entry.featuredTitle }}</h3>
+			</header>
+			{{ entry.featuredContent }}
 		</div>
 		<div class="abstract-modal__overlay"></div>
 	</div>

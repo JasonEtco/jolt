@@ -85,13 +85,11 @@ body {
 
 .btn--close {
     display: block;
-    padding: 0;
-    border: none;
     width: 1em;
     height: 1em;
+    padding: 0;
+    border: none;
     background: none;
-
-    &:hover svg { fill: white; }
 
     svg {
         width: 100%;
@@ -99,6 +97,8 @@ body {
         transition: all 150ms $standard;
         fill: $lightgrey;
     }
+
+    &:hover svg { fill: white; }
 }
 
 .aside {
