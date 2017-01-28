@@ -1,11 +1,11 @@
 <?php
 namespace Craft;
 
-class EmailValidatorPlugin extends BasePlugin
+class EmailWhitelistPlugin extends BasePlugin
 {
 	public function getName()
 	{
-		return Craft::t('Email Validator');
+		return Craft::t('Email Whitelist');
 	}
 
 	public function getVersion()
@@ -25,10 +25,20 @@ class EmailValidatorPlugin extends BasePlugin
 
 	public function getSettingsHtml()
 	{
-		return craft()->templates->render('emailvalidator/_settings', array(
+		return craft()->templates->render('EmailWhitelist/_settings', array(
 				'settings' => $this->getSettings()
 		));
   }
+
+	public function getPluginUrl()
+	{
+			return 'https://github.com/JasonEtco/craft-emailwhitelist';
+	}
+
+	public function getDocumentationUrl()
+	{
+			return $this->getPluginUrl() . '/blob/master/README.md';
+	}
 
 	public function prepSettings($settings)
 	{
@@ -41,9 +51,9 @@ class EmailValidatorPlugin extends BasePlugin
 		return array(
 			'allowedEmails' => array(
 				AttributeType::String,
-				'label' => 'Allowed Emails',
-				'default' => array('gmail.com')
-			)
+				'label' => 'Allowed Emails'
+			),
+			'errorMessage' => 'There was an error, sorry!'
 		);
 	}
 
@@ -53,23 +63,26 @@ class EmailValidatorPlugin extends BasePlugin
 		{
 			// Retrieve the userModel from the event
 			$user = $event->params['user'];
+			$email = $user->email;
 			$isNewUser = $event->params['isNewUser'];
 
 			// Check if this is a front end request and that we are dealing with a new user
 			if (craft()->request->isSiteRequest() && $isNewUser)
 			{
-				$email = $user->name;
+				$email = $user->email;
+				$domain = explode('@', $email)[1];
 
-				$allowedEmails = craft()->plugins->getPlugin('EmailValidator')->getSettings()->allowedEmails;
+				$allowedEmails = craft()->plugins->getPlugin('EmailWhitelist')->getSettings()->allowedEmails;
+				$errorMessage = craft()->plugins->getPlugin('EmailWhitelist')->getSettings()->errorMessage;
 
 				foreach ($allowedEmails as $e) {
-						if (strpos($email, $e[0]) !== false) {
+						if ($domain === $e[0]) {
 								$event->performAction = true;
 								return true;
 						}
 				}
 
-				craft()->userSession->setFlash('email', 'You need to use a Harvard Law School email.');
+				craft()->userSession->setFlash('allowedEmails', $errorMessage);
 				// Cancel user save
 				$event->performAction = false;
 				return false;

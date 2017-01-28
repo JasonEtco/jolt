@@ -1,11 +1,11 @@
 <?php
 namespace Craft;
 
-class EmailValidator_GetAllowedEmailsService extends BaseApplicationComponent
+class EmailWhitelist_GetAllowedEmailsService extends BaseApplicationComponent
 {
     public function getAllowedEmails()
 		{
-				$plugin = craft()->plugins->getPlugin('emailValidator');
+				$plugin = craft()->plugins->getPlugin('emailWhitelist');
 				$settings = $plugin->getSettings();
 
 				return $settings->allowedEmails;

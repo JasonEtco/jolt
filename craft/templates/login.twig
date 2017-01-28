@@ -50,8 +50,8 @@
 							{% endif %}
 					{% endmacro %}
 
-					{% if craft.session.hasFlash('email') %}
-						<h1>{{ craft.session.getFlash('email') }}</h1>
+					{% if craft.session.hasFlash('allowedEmails') %}
+						<h1>{{ craft.session.getFlash('allowedEmails') }}</h1>
 					{% endif %}
 
 					{% from _self import errorList %}
@@ -79,7 +79,7 @@
 
 	<script>
 		var allowedEmails = [
-			{% for email in craft.emailValidator.getAllowedEmails() %}
+			{% for email in craft.emailWhitelist.getAllowedEmails() %}
 				'{{ email[0] }}',
 			{% endfor %}
 		];
