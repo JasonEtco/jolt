@@ -1,45 +1,81 @@
-{#
- # News entry template
- # -------------------
- #
- # This template gets loaded whenever a News entry’s URL is
- # requested. That’s because the News section’s Template setting is
- # set to “news/_entry”, the path to this template.
- #
- # When this template is loaded, it will already have an ‘entry’
- # variable, set to the requested News entry.
- #
- # See this page for more details on how Craft routes requests:
- # http://craftcms.com/docs/routing
- #}
-
 {% extends "_layouts/site" %}
 {% set digestLogo = true %}
+{% set title = entry.title %}
+
+{# SEO Content #}
+{% block head %}
+	{{ parent() }}
+
+	<link rel="canonical" href="{{ entry.url }}">
+	<meta
+		itemprop="description"
+		name="description"
+		content="{{ entry.title }}"
+	>
+	<meta name="genre" itemprop="genre" content="News">
+	<meta itemprop="identifier" name="articleid" content="{{ entry.id }}">
+	<meta name="hdl" content="{{ entry.title }}">
+	<meta name="DISPLAYDATE" content="{{ entry.postDate.format('m.d, Y')}}">
+	<meta name="dat" content="{{ entry.postDate.format('m.d, Y')}}">
+
+	<meta property="og:url" content="{{ entry.url }}">
+	<meta property="og:type" content="article">
+	<meta property="og:title" content="{{ entry.title }}">
+	<meta property="og:description" content="{{ entry.body|hacksaw(words='30', append='...') }}">
+
+	<meta property="article:published" itemprop="datePublished" content="{{ entry.postDate.iso8601 }}">
+	<meta property="article:modified" itemprop="dateModified" content="{{ entry.postDate.iso8601 }}">
+
+	{% if entry.mainImage|length %}
+		<meta property="og:image" content="entry.mainImage.first().url">
+	{% endif %}	
+{% endblock head %}
 
 {% block content %}
 	{% include '_includes/digest-nav' %}
 
 	<div class="digest-post-wrapper">
-		<article class="digest-post">
+		<article class="digest-post" itemscope itemtype="http://schema.org/NewsArticle">
 			<header class="digest-post__header">
 				<div class="digest-post__header__inner">
 					{% if entry.mainImage|length %}
+						{% set img = entry.mainImage.first() %}
 						<div class="digest-post__image">
-							<img src="{{ entry.mainImage.first().url }}" alt="{{ entry.title }}">
+							<img
+								src="{{ img.url }}"
+								role="presentation"
+								alt="{{ entry.title }}"
+								itemprop="url"
+								itemid="{{ img.url }}"
+							>
+							<meta itemprop="width" content="{{ img.width }}">
+							<meta itemprop="height" content="{{ img.height }}">
 						</div>
 					{% endif %}
 
-					<h1 class="digest-post__title">{{ entry.title }}</h1>
+					<h1 class="digest-post__title" itemprop="headline">{{ entry.title }}</h1>
 
 					{% if entry.byline %}
-						<h2 class="digest-post__byline">{{ entry.byline }}</h2>
+						<h2
+							class="digest-post__byline"
+							itemprop="author creator"
+							itemscope
+							itemtype="http://schema.org/Person"
+							itemid="{{ siteUrl }}/search/results?q={{ entry.byline }}&search="
+						>{{ entry.byline }}</h2>
 					{% endif %}
 
-					<span class="digest-post__postDate">{{ entry.postDate.format('F d, Y') }}</span>
+					<time
+						class="digest-post__postDate"
+						datetime="{{ entry.postDate.iso8601 }}"
+						itemprop="datePublished"
+						content="{{ entry.postDate.iso8601 }}"
+					>{{ entry.postDate.format('F d, Y') }}</time>
+
 				</div>
 			</header>
 
-			<main class="digest-post__body">
+			<main class="digest-post__body" itemprop itemtype="articleBody">
 				{{ entry.body }}
 			</main>
 		</article>

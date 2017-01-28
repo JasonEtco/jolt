@@ -1,5 +1,7 @@
-{% set section = entry.getSection() %}
-{% set handle = section.handle %}
+{% if entry is defined %}
+	{% set section = entry.getSection() %}
+	{% set handle = section.handle %}
+{% endif %}
 
 <nav class="global-nav" id="js--global-nav">
 	{% include "_includes/close.twig" with { 'class': 'nav__close' } %}
@@ -11,13 +13,15 @@
 			<li class="nav__list-item">
 				{% if block.type == 'linkToEntry' %}
 					{% set blockHandle = block.entry.first().getSection().handle %}
-					{% if handle == blockHandle or handle ~ 'Index' == blockHandle %}
-						{% set isActive = true %}
-					{% else %}
-						{% set isActive = false %}
+					{% if handle is defined %}
+						{% if handle == blockHandle or handle ~ 'Index' == blockHandle %}
+							{% set isActive = true %}
+						{% else %}
+							{% set isActive = false %}
+						{% endif %}
 					{% endif %}
 
-					<a href="{{ block.entry.first().url }}" class="nav__link {% if isActive %}is-active{% endif %}">{{ block.entryLabel }}</a>
+					<a href="{{ block.entry.first().url }}" class="nav__link {% if isActive is defined and isActive %}is-active{% endif %}">{{ block.entryLabel }}</a>
 				{% elseif block.type == 'linkToCustomUrl' %}
 					<a href="{{ block.customUrl }}" target="_blank" class="nav__link">{{ block.customLabel }}</a>
 				{% endif %}
