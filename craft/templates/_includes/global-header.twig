@@ -30,7 +30,7 @@
 			{% if currentUser %}
 
 				<div class="header__user">
-					<p style="margin: 0;">Hello {{ currentUser.friendlyName }}!</p>
+					<p style="margin: 0; font-size: 0.8rem;">{{ currentUser.email }}</p>
 					<a href="{{ logoutUrl }}" class="header__button">Logout</a>
 				</div>
 
