@@ -1,0 +1,27 @@
+{% extends "_layouts/site" %}
+{% set title = "Masthead" %}
+{% set bodyClass = "body--grey" %}
+
+{% block content %}
+	<section class="masthead">
+		<div class="masthead-wrapper">
+			<header class="masthead__header">
+				<h1 class="masthead__title">{{ entry.title }}</h1>
+			</header>
+
+			<div class="masthead__positions">
+				{% for block in entry.mastheadPosition %}
+					<div class="masthead__position">
+						<h4 class="masthead__position__title">{{ block.position }}</h4>
+						<ul class="masthead__position__list">
+							{% for row in block.people %}
+								<li class="masthead__position__name">{{ row.name }}</li>
+							{% endfor %}
+						</ul>
+					</div>
+				{% endfor %}
+			</div>
+		</div>
+	</section>
+
+{% endblock %}
