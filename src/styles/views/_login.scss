@@ -75,4 +75,19 @@
     &__login {
         background-color: white;
     }
+
+    &__signup {
+        position: relative;
+
+        &__errMsg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            box-sizing: border-box;
+            padding: 1em;
+            margin: 0;
+            background-color: $red;
+            color: white !important;
+        }
+    }
 }

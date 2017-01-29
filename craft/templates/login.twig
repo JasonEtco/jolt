@@ -53,7 +53,7 @@
 					{% endmacro %}
 
 					{% if craft.session.hasFlash('allowedEmails') %}
-						<h1>{{ craft.session.getFlash('allowedEmails') }}</h1>
+						<h3 class="login__signup__errMsg">{{ craft.session.getFlash('allowedEmails') }}</h3>
 					{% endif %}
 
 					{% from _self import errorList %}
