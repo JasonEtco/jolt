@@ -27,7 +27,17 @@
 
     &__login, &__signup {
         padding: 1em 1em 4em;
+    }
 
+    &__reset {
+        padding: 1em;
+
+        button[type='submit'] {
+            margin-top: 2em;
+        }
+    }
+
+    &__login, &__signup, &__reset {
         form {
             display: flex;
             height: 100%;
@@ -72,7 +82,7 @@
         }
     }
 
-    &__login {
+    &__login, &__reset {
         background-color: white;
     }
 
