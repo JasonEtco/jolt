@@ -55,18 +55,10 @@
         box-sizing: border-box;
         width: 100%;
         padding: 1em 2em;
-        font-family: $fancy-stack;
         color: $lightgrey;
+        font-family: $fancy-stack;
         text-decoration: none;
         transition: transform 150ms $standard;
-
-        &:hover, &.is-active {
-            transform: translateX(1em);
-
-            &::before {
-                transform: translateX(-0.2em) scaleX(1);
-            }
-        }
 
         &::before {
             content: '';
@@ -78,6 +70,14 @@
             background-color: $yellow;
             transform: translateX(0) scaleX(0);
             transition: transform 150ms $standard;
+        }
+
+        &:hover, &.is-active {
+            transform: translateX(1em);
+
+            &::before {
+                transform: translateX(-0.2em) scaleX(1);
+            }
         }
     }
 }

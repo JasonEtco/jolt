@@ -1,0 +1,24 @@
+.wiki {
+    &__aside {
+        font-size: 0.9rem;
+        line-height: 1.6;
+
+        ul, ol {
+            box-sizing: border-box;
+            padding-left: 1em;
+            margin: 0;
+        }
+
+        ol {
+            list-style-type: upper-roman;
+
+            > li > a {
+                font-weight: 700;
+            }
+        }
+
+        ul { list-style-type: none; }
+
+
+    }
+}

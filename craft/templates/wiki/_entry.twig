@@ -1,34 +1,35 @@
-{#
- # News entry template
- # -------------------
- #
- # This template gets loaded whenever a News entry’s URL is
- # requested. That’s because the News section’s Template setting is
- # set to “news/_entry”, the path to this template.
- #
- # When this template is loaded, it will already have an ‘entry’
- # variable, set to the requested News entry.
- #
- # See this page for more details on how Craft routes requests:
- # http://craftcms.com/docs/routing
- #}
-
 {% extends "_layouts/site" %}
+{% set wiki = craft.entries.section('wiki') %}
 
 {% block content %}
 
-	<article>
+	<div class="wiki-wrapper">
+		<article class="wiki__article">
+			<h1 class="wiki__title">{{ entry.title }}</h1>
+			<div class="wiki__content">
+				{{ entry.body }}
+			</div>
+		</article>
 
-		<section>
-		
-			<h2>{{ entry.title }}</h2>
+		<aside class="aside">
+			<nav class="wiki__aside">
+				<ol>
+					{% nav entry in wiki %}
+						<li class="aside__list-item">
+							<a href="{{ entry.url }}" class="aside__list-item__link">{{ entry.title }}</a>
 
-			<section>
-				<h3>Articles</h3>
-				{{ entry.articlesFall }}
-			</section>
+							{% ifchildren %}
+								<ul>
+									{% children %}
+								</ul>
+							{% endifchildren %}
+						</li>
+					{% endnav %}
+				</ol>
+			</nav>
+		</aside>
 
-		</section>
+	</div>
 
 	</article>
 	
