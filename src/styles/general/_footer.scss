@@ -32,14 +32,20 @@
     }
 
     &__sponsor {
-        &-list {
-            padding: 0;
-            list-style-type: none;
-        }
-
         color: lighten($soft-blue, 30%);
 
         &:hover { color: white; }
+
+        &-list {
+            column-count: 2;
+            padding: 0;
+            max-width: 400px;
+            list-style-type: none;
+
+            li { margin-bottom: 0.2em; }
+        }
+
+
     }
 
     &__address p {
