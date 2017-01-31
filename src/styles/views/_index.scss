@@ -7,6 +7,10 @@
     background-repeat: repeat;
     background-color: $blue;
 
+    @include media($on-mobile) {
+        padding-bottom: 120px;
+    }
+
     &::after {
         content: '';
         position: absolute;
@@ -17,6 +21,11 @@
         height: 140px;
         margin-top: -140px;
         background: url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201%201%22%20preserveAspectRatio%3D%22none%22%3E%3Cpolygon%20fill%3D%22%23fff%22%20points%3D%220%2C1%201%2C1%201%2C0%22%2F%3E%3C%2Fsvg%3E');
+
+        @include media($on-mobile) {
+            height: 60px;
+            margin-top: -60px;
+        }
     }
 }
 
@@ -117,6 +126,7 @@
 
         @include media($on-mobile) {
             width: 100%;
+            padding: 1em 1em 0;
             margin: 0;
         }
 
@@ -156,10 +166,9 @@
     }
 
     &__text {
-        > a {
+        line-height: 1.6;
 
-            @include link($light-blue);
-        }
+        > a { @include link($light-blue); }
     }
 
     .links { margin-top: 2em; }

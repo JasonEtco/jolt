@@ -6,6 +6,14 @@
     flex-direction: column;
     transform: translate(-50%, -50%);
 
+    @include media($on-mobile) {
+        position: static;
+        box-sizing: border-box;
+        width: 100%;
+        padding: 1em;
+        transform: none;
+    }
+
     &__logo {
         display: inline-block;
         width: 80%;
@@ -23,6 +31,16 @@
         overflow: hidden;
         border-radius: 3px;
         background-color: $lightgrey;
+
+        @include media($on-mobile) {
+            display: block;
+            overflow: initial;
+            margin-bottom: 1em;
+        }
+    }
+
+    &__login {
+        border-radius: 3px;
     }
 
     &__login, &__signup {
@@ -51,6 +69,10 @@
         .btn {
             display: block;
             margin-top: auto;
+
+            @include media($on-mobile) {
+                margin-top: 1em;
+            }
         }
 
         h3 {
