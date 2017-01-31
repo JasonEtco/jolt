@@ -5,7 +5,6 @@
 
 	<section class="home__section--featured">
 		<div class="featured__inner">
-
 			<div class="featured__issue">
 				<span>Current Issue</span>
 				{% for entry in craft.entries.section('volumes').limit(1).find() %}
@@ -20,7 +19,10 @@
 				<p>You can view the most recent issue of the Harvard Journal of Law &amp; Technology in PDF form <a href="{{ entry.url }}">here.</a></p>
 				{% endfor %}
 			</div>
+		</div>
 
+		<div class="angle">
+			{% include "_includes/angle.twig" %}
 		</div>
 	</section>
 

@@ -1,31 +1,15 @@
 .home__section--featured {
     position: relative;
-    padding-top: 4rem;
-    padding-bottom: 200px;
-    background-image: url('../images/Circuit.png');
-    background-size: 400px;
-    background-repeat: repeat;
-    background-color: $blue;
+    padding: 4.5em 0 200px;
 
-    @include media($on-mobile) {
-        padding-bottom: 120px;
-    }
-
-    &::after {
-        content: '';
+    .angle {
         position: absolute;
-        z-index: 1;
-        bottom: 0;
+        top: 0;
         left: 0;
         width: 100%;
-        height: 140px;
-        margin-top: -140px;
-        background: url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201%201%22%20preserveAspectRatio%3D%22none%22%3E%3Cpolygon%20fill%3D%22%23fff%22%20points%3D%220%2C1%201%2C1%201%2C0%22%2F%3E%3C%2Fsvg%3E');
+        height: 100%;
 
-        @include media($on-mobile) {
-            height: 60px;
-            margin-top: -60px;
-        }
+        #angle-image { background-color: $blue; }
     }
 }
 
@@ -161,6 +145,7 @@
     &__digest-link {
         svg {
             width: 100%;
+            height: 38px;
             max-width: 240px;
         }
     }

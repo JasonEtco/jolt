@@ -10,8 +10,8 @@
     margin-bottom: 3em;
 
     @include media($on-mobile) {
-        margin-right: 0;
         padding: 0 1em;
+        margin-right: 0;
     }
 
     &__header {

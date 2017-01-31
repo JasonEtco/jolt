@@ -17,6 +17,18 @@ body {
     &.body--grey {
         background-color: $lightgrey;
     }
+
+    &.is-ie {
+        .home__section--featured {
+            padding-bottom: 100px;
+            margin-bottom: 50px;
+            background-color: $blue;
+            background-image: url('../images/Circuit.png');
+            background-size: 400px;
+
+            .angle { display: none; }
+        }
+    }
 }
 
 .main {

@@ -16,6 +16,7 @@
         z-index: 998;
         top: 0;
         left: 0;
+        background-image: none;
         background-color: transparent;
     }
 
@@ -35,8 +36,8 @@
         @include defWidth;
 
         @include media($on-tablet) {
-            padding: 0 1em;
             box-sizing: border-box;
+            padding: 0 1em;
         }
 
         @include media($on-mobile) {
@@ -67,7 +68,7 @@
 
         @include media($on-tablet) {
             flex-wrap: wrap;
-            
+
             &::before {
                 content: '';
                 width: 100%;

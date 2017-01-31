@@ -23,9 +23,13 @@ if (speakerModalClose && speakerModal) {
 
 if (btns && speakerModal) {
   const speakerModalContent = speakerModal.querySelector('.speakers-modal__content');
-  Array.from(btns).forEach(btn => btn.addEventListener('click', (e) => {
-    const content = e.target.nextSibling.innerHTML;
-    speakerModalContent.innerHTML = content;
-    toggleSpeakerClasses();
-  }));
+
+  for (let i = 0; i < btns.length; i++) {
+    const btn = btns[i];
+    btn.addEventListener('click', (e) => {
+      const content = e.target.nextSibling.innerHTML;
+      speakerModalContent.innerHTML = content;
+      toggleSpeakerClasses();
+    });
+  }
 }

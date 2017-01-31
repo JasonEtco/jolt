@@ -17,7 +17,7 @@
 				{% endif %}
 
 				<div class="digest__home__post__content {% if not newestEntry.mainImage|length %}digest__home__post__content--full{% endif %}">
-					<div class="digest__post__content-inner">
+					<div class="digest__home__post__content-inner">
 						<a class="digest__home__post__title" href="{{ newestEntry.url }}">{{ newestEntry.title }}</a>
 						<span class="digest__home__post__date">Posted on {{ newestEntry.postDate.format('F d, Y') }}</span>
 						<div>{{ newestEntry.body|hacksaw(words='120', allow='<h1><h2><h3><h4><h5><img>', append='...') }}</div>
@@ -55,7 +55,7 @@
 			{% endif %}
 
 			<div class="digest__home__post__content {% if not entry.mainImage|length %}digest__home__post__content--full{% endif %}">
-				<div>
+				<div class="digest__home__post__content-inner">
 					<a class="digest__home__post__title" href="{{ entry.url }}">{{ entry.title }}</a>
 					<span class="digest__home__post__date">Posted on {{ entry.postDate.format('F d, Y') }}</span>
 					{{ entry.body|hacksaw(words='60', allow='<h1><h2><h3><h4><h5><img>', append='...') }}

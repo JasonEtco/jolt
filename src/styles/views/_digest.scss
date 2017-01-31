@@ -51,8 +51,8 @@
         flex-wrap: wrap;
 
         @include media($on-tablet) {
-            padding: 0 1em !important;
             box-sizing: border-box;
+            padding: 0 1em !important;
         }
 
         @include media($on-mobile) {
@@ -183,8 +183,8 @@
                 max-width: $max-width - 360px;
 
                 @include media($on-tablet) {
-                    padding: 0 1em !important;
                     box-sizing: border-box;
+                    padding: 0 1em !important;
                 }
 
                 @include media($on-mobile) {
@@ -217,6 +217,10 @@
                 img {
                     display: block;
                     margin: 0.4em 0;
+                    max-width: 100%;
+                }
+
+                &-inner {
                     max-width: 100%;
                 }
             }

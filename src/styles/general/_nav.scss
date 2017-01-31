@@ -15,7 +15,10 @@
         transform: translateX(100%);
         transition-timing-function: $enter;
 
-        .nav__close { opacity: 1; visibility: visible; }
+        .nav__close {
+            opacity: 1;
+            visibility: visible;
+        }
     }
 }
 
@@ -34,7 +37,11 @@
         padding: 0 2em;
         margin: 3em 0 2em;
 
-        svg { fill: $lightgrey; }
+        svg {
+            fill: $lightgrey;
+            width: 100%;
+            height: 100%;
+        }
     }
 
     &__list {
