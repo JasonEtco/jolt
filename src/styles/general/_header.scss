@@ -177,6 +177,12 @@
             text-transform: uppercase;
             transition: background-color 150ms;
 
+            svg {
+                width: 1em;
+                height: 1em;
+                fill: white;
+            }
+
             &:hover {
                 background-color: darken($red, 10%);
             }

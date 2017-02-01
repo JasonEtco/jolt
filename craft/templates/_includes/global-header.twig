@@ -15,7 +15,7 @@
 
 			<a href="{{ siteUrl }}" class="header__logo-link">{% include '_includes/jolt-logo.svg' %}</a>
 			{% if digestLogo is defined and digestLogo == true %}
-				<a href="{{ siteUrl }}" class="header__digest-logo">{% include '_includes/digest-logo.svg' %}</a>
+				<a href="{{ craft.entries.section('digestIndex').first().url }}" class="header__digest-logo">{% include '_includes/digest-logo.svg' %}</a>
 			{% endif %}
 		</div>
 
@@ -23,7 +23,7 @@
 			{% cache globally %}
 			<form action="{{ url('search/results') }}" class="header__search">
 				<input aria-label="Search" class="header__search__input" type="search" name="q" placeholder="Search">
-				<button type="submit" name="search" class="header__search__button">Search</button>
+				<button type="submit" name="search" class="header__search__button">{% include "_includes/search-icon.svg" %}</button>
 			</form>
 			{% endcache %}
 
