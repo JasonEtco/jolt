@@ -4,27 +4,29 @@
 {% block content %}
 	<article class="volume-wrapper">
 		<div class="volume__volumes">
-			<section class="volume volume--fall">
-				<h2>{{ entry.title }}, Number 1: Fall {{ entry.publishedFall.format('Y') }}</h2>
+			{% if entry.publishedFall %}
+				<section class="volume volume--fall">
+					<h2>{{ entry.title }}, Number 1: Fall {{ entry.publishedFall.format('Y') }}</h2>
 
-				<div class="volume__volume">
-					{# {{ entry.tableOfContentsFall }} #}
-					<section class="volume__section">
-						<h3 class="accent-type">Articles</h3>
-						<div class="volume__articles">{{ entry.articlesFall }}</div>
-					</section>
-					{% for block in entry.newSectionFall %}
+					<div class="volume__volume">
+						{# {{ entry.tableOfContentsFall }} #}
 						<section class="volume__section">
-								<h3 class="accent-type">{{ block.heading }}</h3>
-								<div class="volume__notes">{{ block.sectionContent }}</div>
+							<h3 class="accent-type">Articles</h3>
+							<div class="volume__articles">{{ entry.articlesFall }}</div>
 						</section>
-					{% endfor %}
-				</div>
-			</section>
+						{% for block in entry.newSectionFall %}
+							<section class="volume__section">
+									<h3 class="accent-type">{{ block.heading }}</h3>
+									<div class="volume__notes">{{ block.sectionContent }}</div>
+							</section>
+						{% endfor %}
+					</div>
+				</section>
+			{% endif %}
 
 			{% if entry.publishedSpring %}
-				<section class="volume volume--spring">
-					<h2>{{ entry.title }}, Number 2: Spring {{ entry.publishedSpring.format('Y') }}</h2>
+				<section class="volume volume--spring {% if not entry.publishedFall %}is-single{% endif %}">
+					<h2>{{ entry.title }}, Number {% if entry.publishedFall %}2{% else %}1{% endif %}: Spring {{ entry.publishedSpring.format('Y') }}</h2>
 					<div class="volume__volume">
 						{# {{ entry.tableOfContentsSpring }} #}
 						<section class="volume__section">

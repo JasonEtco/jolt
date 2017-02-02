@@ -36,7 +36,7 @@
     }
 
     &--spring {
-        &::before {
+        &:not(.is-single)::before {
             content: '';
             display: block;
             width: 100%;
@@ -54,11 +54,11 @@
 
     &__volume {
         display: flex;
+        margin-top: -2em;
         flex-wrap: wrap;
         align-items: flex-start;
         justify-content: space-between;
         line-height: 1.6;
-        margin-top: -2em;
 
         li:not(:first-of-type) { margin-top: 2em; }
 
