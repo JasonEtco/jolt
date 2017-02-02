@@ -1,4 +1,8 @@
 {% extends "_layouts/site" %}
+{% set bodyClass = "body--grey" %}
+{% set headerClass = "header--sticky" %}
+
+{# Get the requested search term and find the matching entries #}
 
 {% set q = craft.request.getParam('cat') %}
 {% set category = craft.categories('digestCategories').slug(q).first() %}
@@ -6,14 +10,33 @@
 
 {% block content %}
 
-	<header>
-		<h3>You search for <strong>{{ category.title }}</strong></h3>
+	<header class="search__header">
+		<h1>{{ category.title }}</h1>
 	</header>
 
-	<section>
-		{% for entry in entries %}
-		    <h2>{{ entry.title }}</h2>
-		{% endfor %}
+	<section class="search__results">
+
+			{# Were there any search results? #}
+			{% if entries|length %}
+				<h2 class="search__title accent-title">{{ entries|length }} posts</h2>
+
+				{# Loop through the results #}
+				{% for entry in entries %}
+					<div class="search__result">
+						<h2 class="link-wrapper" style="margin-top: 0;">{{ entry.getLink() }}</h2>
+						{% if entry.byline %}
+							<span class="search__byline">{{ entry.byline }}</span>
+						{% endif %}
+						<span class="search__post-date accent-type">{{ entry.postDate.format('F j, Y') }}</span>
+
+					</div>
+				{% endfor %}
+
+			{# Otherwise just show a "no results" message #}
+			{% else %}
+				<h2>Your search for “{{ category.title }}” didn’t return any results.</h2>
+			{% endif %}
+
 	</section>
 
 {% endblock %}

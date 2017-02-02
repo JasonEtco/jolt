@@ -2,11 +2,11 @@
     <div class="digest__header__inner">
         <nav class="digest__header__nav">
             {% for category in digestNav.digestCategory %}
-                <a class="digest__header__link" href="/search/results?q={{ category.title }}">{{ category.title }}</a>
+                <a class="digest__header__link" href="/digest/category/?cat={{ category.slug }}">{{ category.title }}</a>
             {% endfor %}
         </nav>
 
-        {# <div class="digest__header__cat">
+        <div class="digest__header__cat">
             <label for="byCategory">Search by Category:</label>
             <select class="" name="byCategory" id="byCategory">
                 {% for category in craft.categories('digestCategories') %}
@@ -18,6 +18,6 @@
                     </option>
                 {% endfor %}
             </select>
-        </div> #}
+        </div>
     </div>
 </header>

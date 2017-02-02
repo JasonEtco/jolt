@@ -33,11 +33,11 @@
 						<a class="digest__home__post__continue" href="{{ newestEntry.url }}">Continue reading</a>
 					</div>
 
-					{#<div class="digest__home__post__cat-list">
+					<div class="digest__home__post__cat-list">
 						{% for category in newestEntry.digestCategory.limit(5) %}
-							<a class="digest__home__post__cat" href="/jolt-digest/category/?cat={{ category.slug }}">{{ category }}</a>
+							<a class="digest__home__post__cat" href="/digest/category/?cat={{ category.slug }}">{{ category }}</a>
 						{% endfor %}
-					</div>#}
+					</div>
 				</div>
 			</article>
 
@@ -80,11 +80,11 @@
 					<br /><a class="digest__home__post__continue" href="{{ entry.url }}">Continue reading</a>
 				</div>
 
-				{#<div class="digest__home__post__cat-list">
+				<div class="digest__home__post__cat-list">
 					{% for category in entry.digestCategory.limit(3) %}
-					    <a class="digest__home__post__cat" href="/jolt-digest/category/?cat={{ category.slug }}">{{ category }}</a>
+					    <a class="digest__home__post__cat" href="/digest/category/?cat={{ category.slug }}">{{ category }}</a>
 					{% endfor %}
-				</div>#}
+				</div>
 			</div>
 
 		</article>
