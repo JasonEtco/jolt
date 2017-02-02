@@ -14,14 +14,14 @@
 					{% set img = newestEntry.mainImage.first() %}
 					<a href="{{ newestEntry.url }}" class="digest__home__post__image">
 						<img
-							src="{{ img.getUrl('resize') }}"
+							src="{{ img.getUrl('digestHeader') }}"
 							role="presentation"
-							alt="{{ entry.title }}"
+							alt="{{ newestEntry.title }}"
 							itemprop="url"
-							itemid="{{ img.getUrl('resize') }}"
+							itemid="{{ img.getUrl('digestHeader') }}"
 						>
-						<meta itemprop="width" content="{{ img.getWidth('resize') }}">
-						<meta itemprop="height" content="{{ img.getHeight('resize') }}">
+						<meta itemprop="width" content="{{ img.getWidth('digestHeader') }}">
+						<meta itemprop="height" content="{{ img.getHeight('digestHeader') }}">
 					</a>
 				{% endif %}
 

@@ -42,14 +42,15 @@
 						{% set img = entry.mainImage.first() %}
 						<div class="digest-post__image">
 							<img
-								src="{{ img.getUrl('resize') }}"
+								src="{{ img.getUrl('digestHeader') }}"
 								role="presentation"
 								alt="{{ entry.title }}"
 								itemprop="url"
-								itemid="{{ img.getUrl('resize') }}"
+								itemid="{{ img.getUrl('digestHeader') }}"
+								style="max-width: 100%"
 							>
-							<meta itemprop="width" content="{{ img.getWidth('resize') }}">
-							<meta itemprop="height" content="{{ img.getHeight('resize') }}">
+							<meta itemprop="width" content="{{ img.getWidth('digestHeader') }}">
+							<meta itemprop="height" content="{{ img.getHeight('digestHeader') }}">
 						</div>
 					{% endif %}
 
