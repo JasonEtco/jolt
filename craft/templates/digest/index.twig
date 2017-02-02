@@ -11,9 +11,18 @@
 			<article class="digest__home__post digest__home__post--newest">
 				<h2 class="digest__home__title">Featured Article</h2>
 				{% if newestEntry.mainImage|length %}
-				<a href="{{ newestEntry.url }}" class="digest__home__post__image">
-					<img src="{{ newestEntry.mainImage.first().url }}" alt="{{ newestEntry.title }}">
-				</a>
+					{% set img = newestEntry.mainImage.first() %}
+					<a href="{{ newestEntry.url }}" class="digest__home__post__image">
+						<img
+							src="{{ img.getUrl('resize') }}"
+							role="presentation"
+							alt="{{ entry.title }}"
+							itemprop="url"
+							itemid="{{ img.getUrl('resize') }}"
+						>
+						<meta itemprop="width" content="{{ img.getWidth('resize') }}">
+						<meta itemprop="height" content="{{ img.getHeight('resize') }}">
+					</a>
 				{% endif %}
 
 				<div class="digest__home__post__content {% if not newestEntry.mainImage|length %}digest__home__post__content--full{% endif %}">
@@ -49,8 +58,17 @@
 		<article class="digest__home__post">
 
 			{% if entry.mainImage|length %}
+					{% set mainImage = entry.mainImage.first() %}
 			<div class="digest__home__post__image">
-				<img src="{{ entry.mainImage.first().url }}" alt="{{ entry.title }}">
+				<img
+					src="{{ mainImage.getUrl('thumb') }}"
+					role="presentation"
+					alt="{{ entry.title }}"
+					itemprop="url"
+					itemid="{{ mainImage.getUrl('thumb') }}"
+				>
+				<meta itemprop="width" content="{{ mainImage.getWidth('thumb') }}">
+				<meta itemprop="height" content="{{ mainImage.getHeight('thumb') }}">
 			</div>
 			{% endif %}
 
