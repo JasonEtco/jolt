@@ -14,7 +14,7 @@
 		</article>
 
 		<aside class="aside">
-				{% if entry.hasDescendants() or parent.hasDescendants() %}
+				{% if entry.hasDescendants() or parent and parent.hasDescendants() %}
 					{% if entry.hasDescendants() %}
 						{% set struct = entry.getDescendants(1) %}
 					{% elseif parent.hasDescendants() %}
