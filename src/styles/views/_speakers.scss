@@ -92,12 +92,18 @@
     &__inner {
         position: relative;
         top: 50%;
-        padding: 1em;
-        margin: 0 auto;
-        max-width: 400px;
-        background-color: $lightgrey;
+        overflow: auto;
+        box-sizing: border-box;
+        width: 90%;
+        padding: 4em;
         border-radius: 3px;
+        margin: 0 auto;
+        max-width: 720px;
+        background-color: $lightgrey;
         transform: translateY(-50%);
+        max-height: 90%;
+
+        *:first-child { margin-top: 0; }
     }
 
     &__close {
