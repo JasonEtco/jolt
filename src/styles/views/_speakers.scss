@@ -103,6 +103,10 @@
         transform: translateY(-50%);
         max-height: 90%;
 
+        @include media($on-mobile) {
+            padding: 1.5em;
+        }
+
         *:first-child { margin-top: 0; }
     }
 
