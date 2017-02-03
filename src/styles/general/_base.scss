@@ -137,12 +137,11 @@ body {
         margin: 0;
 
         &-item {
-            margin-top: 0.2em;
+            margin-top: 0.4em;
 
             &:first-of-type { margin-top: 0; }
 
             &__link {
-                padding: 0.2em 0;
                 border-bottom: 1px dotted rgba($blue, 0.2);
                 color: $blue;
                 white-space: pre;

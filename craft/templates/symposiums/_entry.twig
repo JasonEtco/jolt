@@ -1,6 +1,6 @@
 {% extends "_layouts/site" %}
 {% set symposiums = craft.entries.section('symposiums') %}
-{% set parent = craft.entries.id(entry.id).first() %}
+{% set parent = entry.getParent() %}
 {% set isFirst = craft.entries.section('symposiums').first().id == entry.id %}
  
 {% block content %}
@@ -14,18 +14,22 @@
 		</article>
 
 		<aside class="aside">
-			{% if parent %}
-				{% if parent.children|length %}
+				{% if entry.hasDescendants() or parent.hasDescendants() %}
+					{% if entry.hasDescendants() %}
+						{% set struct = entry.getDescendants(1) %}
+					{% elseif parent.hasDescendants() %}
+						{% set struct = parent.getDescendants(1) %}
+					{% endif %}
+
 					<nav>
-						<h4 class="aside__title">{{ parent.title }}</h4>
+						<h4 class="aside__title">{% if parent %}{{ parent.title }}{% else %}{{ entry.title }}{% endif %}</h4>
 						<ul class="aside__list">
-							{% for child in parent.children %}
+							{% for child in struct %}
 								<li class="aside__list-item"><a href="{{ child.url }}" class="aside__list-item__link">{{ child.title }}</a></li>
 							{% endfor %}
 						</ul>
 					</nav>
 				{% endif %}
-			{% endif %}
 
 
 			<nav class="symposium__aside">
