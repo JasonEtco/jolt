@@ -27,7 +27,7 @@ if (btns && speakerModal) {
   for (let i = 0; i < btns.length; i++) {
     const btn = btns[i];
     btn.addEventListener('click', (e) => {
-      const content = e.target.nextSibling.innerHTML;
+      const content = e.target.nextElementSibling.innerHTML;
       speakerModalContent.innerHTML = content;
       toggleSpeakerClasses();
     });
