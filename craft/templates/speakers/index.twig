@@ -14,20 +14,38 @@
 		<table class="speakers__table">
 			<tbody>
 				{% for block in entry.speakers %}
-					<tr class="speakers__row">
-						<td class="speakers__data">{{ block.speakerTitle }}</td>
-						<td class="speakers__data speakers__data--date">{{ block.date.format('F j, Y') }}</td>
 
-						<td class="speakers__data">
-							{% if block.moreInfo %}
-								<button class="speakers__more-info-btn">More Info</button><div class="speakers__more-info">{{ block.moreInfo }}</div>
-							{% endif %}
-							{% if block.externalLink %}
-								<a href="{{ block.externalLink }}">External Link</a>
-							{% endif %}
-						</td>
+					{% if block.type == 'speakers' %}
+						<tr class="speakers__row">
+							<td class="speakers__data">{{ block.speakerTitle }}</td>
+							<td class="speakers__data speakers__data--date">{{ block.date.format('F j, Y') }}</td>
 
-					</tr>
+							<td class="speakers__data">
+								{% if block.moreInfo %}
+									<button class="speakers__more-info-btn">More Info</button><div class="speakers__more-info">{{ block.moreInfo }}</div>
+								{% endif %}
+								{% if block.externalLink %}
+									<a href="{{ block.externalLink }}">{% if block.externalLinkText is defined %}{{ block.externalLinkText }}{% else %}External Link{% endif %}</a>
+								{% endif %}
+							</td>
+						</tr>
+					{% elseif block.type == 'speakerWithExternalLink' %}
+						<tr class="speakers__row">
+							<td class="speakers__data">{{ block.speakerTitle }}</td>
+							<td class="speakers__data speakers__data--date">{{ block.date.format('F j, Y') }}</td>
+							<td class="speakers__data"><a href="{{ block.externalLink }}">{{ block.externalLinkText }}</a></td>
+						</tr>
+					{% elseif block.type == 'speakerWithSubContent' %}
+						<tr class="speakers__row">
+							<td class="speakers__data">{{ block.speakerTitle }}</td>
+							<td class="speakers__data speakers__data--date">{{ block.date.format('F j, Y') }}</td>
+							<td class="speakers__data">
+								<button class="speakers__more-info-btn">More Info</button>
+								<div class="speakers__more-info">{{ block.moreInfo }}</div>
+							</td>
+						</tr>
+					{% endif %}
+
 				{% endfor %}			
 			</tbody>
 		</table>
