@@ -233,7 +233,7 @@
                 }
 
                 img::after {
-                    content: 'Broken Image of ' attr(alt);
+                    content: 'Broken Image - ' attr(alt);
                     position: absolute;
                     top: 50%;
                     left: 50%;
