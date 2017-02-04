@@ -5,13 +5,15 @@
 {% block content %}
 	<section class="calendar">
 		<h1>Calendar of Events</h1>
-		<iframe
-			src="{{ entry.embed }}"
-			style="border: 0"
-			width="100%"
-			height="600"
-			frameborder="0"
-			scrolling="no">
-		</iframe>
+		{% for block in entry.embed %}
+			<iframe
+				src="{{ block.embedLink }}"
+				style="border: 0"
+				width="100%"
+				height="600"
+				frameborder="0"
+				scrolling="no">
+			</iframe>
+		{% endfor %}
 	</section>
 {% endblock %}

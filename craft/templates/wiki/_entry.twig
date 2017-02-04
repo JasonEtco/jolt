@@ -12,37 +12,60 @@
 				{{ entry.body }}
 
 				{% if entry.embed %}
-					<h2>{{ entry.embedTitle }}</h2>
-					<iframe
-						class="wiki__embed"
-						src="{{ entry.embed }}"
-						style="border: 0"
-						width="100%"
-						height="500"
-						frameborder="0"
-						scrolling="no">
-					</iframe>
+					{% for block in entry.embed %}
+						<div class="wiki__embed">
+							<h3 class="wiki__embed__title">{{ block.embedTitle }}</h3>
+							<iframe
+								src="{{ block.embedLink }}"
+								style="border: 0"
+								width="100%"
+								height="500"
+								frameborder="0"
+								scrolling="no">
+							</iframe>
+						</div>
+					{% endfor %}
+				{% endif %}
+
+				{% if entry.wikiAsset|length %}
+					<section class="wiki__assets">
+						<h3 class="generic__title">Downloads</h3>
+						<table>
+							<thead>
+								<th>File Name</th>
+								<th>Size</th>
+								<th>Type</th>
+							</thead>
+							<tbody>
+								{% for asset in entry.wikiAsset %}
+									<tr>
+										<td><a href="{{ asset.getUrl() }}" download>{{ asset.filename }}</a></td>
+										<td>{{ asset.size|filesize }}</td>
+										<td>{{ asset.kind }}</td>
+									</tr>
+								{% endfor %}
+							</tbody>
+						</table>
+					</section>
 				{% endif %}
 			</div>
 		</article>
 
-		<aside class="aside">
-			<nav class="wiki__aside">
-				<ol>
-					{% nav entry in wiki %}
-						<li class="aside__list-item">
-							<a href="{{ entry.url }}" class="aside__list-item__link">{{ entry.title }}</a>
+		<nav class="aside wiki__aside">
+			<ol>
+				{% nav entry in wiki %}
+					<li class="aside__list-item">
+						<a href="{{ entry.url }}" class="aside__list-item__link">{{ entry.title }}</a>
 
-							{% ifchildren %}
-								<ul>
-									{% children %}
-								</ul>
-							{% endifchildren %}
-						</li>
-					{% endnav %}
-				</ol>
-			</nav>
-		</aside>
+						{% ifchildren %}
+							<ul>
+								{% children %}
+							</ul>
+						{% endifchildren %}
+					</li>
+				{% endnav %}
+			</ol>
+		</nav>
 
 	</div>
 
