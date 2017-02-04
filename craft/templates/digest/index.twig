@@ -59,7 +59,7 @@
 
 			{% if entry.mainImage|length %}
 					{% set mainImage = entry.mainImage.first() %}
-			<div class="digest__home__post__image">
+			<a href="{{ entry.getUrl() }}" class="digest__home__post__image">
 				<img
 					src="{{ mainImage.getUrl('thumb') }}"
 					role="presentation"
@@ -69,7 +69,7 @@
 				>
 				<meta itemprop="width" content="{{ mainImage.getWidth('thumb') }}">
 				<meta itemprop="height" content="{{ mainImage.getHeight('thumb') }}">
-			</div>
+			</a>
 			{% endif %}
 
 			<div class="digest__home__post__content {% if not entry.mainImage|length %}digest__home__post__content--full{% endif %}">

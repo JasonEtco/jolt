@@ -22,12 +22,16 @@
 	<meta property="og:type" content="article">
 	<meta property="og:title" content="{{ entry.title }}">
 	<meta property="og:description" content="{{ entry.body|hacksaw(words='30', append='...') }}">
-
+	<meta property="og:site_name" content="{{ siteName }}">
 	<meta property="article:published" itemprop="datePublished" content="{{ entry.postDate.iso8601 }}">
 	<meta property="article:modified" itemprop="dateModified" content="{{ entry.postDate.iso8601 }}">
 
 	{% if entry.mainImage|length %}
-		<meta property="og:image" content="entry.mainImage.first().url">
+		{% set imgH = entry.mainImage.first() %}
+		<meta property="og:image" content="{{ imgH.getUrl('digestHeader') }}">
+		<meta property="og:image:type" content="{{ imgH.mimeType }}" />
+		<meta property="og:image:width" content="{{ imgH.getWidth('digestHeader') }}" />
+		<meta property="og:image:height" content="{{ imgH.getHeight('digestHeader') }}" />
 	{% endif %}	
 {% endblock head %}
 
@@ -79,6 +83,35 @@
 			<main class="digest-post__body" itemprop itemtype="articleBody">
 				{{ entry.body }}
 			</main>
+
+			<footer class="digest-post__footer">
+				<h3 class="digest-post__footer__related-title">Related Articles</h3>
+				{% set entries = craft.entries({
+					section:        'digest',
+					id:             'not ' ~ entry.id
+				}).relatedTo(entry.digestCategory.first()) %}
+				<table class="digest-post__footer__related" width="100%">
+					<tr>
+						{% for rel in entries.limit(4) %}
+						<td class="{% if not rel.mainImage|length %}no-image{% endif %}">
+							<a
+								href="{{ rel.url }}"
+								class="image"
+								{% if rel.mainImage|length %}style="background-image: url({{ rel.mainImage.first().getUrl('thumb') }});"{% endif %}
+							>
+							</a>
+						</td>
+						{% endfor %}
+					</tr>
+					<tr>
+						{% for rel in entries.limit(4) %}
+						<td><a href="{{ rel.url }}" class="title">
+							{{ rel.title|slice(0, 50) ~ '...' }}
+						</a></td>
+						{% endfor %}
+					</tr>
+				</table>
+			</footer>
 		</article>
 
 		<aside class="digest__aside aside">
