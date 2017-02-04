@@ -213,8 +213,37 @@
                 margin-bottom: 3em;
 
                 img {
+                    position: relative;
                     display: block;
                     width: 100%;
+                    min-height: 100px;
+                }
+
+                img::before {
+                    content: '';
+                    position: absolute;
+                    top: -10px;
+                    left: 0;
+                    display: block;
+                    width: 100%;
+                    height: calc(100% + 15px);
+                    border: 2px dotted rgb(200, 200, 200);
+                    border-radius: 5px;
+                    background-color: rgb(230, 230, 230);
+                }
+
+                img::after {
+                    content: 'Broken Image of ' attr(alt);
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    display: block;
+                    width: 80%;
+                    color: rgb(100, 100, 100);
+                    font-size: 0.8rem;
+                    text-align: center;
+                    transform: translate(-50%, -50%);
+                    white-space: pre-wrap;
                 }
             }
 
@@ -293,7 +322,18 @@
                 font-weight: 700;
                 text-decoration: none;
 
-                &:first-of-type { margin-left: 0; }
+                &::before {
+                    content: '•';
+                    margin-right: 1em;
+                }
+
+                &:first-of-type {
+                    margin-left: 0;
+
+                    &::before {
+                        display: none;
+                    }
+                }
             }
         }
     }
