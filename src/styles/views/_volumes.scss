@@ -15,7 +15,6 @@
         box-sizing: border-box;
         width: 100%;
         max-width: $max-width;
-        padding: 0 0 0 2em;
         margin: 0 auto;
         background-color: white;
 
@@ -23,13 +22,17 @@
             display: block;
             padding: 2em;
         }
+
+        .aside { margin-left: auto; }
     }
 
     &__volumes {
-        margin-top: 3em;
-        margin-right: 6em;
+        box-sizing: border-box;
+        padding: 0 6em;
+        margin: 3em 0 0;
 
         @include media($on-mobile) {
+            padding: 0;
             margin-top: 0;
             margin-right: 0;
         }
@@ -53,14 +56,9 @@
     }
 
     &__volume {
-        display: flex;
-        margin-top: -2em;
-        flex-wrap: wrap;
-        align-items: flex-start;
-        justify-content: space-between;
         line-height: 1.6;
 
-        li:not(:first-of-type) { margin-top: 2em; }
+        li:not(:first-of-type) { margin-top: 0.4em; }
 
         a {
             position: relative;
@@ -79,12 +77,9 @@
 
 
     &__section {
-        width: 49%;
         margin-top: 2em;
 
         > h3 { margin-top: 0; }
-
-        &:nth-of-type(2n) { margin-left: 2%; }
 
         @include media($on-mobile) {
             &:first-child {
@@ -94,6 +89,8 @@
     }
 
     &__notes > ul, &__articles > ul {
+        width: 100%;
+        max-width: 460px;
         padding: 0 0 0 1em;
         margin: 0;
     }
