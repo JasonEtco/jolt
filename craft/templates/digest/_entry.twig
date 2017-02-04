@@ -77,7 +77,13 @@
 						content="{{ entry.postDate.iso8601 }}"
 					>{{ entry.postDate.format('F d, Y') }}</time>
 
+					<div class="digest__home__post__cat-list">
+						{% for category in entry.digestCategory.limit(3) %}
+								<a class="digest__home__post__cat" href="/digest/category/?cat={{ category.slug }}">{{ category }}</a>
+						{% endfor %}
+					</div>
 				</div>
+
 			</header>
 
 			<main class="digest-post__body" itemprop itemtype="articleBody">
