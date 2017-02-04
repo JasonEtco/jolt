@@ -35,8 +35,8 @@
         }
     }
 
-    &--spring {
-        &:not(.is-single)::before {
+    & + & {
+        &::before {
             content: '';
             display: block;
             width: 100%;

@@ -1,15 +1,38 @@
 {% extends "_layouts/site" %}
 {% set bodyClass = "body--grey" %}
 
+
+{% macro getSeasonIndex(value, array) %}
+	{% for row in array %}
+		{% if row == value %}
+			{{ loop.index }}
+		{% endif %}
+	{% endfor %}
+{% endmacro %}
+
+{% import _self as self %}
+
 {% block content %}
+	{% set seasons = [
+		entry.publishedFall,
+		entry.publishedSpring,
+		entry.publishedWinter,
+		entry.publishedSummer
+	]%}
+	{% set filteredSeasons = [] %}
+	{% for season in seasons %}
+		{% if season %}
+				{% set filteredSeasons = filteredSeasons|merge([season]) %}
+		{% endif %}
+	{% endfor %}
+
 	<article class="volume-wrapper">
 		<div class="volume__volumes">
 			{% if entry.publishedFall %}
 				<section class="volume volume--fall">
-					<h2>{{ entry.title }}, Number 1: Fall {{ entry.publishedFall.format('Y') }}</h2>
+					<h2>{{ entry.title }}, Number {{ self.getSeasonIndex(entry.publishedFall, filteredSeasons) }}: Fall {{ entry.publishedFall.format('Y') }}</h2>
 
 					<div class="volume__volume">
-						{# {{ entry.tableOfContentsFall }} #}
 						<section class="volume__section">
 							<h3 class="accent-type">Articles</h3>
 							<div class="volume__articles">{{ entry.articlesFall }}</div>
@@ -25,10 +48,9 @@
 			{% endif %}
 
 			{% if entry.publishedSpring %}
-				<section class="volume volume--spring {% if not entry.publishedFall %}is-single{% endif %}">
-					<h2>{{ entry.title }}, Number {% if entry.publishedFall %}2{% else %}1{% endif %}: Spring {{ entry.publishedSpring.format('Y') }}</h2>
+				<section class="volume volume--spring">
+					<h2>{{ entry.title }}, Number {{ self.getSeasonIndex(entry.publishedSpring, filteredSeasons) }}: Spring {{ entry.publishedSpring.format('Y') }}</h2>
 					<div class="volume__volume">
-						{# {{ entry.tableOfContentsSpring }} #}
 						<section class="volume__section">
 							<h3 class="accent-type">Articles</h3>
 							<div class="volume__articles">{{ entry.articlesSpring }}</div>
@@ -39,8 +61,44 @@
 									<div class="volume__notes">{{ block.sectionContent }}</div>
 							</section>
 						{% endfor %}
-					</section>
-				</div>
+					</div>
+				</section>
+			{% endif %}
+
+			{% if entry.publishedWinter %}
+				<section class="volume volume--winter">
+					<h2>{{ entry.title }}, Number {{ self.getSeasonIndex(entry.publishedWinter, filteredSeasons) }}: Winter {{ entry.publishedWinter.format('Y') }}</h2>
+					<div class="volume__volume">
+						<section class="volume__section">
+							<h3 class="accent-type">Articles</h3>
+							<div class="volume__articles">{{ entry.articlesWinter }}</div>
+						</section>
+						{% for block in entry.newSectionWinter %}
+							<section class="volume__section">
+									<h3 class="accent-type">{{ block.heading }}</h3>
+									<div class="volume__notes">{{ block.sectionContent }}</div>
+							</section>
+						{% endfor %}
+					</div>
+				</section>
+			{% endif %}
+
+			{% if entry.publishedSummer %}
+				<section class="volume volume--summer">
+					<h2>{{ entry.title }}, Number {{ self.getSeasonIndex(entry.publishedSummer, filteredSeasons) }}: Summer {{ entry.publishedSummer.format('Y') }}</h2>
+					<div class="volume__volume">
+						<section class="volume__section">
+							<h3 class="accent-type">Articles</h3>
+							<div class="volume__articles">{{ entry.articlesSummer }}</div>
+						</section>
+						{% for block in entry.newSectionSummer %}
+							<section class="volume__section">
+									<h3 class="accent-type">{{ block.heading }}</h3>
+									<div class="volume__notes">{{ block.sectionContent }}</div>
+							</section>
+						{% endfor %}
+					</div>
+				</section>
 			{% endif %}
 		</div>
 
