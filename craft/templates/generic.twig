@@ -7,6 +7,9 @@
 	<h1 class="generic__title">{{ entry.title }}</h1>
 
 	<div class="generic__article">
+		{% if entry.pullQuote %}
+			<div class="pullQuote">{{ entry.pullQuote }}</div>
+		{% endif %}
 		{{ entry.body }}
 	</div>
 </div>

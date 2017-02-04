@@ -158,3 +158,14 @@ body {
         margin-top: 2em;
     }
 }
+
+.pullQuote {
+    max-width: 300px;
+    padding: 1em;
+    border: 2px solid $yellow;
+    margin: 0 0.8em 0.8em;
+
+    p, ul { margin-top: 0; }
+
+    ul { margin-bottom: 0; }
+}
