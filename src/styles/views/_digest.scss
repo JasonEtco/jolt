@@ -23,6 +23,8 @@
                 border: none;
                 margin-left: 1em;
             }
+
+            @include media($on-mobile) { display: none; }
         }
 
         &__nav {
