@@ -25,7 +25,8 @@
     }
 
     &__embed {
-        margin-right: -8em;
+        margin-right: -4rem;
+        max-width: calc(100% + 4rem);
 
         &:first-of-type { margin-top: 4em; }
 
@@ -38,6 +39,11 @@
                 margin: 2em auto;
                 background-color: $red;
             }
+        }
+
+        @include media($on-mobile) {
+            max-width: 100%;
+            margin-right: 0;
         }
     }
 
