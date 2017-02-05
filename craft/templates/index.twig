@@ -57,7 +57,7 @@
 
 			{% for entry in craft.entries.section('digest').limit(1) %}
 			<header class="home__section--secondary__meta">
-				<h2 class="home__section--secondary__title"> {{ entry.title }} </h2>
+				<a href="{{ entry.url }}" style="color: black; text-decoration: none;"><h2 class="home__section--secondary__title"> {{ entry.title }} </h2></a>
 				<span>{{ entry.byline }}</span>
 			</header>
 
