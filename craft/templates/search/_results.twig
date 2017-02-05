@@ -4,10 +4,21 @@
 
 {# Get the requested search term and find the matching entries #}
 {% set searchTerm = craft.request.getParam('q') %}
-{% set searchResults = craft.entries.search(searchTerm).order('score') %}
+{# {% set searchResults = craft.entries.search(searchTerm).order('score') %} #}
+{% set assetResults = craft.assets({
+	search: searchTerm,
+	order: 'score'
+}).source('articlePDFs') %}
+
+{% set entryResults = craft.entries({
+	section: 'digest',
+	search: searchTerm,
+	order: 'score'
+}) %}
+
+{% set searchResults = assetResults|merge(entryResults) %}
 
 {% block content %}
-
 	<header class="search__header">
 		<h1>Search Results</h1>
 		<span>You searched for <strong>{{ searchTerm }}</strong></span>
@@ -16,19 +27,29 @@
 	<section class="search__results">
 
 			{# Were there any search results? #}
-			{% if searchResults | length %}
-				<h2 class="search__title accent-title">{{ searchResults | length }} results</h2>
+			{% if searchResults|length %}
+				<h2 class="search__title accent-title">{{ searchResults|length }} results</h2>
 
 				{# Loop through the results #}
-				{% for entry in searchResults %}
-					<div class="search__result">
-						<h2 class="link-wrapper" style="margin-top: 0;">{{ entry.getLink() }}</h2>
-						{% if entry.byline %}
-							<span class="search__byline">{{ entry.byline }}</span>
-						{% endif %}
-						<span class="search__post-date accent-type">{{ entry.postDate.format('F j, Y') }}</span>
+				{% for result in searchResults %}
+					{% if result.elementType == 'Asset' %}						
+						<div class="search__result">
+							<h2 class="link-wrapper" style="margin: 0;"><a href="{{ result.getUrl() }}" target="_blank">{{ result.title }}</a></h2>
+							<span class="search__post-date accent-type">PDF File</span>
+						</div>
 
+					{% else %}
+
+					<div class="search__result">
+						<h2 class="link-wrapper" style="margin-top: 0;"><a href="{{ result.getUrl() }}">{{ result.title }}</a></h2>
+						{% if result.byline %}
+							<span class="search__byline">{{ result.byline }}</span>
+						{% endif %}
+						{% if result.postDate %}
+							<span class="search__post-date accent-type">Digest Article - {{ result.postDate.format('F j, Y') }}</span>
+						{% endif %}
 					</div>
+					{% endif %}
 				{% endfor %}
 
 			{# Otherwise just show a "no results" message #}
