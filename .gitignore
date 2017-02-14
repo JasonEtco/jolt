@@ -5,4 +5,4 @@ public/styles
 craft/storage/backups
 .idea
 .tmp
-debug.log
+debug.logcraft/config/
