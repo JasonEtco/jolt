@@ -14,6 +14,7 @@
 
 		{% cache globally %}
 		<section class="footer__contact-info">
+			<span class="footer__contact-info__title">Contact Information</span>
 			<div class="footer__address">{{ contactInformation.address }}</div>
 			<a href="mailto:{{ contactInformation.joltEmail }}" target="_blank">{{ contactInformation.joltEmail }}</a>
 			<span class="footer__copyright">Copyright &copy; {{ now.year }} Harvard Journal of Law and Technology</span>

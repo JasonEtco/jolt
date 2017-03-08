@@ -13,14 +13,7 @@
     }
 
     &__inner {
-        display: flex;
-        justify-content: space-between;
-
         @include defWidth;
-
-        @include media($on-mobile) {
-            display: block;
-        }
     }
 
     &__title {
@@ -60,9 +53,19 @@
         display: block;
     }
 
-    &__contact-info a {
-        color: lighten($soft-blue, 30%);
+    &__contact-info {
+        margin-top: 3em;
 
-        &:hover { color: white; }
+        &__title {
+            display: block;
+            margin-bottom: 1em;
+            color: $yellow;
+        }
+
+        a {
+            color: lighten($soft-blue, 30%);
+
+            &:hover { color: white; }
+        }
     }
 }

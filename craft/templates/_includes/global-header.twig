@@ -13,9 +13,10 @@
 				<span aria-hidden="true"></span>
 			</button>
 
-			<a href="{{ siteUrl }}" class="header__logo-link">{% include '_includes/jolt-logo.svg' %}</a>
 			{% if digestLogo is defined and digestLogo == true %}
 				<a href="{{ craft.entries.section('digestIndex').first().url }}" class="header__digest-logo">{% include '_includes/digest-logo.svg' %}</a>
+			{% else %}
+				<a href="{{ siteUrl }}" class="header__logo-link">{% include '_includes/jolt-logo.svg' %}</a>
 			{% endif %}
 		</div>
 

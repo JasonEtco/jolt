@@ -91,9 +91,9 @@
 
         &--grey { fill: white; }
 
-        &--teal { fill: $teal; }
+        &--teal { fill: $light-blue; }
 
-        &--blue { fill: $teal; }
+        &--blue { fill: $light-blue; }
 
         &--yellow { fill: $yellow; }
     }
@@ -101,7 +101,6 @@
     &__digest-logo {
         display: block;
         width: 200px;
-        margin-left: 1em;
 
         svg {
             width: 100%;
@@ -125,7 +124,7 @@
         padding: 0.6em 1em;
         border: 0;
         border-radius: 5px;
-        background-color: $red;
+        background-color: mix(orange, $red, 50%);
         color: white;
         font-size: 0.8rem;
         font-family: $body-stack;
@@ -134,7 +133,7 @@
         transition: background-color 150ms;
 
         &:hover {
-            background-color: darken($red, 10%);
+            background-color: darken(mix(orange, $red, 50%), 10%);
         }
 
         @include media($on-mobile) {
@@ -172,7 +171,7 @@
             border-top-right-radius: 5px;
             border-bottom-right-radius: 5px;
             margin: 0;
-            background-color: $red;
+            background-color: mix(orange, $red, 50%);
             color: white;
             text-transform: uppercase;
             transition: background-color 150ms;
@@ -184,7 +183,7 @@
             }
 
             &:hover {
-                background-color: darken($red, 10%);
+                background-color: darken(mix(orange, $red, 50%), 10%);
             }
         }
     }
